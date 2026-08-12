@@ -6,7 +6,7 @@ export const VAULT = [
       {
         id: 'welcome-readme',
         label: 'README',
-        content: `# Thanawan Techasai - Perm
+        content: `# HELLO, WORLD!
 
 Welcome to my portfolio, a **desktop environment** built with React, styled after macOS, with this **Obsidian-style** notes app inside it.
 

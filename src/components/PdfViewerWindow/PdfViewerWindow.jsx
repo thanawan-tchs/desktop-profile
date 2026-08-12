@@ -16,11 +16,9 @@ function PdfViewerWindow({ onClose, zIndex, onFocus }) {
     >
       <div className="flex-1 overflow-y-auto bg-[#525258] px-6 py-8">
         <div className="mx-auto w-full max-w-md rounded-sm bg-white px-10 py-10 text-[#1a1a1a] shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
-          <h1 className="text-2xl font-bold">Alex Rivera</h1>
-          <p className="mt-0.5 text-sm text-[#555]">Product-minded Software Engineer</p>
-          <p className="mt-2 text-xs text-[#777]">
-            alex.rivera@example.com &middot; (555) 012-3456 &middot; Bangkok, TH
-          </p>
+          <h1 className="text-2xl font-bold">Thanawan Techasai</h1>
+          <p className="mt-0.5 text-sm text-[#555]">Full Stack Software Engineer</p>
+          <p className="mt-2 text-xs text-[#777]">thanawan.tchs@gmail.com &middot; Bangkok, TH</p>
 
           <hr className="my-4 border-[#ddd]" />
 
@@ -30,24 +28,32 @@ function PdfViewerWindow({ onClose, zIndex, onFocus }) {
             </h2>
             <div className="mt-2">
               <div className="flex items-baseline justify-between">
-                <p className="text-sm font-semibold">Senior Frontend Engineer</p>
-                <p className="text-xs text-[#888]">2023 — Present</p>
+                <p className="text-sm font-semibold">Software Engineer (Full Stack)</p>
+                <p className="text-xs text-[#888]">2021 — Present</p>
               </div>
-              <p className="text-xs text-[#666]">Nimbus Labs</p>
+              <p className="text-xs text-[#666]">Palo IT, Thailand</p>
               <ul className="mt-1.5 list-disc space-y-1 pl-4 text-[13px] leading-relaxed text-[#333]">
-                <li>Led the redesign of the internal design system</li>
-                <li>Shipped a real-time collaboration feature used daily by 10k+ users</li>
+                <li>
+                  Delivered web, mobile, and backend solutions for enterprise clients including
+                  The 1 Central, AIA Hong Kong, and True Corporation
+                </li>
+                <li>Led a team of 6 engineers building a React Native insurance claims feature</li>
+                <li>
+                  Built secure customer data services with Node.js, DynamoDB, and AWS KMS
+                </li>
               </ul>
             </div>
             <div className="mt-3">
               <div className="flex items-baseline justify-between">
-                <p className="text-sm font-semibold">Software Engineer</p>
-                <p className="text-xs text-[#888]">2020 — 2023</p>
+                <p className="text-sm font-semibold">Software Engineer (Golang)</p>
+                <p className="text-xs text-[#888]">2020 — 2021</p>
               </div>
-              <p className="text-xs text-[#666]">Bluebird Systems</p>
+              <p className="text-xs text-[#666]">T.N. Incorporation</p>
               <ul className="mt-1.5 list-disc space-y-1 pl-4 text-[13px] leading-relaxed text-[#333]">
-                <li>Built and maintained a component library used across 6 products</li>
-                <li>Reduced page load time by 40% through code-splitting</li>
+                <li>
+                  Built core loan management microservices in Go for Kasikorn Bank and the
+                  Government Savings Bank
+                </li>
               </ul>
             </div>
           </section>
@@ -56,13 +62,12 @@ function PdfViewerWindow({ onClose, zIndex, onFocus }) {
 
           <section>
             <h2 className="text-xs font-semibold uppercase tracking-wide text-[#888]">
-              Education
+              Certifications
             </h2>
-            <div className="mt-2 flex items-baseline justify-between">
-              <p className="text-sm font-semibold">B.Sc. Computer Science</p>
-              <p className="text-xs text-[#888]">2016 — 2020</p>
-            </div>
-            <p className="text-xs text-[#666]">State University</p>
+            <ul className="mt-2 list-disc space-y-1 pl-4 text-[13px] leading-relaxed text-[#333]">
+              <li>GitHub Actions (2024)</li>
+              <li>Certified Kubernetes Application Developer — CKAD (2022)</li>
+            </ul>
           </section>
 
           <hr className="my-4 border-[#ddd]" />
@@ -70,16 +75,26 @@ function PdfViewerWindow({ onClose, zIndex, onFocus }) {
           <section>
             <h2 className="text-xs font-semibold uppercase tracking-wide text-[#888]">Skills</h2>
             <div className="mt-2 flex flex-wrap gap-1.5">
-              {['React', 'TypeScript', 'Node.js', 'GraphQL', 'Tailwind CSS', 'CI/CD'].map(
-                (skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-[#f0f0f2] px-2.5 py-1 text-[11px] text-[#444]"
-                  >
-                    {skill}
-                  </span>
-                ),
-              )}
+              {[
+                'JavaScript/TypeScript',
+                'Go',
+                'React',
+                'Vue.js',
+                'React Native',
+                'Node.js',
+                'Spring Boot',
+                'DynamoDB/Postgres',
+                'Docker/Kubernetes',
+                'Kafka',
+                'CI/CD',
+              ].map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full bg-[#f0f0f2] px-2.5 py-1 text-[11px] text-[#444]"
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
           </section>
         </div>
