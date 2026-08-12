@@ -2,7 +2,7 @@ import Desktop from './components/Desktop/Desktop'
 
 function App() {
   return (
-    <div className="w-full h-screen">
+    <div className="h-dvh w-full">
       <Desktop />
     </div>
   )

@@ -38,7 +38,7 @@ function Desktop() {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden bg-cover bg-center"
+      className="relative h-dvh w-full overflow-hidden bg-cover bg-center"
       style={{ backgroundImage: `url(${wallpaper})` }}
       onClick={() => {
         setSelectedId(null)

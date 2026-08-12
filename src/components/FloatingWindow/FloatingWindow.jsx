@@ -1,33 +1,41 @@
 import { useState } from 'react'
 
 const TOPBAR_HEIGHT = 26
+const VIEWPORT_MARGIN = 16
+const DOCK_CLEARANCE = 84
 
 function getDefaultSize({ widthRatio, heightRatio, minWidth, minHeight }) {
+  const maxWidth = window.innerWidth - VIEWPORT_MARGIN
+  const maxHeight = window.innerHeight - TOPBAR_HEIGHT - DOCK_CLEARANCE
+  const width = Math.min(maxWidth, Math.max(minWidth, Math.round(window.innerWidth * widthRatio)))
+  const height = Math.min(maxHeight, Math.max(minHeight, Math.round(window.innerHeight * heightRatio)))
   return {
-    width: Math.max(minWidth, Math.round(window.innerWidth * widthRatio)),
-    height: Math.max(minHeight, Math.round(window.innerHeight * heightRatio)),
+    width: Math.max(200, width),
+    height: Math.max(160, height),
   }
 }
 
 function getDefaultPosition(size, horizontalBias, verticalBias) {
+  const x = Math.round((window.innerWidth - size.width) * horizontalBias)
+  const y = Math.round((window.innerHeight - size.height) * verticalBias)
   return {
-    x: Math.round((window.innerWidth - size.width) * horizontalBias),
-    y: Math.max(
-      TOPBAR_HEIGHT,
-      Math.round((window.innerHeight - size.height) * verticalBias),
+    x: Math.min(Math.max(x, 0), Math.max(0, window.innerWidth - size.width)),
+    y: Math.min(
+      Math.max(y, TOPBAR_HEIGHT),
+      Math.max(TOPBAR_HEIGHT, window.innerHeight - size.height - 8),
     ),
   }
 }
 
 const RESIZE_HANDLES = [
-  { dir: 'n', className: 'inset-x-2 top-0 h-1.5 cursor-ns-resize' },
-  { dir: 's', className: 'inset-x-2 bottom-0 h-1.5 cursor-ns-resize' },
-  { dir: 'w', className: 'inset-y-2 left-0 w-1.5 cursor-ew-resize' },
-  { dir: 'e', className: 'inset-y-2 right-0 w-1.5 cursor-ew-resize' },
-  { dir: 'nw', className: 'left-0 top-0 h-3 w-3 cursor-nwse-resize' },
-  { dir: 'se', className: 'bottom-0 right-0 h-3 w-3 cursor-nwse-resize' },
-  { dir: 'ne', className: 'right-0 top-0 h-3 w-3 cursor-nesw-resize' },
-  { dir: 'sw', className: 'bottom-0 left-0 h-3 w-3 cursor-nesw-resize' },
+  { dir: 'n', className: 'inset-x-2 top-0 h-3 cursor-ns-resize touch-none md:h-1.5' },
+  { dir: 's', className: 'inset-x-2 bottom-0 h-3 cursor-ns-resize touch-none md:h-1.5' },
+  { dir: 'w', className: 'inset-y-2 left-0 w-3 cursor-ew-resize touch-none md:w-1.5' },
+  { dir: 'e', className: 'inset-y-2 right-0 w-3 cursor-ew-resize touch-none md:w-1.5' },
+  { dir: 'nw', className: 'left-0 top-0 h-5 w-5 cursor-nwse-resize touch-none md:h-3 md:w-3' },
+  { dir: 'se', className: 'bottom-0 right-0 h-5 w-5 cursor-nwse-resize touch-none md:h-3 md:w-3' },
+  { dir: 'ne', className: 'right-0 top-0 h-5 w-5 cursor-nesw-resize touch-none md:h-3 md:w-3' },
+  { dir: 'sw', className: 'bottom-0 left-0 h-5 w-5 cursor-nesw-resize touch-none md:h-3 md:w-3' },
 ]
 
 function FloatingWindow({
@@ -52,8 +60,10 @@ function FloatingWindow({
     getDefaultPosition(getDefaultSize(sizeConfig), horizontalBias, verticalBias),
   )
 
-  const handleTitleBarMouseDown = (event) => {
+  const handleTitleBarPointerDown = (event) => {
     if (event.button !== 0 || event.target.closest('button')) return
+    const el = event.currentTarget
+    el.setPointerCapture(event.pointerId)
     const startX = event.clientX
     const startY = event.clientY
     const startPos = pos
@@ -67,18 +77,21 @@ function FloatingWindow({
       })
     }
 
-    const handleUp = () => {
-      window.removeEventListener('mousemove', handleMove)
-      window.removeEventListener('mouseup', handleUp)
+    const handleUp = (upEvent) => {
+      el.releasePointerCapture(upEvent.pointerId)
+      window.removeEventListener('pointermove', handleMove)
+      window.removeEventListener('pointerup', handleUp)
     }
 
-    window.addEventListener('mousemove', handleMove)
-    window.addEventListener('mouseup', handleUp)
+    window.addEventListener('pointermove', handleMove)
+    window.addEventListener('pointerup', handleUp)
   }
 
-  const handleResizeMouseDown = (direction) => (event) => {
+  const handleResizePointerDown = (direction) => (event) => {
     event.stopPropagation()
     event.preventDefault()
+    const el = event.currentTarget
+    el.setPointerCapture(event.pointerId)
     const startX = event.clientX
     const startY = event.clientY
     const startSize = size
@@ -111,13 +124,14 @@ function FloatingWindow({
       setPos({ x: nextX, y: nextY })
     }
 
-    const handleUp = () => {
-      window.removeEventListener('mousemove', handleMove)
-      window.removeEventListener('mouseup', handleUp)
+    const handleUp = (upEvent) => {
+      el.releasePointerCapture(upEvent.pointerId)
+      window.removeEventListener('pointermove', handleMove)
+      window.removeEventListener('pointerup', handleUp)
     }
 
-    window.addEventListener('mousemove', handleMove)
-    window.addEventListener('mouseup', handleUp)
+    window.addEventListener('pointermove', handleMove)
+    window.addEventListener('pointerup', handleUp)
   }
 
   return (
@@ -127,13 +141,13 @@ function FloatingWindow({
       }`}
       style={{ left: pos.x, top: pos.y, width: size.width, height: size.height, zIndex }}
       onClick={(event) => event.stopPropagation()}
-      onMouseDownCapture={() => onFocus?.()}
+      onPointerDownCapture={() => onFocus?.()}
     >
       <div
-        className={`flex h-9 shrink-0 cursor-grab items-center border-b px-3 active:cursor-grabbing ${
+        className={`flex h-9 shrink-0 cursor-grab touch-none items-center border-b px-3 active:cursor-grabbing ${
           isLight ? 'border-black/10 bg-[#e8e8e8]' : 'border-black/50 bg-[#2a2a2a]'
         }`}
-        onMouseDown={handleTitleBarMouseDown}
+        onPointerDown={handleTitleBarPointerDown}
       >
         <div className="flex items-center gap-2">
           <button
@@ -161,7 +175,7 @@ function FloatingWindow({
         <div
           key={dir}
           className={`absolute ${className}`}
-          onMouseDown={handleResizeMouseDown(dir)}
+          onPointerDown={handleResizePointerDown(dir)}
         />
       ))}
     </div>

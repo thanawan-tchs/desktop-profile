@@ -33,30 +33,32 @@ function TopBar({ activeApp = 'Finder' }) {
   }, [])
 
   return (
-    <div className="absolute inset-x-0 top-0 z-10 flex h-[26px] select-none items-center justify-between border-b border-white/[0.15] bg-white/10 px-3.5 text-white backdrop-blur-[20px] backdrop-saturate-[1.8]">
-        <div className="flex items-center gap-4 text-[13px]">
+    <div className="absolute inset-x-0 top-0 z-10 flex h-[26px] select-none items-center justify-between gap-2 overflow-hidden border-b border-white/[0.15] bg-white/10 px-2.5 text-white backdrop-blur-[20px] backdrop-saturate-[1.8] sm:px-3.5">
+        <div className="flex min-w-0 items-center gap-2 text-[12px] sm:gap-4 sm:text-[13px]">
         <svg viewBox="0 0 2000 2200" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
           <mask id="apple-icon-mask">
             <image href={appleIcon} width="2000" height="2200" filter="invert(1)" />
           </mask>
           <rect width="2000" height="2200" fill="#ffffff" mask="url(#apple-icon-mask)" />
         </svg>
-        <span className="font-semibold">{activeApp}</span>
-        {SOCIAL_LINKS.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cursor-pointer hover:underline"
-          >
-            {link.label}
-          </a>
-        ))}
+        <span className="truncate font-semibold">{activeApp}</span>
+        <div className="hidden items-center gap-4 sm:flex">
+          {SOCIAL_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cursor-pointer hover:underline"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
       </div>
 
-      <div className="flex items-center gap-3.5">
-        <svg className={STATUS_ICON_CLASS} viewBox="0 0 20 16" role="img" aria-label="Wi-Fi">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-3.5">
+        <svg className={`${STATUS_ICON_CLASS} hidden sm:block`} viewBox="0 0 20 16" role="img" aria-label="Wi-Fi">
           <path d="M10 12.6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" fill="currentColor" />
           <path
             d="M4.8 9.4a7.6 7.6 0 0 1 10.4 0"
@@ -74,13 +76,18 @@ function TopBar({ activeApp = 'Finder' }) {
           />
         </svg>
 
-        <svg className={STATUS_ICON_CLASS} viewBox="0 0 20 20" role="img" aria-label="Language">
+        <svg
+          className={`${STATUS_ICON_CLASS} hidden sm:block`}
+          viewBox="0 0 20 20"
+          role="img"
+          aria-label="Language"
+        >
           <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1.4" />
           <ellipse cx="10" cy="10" rx="3.4" ry="8" fill="none" stroke="currentColor" strokeWidth="1.4" />
           <line x1="2" y1="10" x2="18" y2="10" stroke="currentColor" strokeWidth="1.4" />
         </svg>
 
-        <span className="flex items-center gap-1">
+        <span className="hidden items-center gap-1 sm:flex">
           <svg
             className={`${STATUS_ICON_CLASS} h-[13px] w-6`}
             viewBox="0 0 26 14"
@@ -94,7 +101,9 @@ function TopBar({ activeApp = 'Finder' }) {
           <span className="text-[12.5px]">82%</span>
         </span>
 
-        <span className="whitespace-nowrap text-[12.5px] tabular-nums">{formatDateTime(now)}</span>
+        <span className="whitespace-nowrap text-[11px] tabular-nums sm:text-[12.5px]">
+          {formatDateTime(now)}
+        </span>
       </div>
     </div>
   )
