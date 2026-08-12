@@ -22,6 +22,34 @@ function PdfViewerWindow({ onClose, zIndex, onFocus }) {
 
           <hr className="my-4 border-[#ddd]" />
 
+           <section>
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-[#888]">Skills</h2>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {[
+                'JavaScript/TypeScript',
+                'Go',
+                'React',
+                'Vue.js',
+                'React Native',
+                'Node.js',
+                'Spring Boot',
+                'DynamoDB/Postgres',
+                'Docker/Kubernetes',
+                'Kafka',
+                'CI/CD',
+              ].map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full bg-[#f0f0f2] px-2.5 py-1 text-[11px] text-[#444]"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+
+            <hr className="my-4 border-[#ddd]" />
+
           <section>
             <h2 className="text-xs font-semibold uppercase tracking-wide text-[#888]">
               Experience
@@ -70,33 +98,9 @@ function PdfViewerWindow({ onClose, zIndex, onFocus }) {
             </ul>
           </section>
 
-          <hr className="my-4 border-[#ddd]" />
+        
 
-          <section>
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-[#888]">Skills</h2>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {[
-                'JavaScript/TypeScript',
-                'Go',
-                'React',
-                'Vue.js',
-                'React Native',
-                'Node.js',
-                'Spring Boot',
-                'DynamoDB/Postgres',
-                'Docker/Kubernetes',
-                'Kafka',
-                'CI/CD',
-              ].map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full bg-[#f0f0f2] px-2.5 py-1 text-[11px] text-[#444]"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </section>
+         
         </div>
       </div>
     </FloatingWindow>
