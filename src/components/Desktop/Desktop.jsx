@@ -4,6 +4,7 @@ import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
 import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
 import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
+import wallpaper from '../../assets/desktopWallpaper.jpeg'
 
 const DESKTOP_ITEMS = [
   { id: 'projects', label: 'Projects', type: 'folder' },
@@ -33,7 +34,8 @@ function Desktop() {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden bg-[linear-gradient(160deg,#6dd5fa_0%,#4facfe_35%,#7367f0_70%,#a86bd6_100%)]"
+      className="relative w-full h-screen overflow-hidden bg-cover bg-center"
+      style={{ backgroundImage: `url(${wallpaper})` }}
       onClick={() => setSelectedId(null)}
     >
       <TopBar />
