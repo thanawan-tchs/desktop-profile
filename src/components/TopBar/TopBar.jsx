@@ -19,9 +19,9 @@ function formatDateTime(date) {
 const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 
 const SOCIAL_LINKS = [
-  { label: 'LinkedIn', href: 'https://google.com' },
-  { label: 'GitHub', href: 'https://google.com' },
-  { label: 'Instagram', href: 'https://google.com' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/thanawan-techasai/' },
+  { label: 'GitHub', href: 'https://github.com/thanawan-tchs' },
+  { label: 'Instagram', href: 'https://www.instagram.com/thnawan__/' },
 ]
 
 function TopBar({ activeApp = 'Finder' }) {
