@@ -18,7 +18,11 @@ function formatDateTime(date) {
 
 const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 
-const MENU_ITEMS = ['File', 'Edit', 'Insert', 'Format', 'View', 'Window', 'Help']
+const SOCIAL_LINKS = [
+  { label: 'LinkedIn', href: 'https://google.com' },
+  { label: 'GitHub', href: 'https://google.com' },
+  { label: 'Instagram', href: 'https://google.com' },
+]
 
 function TopBar({ activeApp = 'Finder' }) {
   const [now, setNow] = useState(() => new Date())
@@ -38,8 +42,16 @@ function TopBar({ activeApp = 'Finder' }) {
           <rect width="2000" height="2200" fill="#ffffff" mask="url(#apple-icon-mask)" />
         </svg>
         <span className="font-semibold">{activeApp}</span>
-        {MENU_ITEMS.map((item) => (
-          <span key={item}>{item}</span>
+        {SOCIAL_LINKS.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer hover:underline"
+          >
+            {link.label}
+          </a>
         ))}
       </div>
 

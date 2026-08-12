@@ -6,12 +6,12 @@ import terminalIcon from '../../assets/terminal-logo.jpeg'
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
   { id: 'launchpad', label: 'Launchpad' },
+  { id: 'settings', label: 'System Settings' },
   { id: 'notes', label: 'Notes' },
   { id: 'obsidian', label: 'Obsidian' },
-  { id: 'claude', label: 'Claude' },
   { id: 'vscode', label: 'Visual Studio Code' },
   { id: 'terminal', label: 'Terminal' },
-  { id: 'settings', label: 'System Settings' },
+  { id: 'claude', label: 'Claude' },
   { id: 'folder', label: 'Downloads' },
   { id: 'trash', label: 'Trash' },
 ]
