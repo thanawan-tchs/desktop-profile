@@ -5,6 +5,7 @@ const DOCK_APPS = [
   { id: 'launchpad', label: 'Launchpad' },
   { id: 'safari', label: 'Safari' },
   { id: 'notes', label: 'Notes' },
+  { id: 'obsidian', label: 'Obsidian' },
   { id: 'settings', label: 'System Settings' },
   { id: 'folder', label: 'Downloads' },
   { id: 'trash', label: 'Trash' },
@@ -90,6 +91,16 @@ function DockGlyph({ id }) {
           />
         </svg>
       )
+    case 'obsidian':
+      return (
+        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
+          <rect width="44" height="44" rx="11" fill="#2b2b31" />
+          <polygon points="22,8 32,17 22,22" fill="#a78bfa" />
+          <polygon points="12,17 22,8 22,22" fill="#7c3aed" />
+          <polygon points="12,17 22,22 22,36" fill="#6d28d9" />
+          <polygon points="32,17 22,22 22,36" fill="#7c3aed" />
+        </svg>
+      )
     case 'folder':
     default:
       return (
@@ -108,7 +119,7 @@ function DockGlyph({ id }) {
 const MAGNIFY_RADIUS = 90
 const MAX_SCALE = 1.7
 
-function Dock() {
+function Dock({ onAppClick, extraRunningIds = [] }) {
   const dockRef = useRef(null)
   const [hoverX, setHoverX] = useState(null)
 
@@ -120,7 +131,7 @@ function Dock() {
   const handleMouseLeave = () => setHoverX(null)
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-2.5 flex justify-center">
+    <div className="pointer-events-none absolute inset-x-0 bottom-2.5 z-30 flex justify-center">
       <div
         className="pointer-events-auto flex items-end gap-2.5 rounded-[20px] border border-white/30 bg-white/25 px-2.5 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[20px] backdrop-saturate-[1.8]"
         ref={dockRef}
@@ -145,9 +156,10 @@ function Dock() {
               className="relative h-12 w-12 origin-bottom cursor-default border-0 bg-transparent p-0 transition-transform duration-[120ms] ease-out"
               style={{ transform: `scale(${scale})` }}
               title={app.label}
+              onClick={() => onAppClick?.(app.id)}
             >
               <DockGlyph id={app.id} />
-              {RUNNING_APPS.has(app.id) && (
+              {(RUNNING_APPS.has(app.id) || extraRunningIds.includes(app.id)) && (
                 <span className="absolute -bottom-2 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-[#3a3a3c]" />
               )}
             </button>

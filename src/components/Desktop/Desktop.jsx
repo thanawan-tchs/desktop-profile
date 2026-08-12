@@ -2,6 +2,7 @@ import { useState } from 'react'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
+import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
 
 const DESKTOP_ITEMS = [
   { id: 'projects', label: 'Projects' },
@@ -12,6 +13,11 @@ const DESKTOP_ITEMS = [
 
 function Desktop() {
   const [selectedId, setSelectedId] = useState(null)
+  const [obsidianOpen, setObsidianOpen] = useState(true)
+
+  const handleDockAppClick = (appId) => {
+    if (appId === 'obsidian') setObsidianOpen(true)
+  }
 
   return (
     <div
@@ -34,7 +40,12 @@ function Desktop() {
         ))}
       </div>
 
-      <Dock />
+      {obsidianOpen && <ObsidianWindow onClose={() => setObsidianOpen(false)} />}
+
+      <Dock
+        onAppClick={handleDockAppClick}
+        extraRunningIds={obsidianOpen ? ['obsidian'] : []}
+      />
     </div>
   )
 }
