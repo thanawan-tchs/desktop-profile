@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import claudeIcon from '../../assets/claude-ai-icon.webp'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
@@ -6,6 +7,7 @@ const DOCK_APPS = [
   { id: 'safari', label: 'Safari' },
   { id: 'notes', label: 'Notes' },
   { id: 'obsidian', label: 'Obsidian' },
+  { id: 'claude', label: 'Claude' },
   { id: 'settings', label: 'System Settings' },
   { id: 'folder', label: 'Downloads' },
   { id: 'trash', label: 'Trash' },
@@ -100,6 +102,14 @@ function DockGlyph({ id }) {
           <polygon points="12,17 22,22 22,36" fill="#6d28d9" />
           <polygon points="32,17 22,22 22,36" fill="#7c3aed" />
         </svg>
+      )
+    case 'claude':
+      return (
+        <img
+          src={claudeIcon}
+          alt=""
+          className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
+        />
       )
     case 'folder':
     default:
