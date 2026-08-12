@@ -126,9 +126,15 @@ Delivered software solutions for leading enterprise clients, including **True Co
         label: 'Certifications',
         content: `## Certifications
 
-- GitHub Actions (Issued Aug 2024)
-- Certified Kubernetes Application Developer (CKAD) (Issued Dec 2022)`,
-      },
+- [GitHub Actions (Issued Aug 2024)](https://www.credly.com/badges/0bed8684-f221-4473-a68d-bacf723af246/linked_in_profile)
+- [Certified Kubernetes Application Developer (CKAD) (Issued Dec 2022)](https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/c68c6815-2acc-4038-b166-4a3187dfc7a5-thanawan-techasai-faa33236-7567-4db2-8ac2-760ac5fabfdb-certificate.pdf)
+- [ICAgile Certified Professional (Issued Aug 2022)](https://www.icagile.com/credentials/a08f8155-f2ab-46b4-ab98-24b3883d9e9e)
+
+
+
+`,
+
+},
       {
         id: 'lang-list',
         label: 'Languages',

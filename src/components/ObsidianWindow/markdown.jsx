@@ -1,9 +1,16 @@
+const LINK_PATTERN = /\[[^\]]+\]\([^)]+\)/
+
 function renderInline(text, keyPrefix, theme) {
   const codeClass =
     theme === 'light'
       ? 'rounded bg-black/[0.06] px-1 py-0.5 text-[0.85em]'
       : 'rounded bg-white/10 px-1 py-0.5 text-[0.85em]'
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean)
+  const linkClass =
+    theme === 'light'
+      ? 'text-[#7c3aed] underline underline-offset-2 hover:text-[#6d28d9]'
+      : 'text-[#a78bfa] underline underline-offset-2 hover:text-[#c4b5fd]'
+  const pattern = new RegExp(`(\\*\\*[^*]+\\*\\*|\`[^\`]+\`|${LINK_PATTERN.source})`, 'g')
+  const parts = text.split(pattern).filter(Boolean)
   return parts.map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return <strong key={`${keyPrefix}-${index}`}>{part.slice(2, -2)}</strong>
@@ -13,6 +20,21 @@ function renderInline(text, keyPrefix, theme) {
         <code key={`${keyPrefix}-${index}`} className={codeClass}>
           {part.slice(1, -1)}
         </code>
+      )
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (linkMatch) {
+      const [, label, href] = linkMatch
+      return (
+        <a
+          key={`${keyPrefix}-${index}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {label}
+        </a>
       )
     }
     return part
