@@ -6,7 +6,7 @@ import { renderMarkdown } from './markdown'
 function ObsidianWindow({ onClose, zIndex, onFocus }) {
   const [expandedIds, setExpandedIds] = useState(() => new Set(VAULT.map((topic) => topic.id)))
   const [selectedId, setSelectedId] = useState(VAULT[0].children[0].id)
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState('light')
   const isLight = theme === 'light'
 
   const toggleTopic = (id) => {
