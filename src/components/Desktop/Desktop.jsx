@@ -3,20 +3,32 @@ import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
 import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
+import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
 
 const DESKTOP_ITEMS = [
-  { id: 'projects', label: 'Projects' },
-  { id: 'documents', label: 'Documents' },
-  { id: 'screenshots', label: 'Screenshots' },
-  { id: 'resume', label: 'Resume.pdf' },
+  { id: 'projects', label: 'Projects', type: 'folder' },
+  { id: 'documents', label: 'Documents', type: 'folder' },
+  { id: 'screenshot', label: 'Screenshot.png', type: 'image' },
+  { id: 'resume', label: 'Resume.pdf', type: 'pdf' },
 ]
 
 function Desktop() {
   const [selectedId, setSelectedId] = useState(null)
   const [obsidianOpen, setObsidianOpen] = useState(true)
+  const [pdfOpen, setPdfOpen] = useState(true)
+  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21 })
+  const [nextZIndex, setNextZIndex] = useState(22)
+
+  const bringToFront = (windowId) => {
+    setZIndexes((prev) => ({ ...prev, [windowId]: nextZIndex }))
+    setNextZIndex((z) => z + 1)
+  }
 
   const handleDockAppClick = (appId) => {
-    if (appId === 'obsidian') setObsidianOpen(true)
+    if (appId === 'obsidian') {
+      setObsidianOpen(true)
+      bringToFront('obsidian')
+    }
   }
 
   return (
@@ -31,16 +43,34 @@ function Desktop() {
           <DesktopIcon
             key={item.id}
             label={item.label}
+            type={item.type}
             selected={selectedId === item.id}
             onSelect={(event) => {
               event.stopPropagation()
               setSelectedId(item.id)
+              if (item.type === 'pdf') {
+                setPdfOpen(true)
+                bringToFront('pdf')
+              }
             }}
           />
         ))}
       </div>
 
-      {obsidianOpen && <ObsidianWindow onClose={() => setObsidianOpen(false)} />}
+      {obsidianOpen && (
+        <ObsidianWindow
+          onClose={() => setObsidianOpen(false)}
+          zIndex={zIndexes.obsidian}
+          onFocus={() => bringToFront('obsidian')}
+        />
+      )}
+      {pdfOpen && (
+        <PdfViewerWindow
+          onClose={() => setPdfOpen(false)}
+          zIndex={zIndexes.pdf}
+          onFocus={() => bringToFront('pdf')}
+        />
+      )}
 
       <Dock
         onAppClick={handleDockAppClick}

@@ -131,7 +131,7 @@ function Dock({ onAppClick, extraRunningIds = [] }) {
   const handleMouseLeave = () => setHoverX(null)
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-2.5 z-30 flex justify-center">
+    <div className="pointer-events-none absolute inset-x-0 bottom-2.5 z-[999] flex justify-center">
       <div
         className="pointer-events-auto flex items-end gap-2.5 rounded-[20px] border border-white/30 bg-white/25 px-2.5 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.25)] backdrop-blur-[20px] backdrop-saturate-[1.8]"
         ref={dockRef}
