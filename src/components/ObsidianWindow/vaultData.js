@@ -14,6 +14,7 @@ Welcome to my portfolio, a **desktop environment** built with React, styled afte
 - Resize them from the edges
 - Open **Resume.pdf** on the desktop to see my resume
 - Click through the notes on the left for my background, skills, and experience
+- Switch between light and dark theme using the button on the top right of this window
 
 Feel free to play around with the page!`,
       },
@@ -86,7 +87,7 @@ Delivered software solutions for leading enterprise clients, including **True Co
 
 ## AIA Hong Kong
 
-**May 2023 – Jul 2025**
+**May 2023 - Jul 2025**
 
 - Developed the **insurance claim submission feature** for the AIA Hong Kong mobile application using **React Native**, enabling customers to submit insurance claims through a guided, user-friendly form.
 - Led a team of **6 engineers** in delivering the claim submission feature, coordinating development tasks, code reviews, and technical discussions to ensure timely delivery.
@@ -97,7 +98,7 @@ Delivered software solutions for leading enterprise clients, including **True Co
 
 ## True Corporation
 
-**October 2021 – April 2023**
+**October 2021 - April 2023**
 
 - Developed the **User Profile** feature for the **TrueID** mobile application using **Kotlin**, enabling users to view and manage their personal account information.
 - Developed and maintained end-to-end (E2E) automated tests using **Appium**.

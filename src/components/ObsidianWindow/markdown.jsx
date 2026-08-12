@@ -1,4 +1,8 @@
-function renderInline(text, keyPrefix) {
+function renderInline(text, keyPrefix, theme) {
+  const codeClass =
+    theme === 'light'
+      ? 'rounded bg-black/[0.06] px-1 py-0.5 text-[0.85em]'
+      : 'rounded bg-white/10 px-1 py-0.5 text-[0.85em]'
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter(Boolean)
   return parts.map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**')) {
@@ -6,10 +10,7 @@ function renderInline(text, keyPrefix) {
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
-        <code
-          key={`${keyPrefix}-${index}`}
-          className="rounded bg-white/10 px-1 py-0.5 text-[0.85em]"
-        >
+        <code key={`${keyPrefix}-${index}`} className={codeClass}>
           {part.slice(1, -1)}
         </code>
       )
@@ -18,7 +19,8 @@ function renderInline(text, keyPrefix) {
   })
 }
 
-export function renderMarkdown(markdown) {
+export function renderMarkdown(markdown, theme = 'dark') {
+  const headingClass = theme === 'light' ? 'text-[#1a1a1a]' : 'text-white'
   const lines = markdown.trim().split('\n')
   const blocks = []
   let listBuffer = []
@@ -29,7 +31,7 @@ export function renderMarkdown(markdown) {
     blocks.push(
       <ul key={`list-${blocks.length}`} className="mb-3 list-disc space-y-1 pl-5">
         {items.map((item, index) => (
-          <li key={index}>{renderInline(item, `li-${blocks.length}-${index}`)}</li>
+          <li key={index}>{renderInline(item, `li-${blocks.length}-${index}`, theme)}</li>
         ))}
       </ul>,
     )
@@ -46,26 +48,26 @@ export function renderMarkdown(markdown) {
     if (!line) return
     if (line.startsWith('### ')) {
       blocks.push(
-        <h3 key={index} className="mb-1 mt-4 text-base font-semibold text-white">
-          {renderInline(line.slice(4), `h${index}`)}
+        <h3 key={index} className={`mb-1 mt-4 text-base font-semibold ${headingClass}`}>
+          {renderInline(line.slice(4), `h${index}`, theme)}
         </h3>,
       )
     } else if (line.startsWith('## ')) {
       blocks.push(
-        <h2 key={index} className="mb-2 mt-5 text-lg font-semibold text-white">
-          {renderInline(line.slice(3), `h${index}`)}
+        <h2 key={index} className={`mb-2 mt-5 text-lg font-semibold ${headingClass}`}>
+          {renderInline(line.slice(3), `h${index}`, theme)}
         </h2>,
       )
     } else if (line.startsWith('# ')) {
       blocks.push(
-        <h1 key={index} className="mb-3 mt-2 text-2xl font-bold text-white">
-          {renderInline(line.slice(2), `h${index}`)}
+        <h1 key={index} className={`mb-3 mt-2 text-2xl font-bold ${headingClass}`}>
+          {renderInline(line.slice(2), `h${index}`, theme)}
         </h1>,
       )
     } else {
       blocks.push(
         <p key={index} className="mb-3 leading-relaxed">
-          {renderInline(line, `p${index}`)}
+          {renderInline(line, `p${index}`, theme)}
         </p>,
       )
     }

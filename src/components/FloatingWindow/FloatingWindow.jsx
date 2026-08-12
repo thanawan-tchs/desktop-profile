@@ -42,7 +42,10 @@ function FloatingWindow({
   minHeight = 280,
   zIndex = 20,
   onFocus,
+  headerRight,
+  theme = 'dark',
 }) {
+  const isLight = theme === 'light'
   const sizeConfig = { widthRatio, heightRatio, minWidth, minHeight }
   const [size, setSize] = useState(() => getDefaultSize(sizeConfig))
   const [pos, setPos] = useState(() =>
@@ -119,13 +122,17 @@ function FloatingWindow({
 
   return (
     <div
-      className="absolute flex flex-col overflow-hidden rounded-xl border border-black/40 bg-[#1e1e1e] text-[#dcdcdc] shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
+      className={`absolute flex flex-col overflow-hidden rounded-xl border shadow-[0_20px_60px_rgba(0,0,0,0.45)] ${
+        isLight ? 'border-black/10 bg-white text-[#2a2a2a]' : 'border-black/40 bg-[#1e1e1e] text-[#dcdcdc]'
+      }`}
       style={{ left: pos.x, top: pos.y, width: size.width, height: size.height, zIndex }}
       onClick={(event) => event.stopPropagation()}
       onMouseDownCapture={() => onFocus?.()}
     >
       <div
-        className="flex h-9 shrink-0 cursor-grab items-center border-b border-black/50 bg-[#2a2a2a] px-3 active:cursor-grabbing"
+        className={`flex h-9 shrink-0 cursor-grab items-center border-b px-3 active:cursor-grabbing ${
+          isLight ? 'border-black/10 bg-[#e8e8e8]' : 'border-black/50 bg-[#2a2a2a]'
+        }`}
         onMouseDown={handleTitleBarMouseDown}
       >
         <div className="flex items-center gap-2">
@@ -138,10 +145,14 @@ function FloatingWindow({
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
           <span className="h-3 w-3 rounded-full bg-[#28c840]" />
         </div>
-        <div className="flex-1 select-none text-center text-xs font-medium text-white/60">
+        <div
+          className={`flex-1 select-none text-center text-xs font-medium ${
+            isLight ? 'text-black/60' : 'text-white/60'
+          }`}
+        >
           {title}
         </div>
-        <div className="w-14" />
+        <div className="flex w-14 items-center justify-end">{headerRight}</div>
       </div>
 
       <div className="flex flex-1 overflow-hidden">{children}</div>
