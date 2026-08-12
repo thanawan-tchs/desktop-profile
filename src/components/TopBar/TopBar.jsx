@@ -20,7 +20,7 @@ const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 
 const MENU_ITEMS = ['File', 'Edit', 'Insert', 'Format', 'View', 'Window', 'Help']
 
-function TopBar() {
+function TopBar({ activeApp = 'Finder' }) {
   const [now, setNow] = useState(() => new Date())
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function TopBar() {
           </mask>
           <rect width="2000" height="2200" fill="#ffffff" mask="url(#apple-icon-mask)" />
         </svg>
-        <span className="font-semibold">Obsidian</span>
+        <span className="font-semibold">{activeApp}</span>
         {MENU_ITEMS.map((item) => (
           <span key={item}>{item}</span>
         ))}

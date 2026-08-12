@@ -1,13 +1,16 @@
 import { useRef, useState } from 'react'
 import claudeIcon from '../../assets/claude-ai-icon.webp'
+import vscodeIcon from '../../assets/vscode-logo.png'
+import terminalIcon from '../../assets/terminal-logo.jpeg'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
   { id: 'launchpad', label: 'Launchpad' },
-  { id: 'safari', label: 'Safari' },
   { id: 'notes', label: 'Notes' },
   { id: 'obsidian', label: 'Obsidian' },
   { id: 'claude', label: 'Claude' },
+  { id: 'vscode', label: 'Visual Studio Code' },
+  { id: 'terminal', label: 'Terminal' },
   { id: 'settings', label: 'System Settings' },
   { id: 'folder', label: 'Downloads' },
   { id: 'trash', label: 'Trash' },
@@ -43,14 +46,6 @@ function DockGlyph({ id }) {
               <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="2.6" fill="#d9d9de" />
             )),
           )}
-        </svg>
-      )
-    case 'safari':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <circle cx="22" cy="22" r="20" fill="#e7eef5" stroke="#9db4c7" />
-          <path d="M22 8l4 14-4 14-4-14z" fill="#ff5b4d" />
-          <path d="M22 8l-4 14 4 14 4-14z" fill="#e9e9ee" />
         </svg>
       )
     case 'notes':
@@ -107,6 +102,22 @@ function DockGlyph({ id }) {
       return (
         <img
           src={claudeIcon}
+          alt=""
+          className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
+        />
+      )
+    case 'vscode':
+      return (
+        <img
+          src={vscodeIcon}
+          alt=""
+          className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
+        />
+      )
+    case 'terminal':
+      return (
+        <img
+          src={terminalIcon}
           alt=""
           className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
         />
