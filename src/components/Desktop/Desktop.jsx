@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
@@ -11,6 +11,7 @@ import SettingsWindow from '../SettingsWindow/SettingsWindow'
 import TerminalWindow from '../TerminalWindow/TerminalWindow'
 import { DESKTOP_ITEMS } from '../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../data/wallpapers'
+import { FullscreenContext } from '../../context/FullscreenContext'
 
 const WINDOW_APP_NAMES = {
   obsidian: 'Obsidian',
@@ -44,8 +45,22 @@ const Desktop = () => {
   })
   const [nextZIndex, setNextZIndex] = useState(27)
   const [activeApp, setActiveApp] = useState('Finder')
+  const [fullscreenCount, setFullscreenCount] = useState(0)
+  const [chromeVisible, setChromeVisible] = useState(false)
+  const isAnyFullscreen = fullscreenCount > 0
 
   const wallpaper = WALLPAPERS.find((item) => item.id === wallpaperId)?.src
+
+  const fullscreenContextValue = useMemo(
+    () => ({
+      chromeVisible,
+      setChromeVisible,
+      registerFullscreen: (isFullscreen) => {
+        setFullscreenCount((count) => count + (isFullscreen ? 1 : -1))
+      },
+    }),
+    [chromeVisible],
+  )
 
   const bringToFront = (windowId) => {
     setZIndexes((prev) => ({ ...prev, [windowId]: nextZIndex }))
@@ -100,100 +115,110 @@ const Desktop = () => {
   }
 
   return (
-    <div
-      className="relative h-dvh w-full overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: `url(${wallpaper})` }}
-      onClick={() => {
-        setSelectedId(null)
-        setActiveApp('Finder')
-      }}
-    >
-      <TopBar activeApp={activeApp} />
+    <FullscreenContext.Provider value={fullscreenContextValue}>
+      <div
+        className="relative h-dvh w-full overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: `url(${wallpaper})` }}
+        onClick={() => {
+          setSelectedId(null)
+          setActiveApp('Finder')
+        }}
+      >
+        <TopBar
+          activeApp={activeApp}
+          overlayMode={isAnyFullscreen}
+          visible={chromeVisible}
+          onMouseEnter={() => setChromeVisible(true)}
+          onMouseLeave={() => setChromeVisible(false)}
+        />
 
-      <div className="absolute top-10 right-1.5 flex flex-col items-center gap-1">
-        {DESKTOP_ITEMS.map((item) => (
-          <DesktopIcon
-            key={item.id}
-            label={item.label}
-            type={item.type}
-            src={item.src}
-            selected={selectedId === item.id}
-            onSelect={(event) => {
-              event.stopPropagation()
-              setSelectedId(item.id)
-              handleDesktopItemOpen(item)
-            }}
+        <div className="absolute top-10 right-1.5 flex flex-col items-center gap-1">
+          {DESKTOP_ITEMS.map((item) => (
+            <DesktopIcon
+              key={item.id}
+              label={item.label}
+              type={item.type}
+              src={item.src}
+              selected={selectedId === item.id}
+              onSelect={(event) => {
+                event.stopPropagation()
+                setSelectedId(item.id)
+                handleDesktopItemOpen(item)
+              }}
+            />
+          ))}
+        </div>
+
+        {obsidianOpen && (
+          <ObsidianWindow
+            onClose={() => setObsidianOpen(false)}
+            zIndex={zIndexes.obsidian}
+            onFocus={() => bringToFront('obsidian')}
           />
-        ))}
+        )}
+        {pdfOpen && (
+          <ResumePdfWindow
+            onClose={() => setPdfOpen(false)}
+            zIndex={zIndexes.pdf}
+            onFocus={() => bringToFront('pdf')}
+          />
+        )}
+        {finderOpen && (
+          <FolderWindow
+            folderName={finderFolder}
+            onClose={() => setFinderOpen(false)}
+            zIndex={zIndexes.finder}
+            onFocus={() => bringToFront('finder')}
+            onOpenItem={handleDesktopItemOpen}
+          />
+        )}
+        {imageViewer && (
+          <ImageViewerWindow
+            src={imageViewer.src}
+            title={imageViewer.title}
+            onClose={() => setImageViewer(null)}
+            zIndex={zIndexes.image}
+            onFocus={() => bringToFront('image')}
+          />
+        )}
+        {vscodeOpen && (
+          <VsCodeWindow
+            onClose={() => setVscodeOpen(false)}
+            zIndex={zIndexes.vscode}
+            onFocus={() => bringToFront('vscode')}
+          />
+        )}
+        {settingsOpen && (
+          <SettingsWindow
+            onClose={() => setSettingsOpen(false)}
+            zIndex={zIndexes.settings}
+            onFocus={() => bringToFront('settings')}
+            wallpaperId={wallpaperId}
+            onSelectWallpaper={setWallpaperId}
+          />
+        )}
+        {terminalOpen && (
+          <TerminalWindow
+            onClose={() => setTerminalOpen(false)}
+            zIndex={zIndexes.terminal}
+            onFocus={() => bringToFront('terminal')}
+          />
+        )}
+
+        {!isAnyFullscreen && (
+          <Dock
+            onAppClick={handleDockAppClick}
+            extraRunningIds={[
+              ...(obsidianOpen ? ['obsidian'] : []),
+              ...(finderOpen ? ['finder'] : []),
+              ...(vscodeOpen ? ['vscode'] : []),
+              ...(settingsOpen ? ['settings'] : []),
+              ...(terminalOpen ? ['terminal'] : []),
+            ]}
+          />
+        )}
       </div>
-
-      {obsidianOpen && (
-        <ObsidianWindow
-          onClose={() => setObsidianOpen(false)}
-          zIndex={zIndexes.obsidian}
-          onFocus={() => bringToFront('obsidian')}
-        />
-      )}
-      {pdfOpen && (
-        <ResumePdfWindow
-          onClose={() => setPdfOpen(false)}
-          zIndex={zIndexes.pdf}
-          onFocus={() => bringToFront('pdf')}
-        />
-      )}
-      {finderOpen && (
-        <FolderWindow
-          folderName={finderFolder}
-          onClose={() => setFinderOpen(false)}
-          zIndex={zIndexes.finder}
-          onFocus={() => bringToFront('finder')}
-          onOpenItem={handleDesktopItemOpen}
-        />
-      )}
-      {imageViewer && (
-        <ImageViewerWindow
-          src={imageViewer.src}
-          title={imageViewer.title}
-          onClose={() => setImageViewer(null)}
-          zIndex={zIndexes.image}
-          onFocus={() => bringToFront('image')}
-        />
-      )}
-      {vscodeOpen && (
-        <VsCodeWindow
-          onClose={() => setVscodeOpen(false)}
-          zIndex={zIndexes.vscode}
-          onFocus={() => bringToFront('vscode')}
-        />
-      )}
-      {settingsOpen && (
-        <SettingsWindow
-          onClose={() => setSettingsOpen(false)}
-          zIndex={zIndexes.settings}
-          onFocus={() => bringToFront('settings')}
-          wallpaperId={wallpaperId}
-          onSelectWallpaper={setWallpaperId}
-        />
-      )}
-      {terminalOpen && (
-        <TerminalWindow
-          onClose={() => setTerminalOpen(false)}
-          zIndex={zIndexes.terminal}
-          onFocus={() => bringToFront('terminal')}
-        />
-      )}
-
-      <Dock
-        onAppClick={handleDockAppClick}
-        extraRunningIds={[
-          ...(obsidianOpen ? ['obsidian'] : []),
-          ...(finderOpen ? ['finder'] : []),
-          ...(vscodeOpen ? ['vscode'] : []),
-          ...(settingsOpen ? ['settings'] : []),
-          ...(terminalOpen ? ['terminal'] : []),
-        ]}
-      />
-    </div>
+    </FullscreenContext.Provider>
   )
 }
 

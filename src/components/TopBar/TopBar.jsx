@@ -21,7 +21,7 @@ const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 
 const SOCIAL_LINKS = profile.socials
 
-const TopBar = ({ activeApp = 'Finder' }) => {
+const TopBar = ({ activeApp = 'Finder', overlayMode = false, visible = true, onMouseEnter, onMouseLeave }) => {
   const [now, setNow] = useState(() => new Date())
 
   useEffect(() => {
@@ -30,7 +30,15 @@ const TopBar = ({ activeApp = 'Finder' }) => {
   }, [])
 
   return (
-    <div className="absolute inset-x-0 top-0 z-10 flex h-[26px] select-none items-center justify-between gap-2 overflow-hidden border-b border-white/[0.15] bg-white/10 px-2.5 text-white backdrop-blur-[20px] backdrop-saturate-[1.8] sm:px-3.5">
+    <div
+      className={`flex h-[26px] select-none items-center justify-between gap-2 overflow-hidden border-b border-white/[0.15] bg-white/10 px-2.5 text-white backdrop-blur-[20px] backdrop-saturate-[1.8] sm:px-3.5 ${
+        overlayMode
+          ? `fixed inset-x-0 top-0 z-[9999] transition-opacity duration-150 ${visible ? 'opacity-100' : 'opacity-0'}`
+          : 'absolute inset-x-0 top-0 z-10'
+      }`}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
         <div className="flex min-w-0 items-center gap-2 text-[13px] sm:gap-4 sm:text-[14px]">
         <Icon name={ICON_NAMES.APPLE_LOGO} className="h-3.5 w-3.5" />
         <span className="truncate font-semibold">{activeApp}</span>

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useFullscreen } from '../../context/FullscreenContext'
 
 const TOPBAR_HEIGHT = 26
 const VIEWPORT_MARGIN = 16
@@ -59,6 +60,34 @@ const FloatingWindow = ({
   const [pos, setPos] = useState(() =>
     getDefaultPosition(getDefaultSize(sizeConfig), horizontalBias, verticalBias),
   )
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const fullscreenSnapshotRef = useRef(null)
+  const isFullscreenRef = useRef(false)
+  const { chromeVisible, setChromeVisible, registerFullscreen } = useFullscreen()
+
+  useEffect(() => {
+    isFullscreenRef.current = isFullscreen
+  }, [isFullscreen])
+
+  useEffect(() => {
+    return () => {
+      if (isFullscreenRef.current) registerFullscreen(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const toggleFullscreen = () => {
+    const next = !isFullscreen
+    if (next) {
+      fullscreenSnapshotRef.current = { size, pos }
+    } else if (fullscreenSnapshotRef.current) {
+      setSize(fullscreenSnapshotRef.current.size)
+      setPos(fullscreenSnapshotRef.current.pos)
+    }
+    setIsFullscreen(next)
+    setChromeVisible(false)
+    registerFullscreen(next)
+  }
 
   const handleTitleBarPointerDown = (event) => {
     if (event.button !== 0 || event.target.closest('button')) return
@@ -136,18 +165,33 @@ const FloatingWindow = ({
 
   return (
     <div
-      className={`absolute flex flex-col overflow-hidden rounded-xl border shadow-[0_20px_60px_rgba(0,0,0,0.45)] ${
-        isLight ? 'border-black/10 bg-white text-[#2a2a2a]' : 'border-black/40 bg-[#1e1e1e] text-[#dcdcdc]'
-      }`}
-      style={{ left: pos.x, top: pos.y, width: size.width, height: size.height, zIndex }}
+      className={
+        isFullscreen
+          ? `absolute inset-0 flex flex-col overflow-hidden ${
+              isLight ? 'bg-white text-[#2a2a2a]' : 'bg-[#1e1e1e] text-[#dcdcdc]'
+            }`
+          : `absolute flex flex-col overflow-hidden rounded-xl border shadow-[0_20px_60px_rgba(0,0,0,0.45)] ${
+              isLight ? 'border-black/10 bg-white text-[#2a2a2a]' : 'border-black/40 bg-[#1e1e1e] text-[#dcdcdc]'
+            }`
+      }
+      style={isFullscreen ? { zIndex } : { left: pos.x, top: pos.y, width: size.width, height: size.height, zIndex }}
       onClick={(event) => event.stopPropagation()}
       onPointerDownCapture={() => onFocus?.()}
     >
       <div
-        className={`flex h-9 shrink-0 cursor-grab touch-none items-center border-b px-3 active:cursor-grabbing ${
+        className={`flex h-9 shrink-0 items-center border-b px-3 ${
           isLight ? 'border-black/10 bg-[#e8e8e8]' : 'border-black/50 bg-[#2a2a2a]'
+        } ${
+          isFullscreen
+            ? // 26px matches TOPBAR_HEIGHT — sits directly under the revealed desktop menu bar
+              `absolute inset-x-0 top-[26px] z-[9999] transition-opacity duration-150 ${
+                chromeVisible ? 'opacity-100' : 'opacity-0'
+              }`
+            : 'cursor-grab touch-none active:cursor-grabbing'
         }`}
-        onPointerDown={handleTitleBarPointerDown}
+        onPointerDown={isFullscreen ? undefined : handleTitleBarPointerDown}
+        onMouseEnter={isFullscreen ? () => setChromeVisible(true) : undefined}
+        onMouseLeave={isFullscreen ? () => setChromeVisible(false) : undefined}
       >
         <div className="flex items-center gap-2">
           <button
@@ -157,7 +201,12 @@ const FloatingWindow = ({
             aria-label="Close"
           />
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-          <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className="h-3 w-3 rounded-full bg-[#28c840] hover:brightness-90"
+            aria-label={isFullscreen ? 'Exit full screen' : 'Enter full screen'}
+          />
         </div>
         <div
           className={`flex-1 select-none text-center text-xs font-medium ${
@@ -171,13 +220,14 @@ const FloatingWindow = ({
 
       <div className="flex flex-1 overflow-hidden">{children}</div>
 
-      {RESIZE_HANDLES.map(({ dir, className }) => (
-        <div
-          key={dir}
-          className={`absolute ${className}`}
-          onPointerDown={handleResizePointerDown(dir)}
-        />
-      ))}
+      {!isFullscreen &&
+        RESIZE_HANDLES.map(({ dir, className }) => (
+          <div
+            key={dir}
+            className={`absolute ${className}`}
+            onPointerDown={handleResizePointerDown(dir)}
+          />
+        ))}
     </div>
   )
 }
