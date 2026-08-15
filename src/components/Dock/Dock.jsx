@@ -3,14 +3,7 @@ import claudeIcon from '../../assets/icons/claude-ai-icon.webp'
 import vscodeIcon from '../../assets/icons/vscode-logo.png'
 import terminalIcon from '../../assets/icons/terminal-logo.jpeg'
 import folderIcon from '../../assets/icons/folder-logo.png'
-import {
-  DockFinderIcon,
-  DockLaunchpadIcon,
-  DockNotesIcon,
-  DockObsidianIcon,
-  DockSettingsIcon,
-  DockTrashIcon,
-} from '../icons'
+import { Icon } from '../icons'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
@@ -32,17 +25,17 @@ const GLYPH_CLASS = 'block h-full w-full drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)
 const DockGlyph = ({ id }) => {
   switch (id) {
     case 'finder':
-      return <DockFinderIcon className={GLYPH_CLASS} />
+      return <Icon name="dock-finder" className={GLYPH_CLASS} />
     case 'launchpad':
-      return <DockLaunchpadIcon className={GLYPH_CLASS} />
+      return <Icon name="dock-launchpad" className={GLYPH_CLASS} />
     case 'notes':
-      return <DockNotesIcon className={GLYPH_CLASS} />
+      return <Icon name="dock-notes" className={GLYPH_CLASS} />
     case 'settings':
-      return <DockSettingsIcon className={GLYPH_CLASS} />
+      return <Icon name="dock-settings" className={GLYPH_CLASS} />
     case 'trash':
-      return <DockTrashIcon className={GLYPH_CLASS} />
+      return <Icon name="dock-trash" className={GLYPH_CLASS} />
     case 'obsidian':
-      return <DockObsidianIcon className={GLYPH_CLASS} />
+      return <Icon name="dock-obsidian" className={GLYPH_CLASS} />
     case 'claude':
       return (
         <img

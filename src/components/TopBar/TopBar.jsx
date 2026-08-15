@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AppleLogoIcon, BatteryIcon, LanguageIcon, WifiIcon } from '../icons'
+import { Icon } from '../icons'
 import profile from '../../data/profile.json'
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -32,7 +32,7 @@ const TopBar = ({ activeApp = 'Finder' }) => {
   return (
     <div className="absolute inset-x-0 top-0 z-10 flex h-[26px] select-none items-center justify-between gap-2 overflow-hidden border-b border-white/[0.15] bg-white/10 px-2.5 text-white backdrop-blur-[20px] backdrop-saturate-[1.8] sm:px-3.5">
         <div className="flex min-w-0 items-center gap-2 text-[12px] sm:gap-4 sm:text-[13px]">
-        <AppleLogoIcon className="h-3.5 w-3.5" />
+        <Icon name="apple-logo" className="h-3.5 w-3.5" />
         <span className="truncate font-semibold">{activeApp}</span>
         <div className="hidden items-center gap-4 sm:flex">
           {SOCIAL_LINKS.map((link) => (
@@ -50,12 +50,12 @@ const TopBar = ({ activeApp = 'Finder' }) => {
       </div>
 
       <div className="flex shrink-0 items-center gap-2 sm:gap-3.5">
-        <WifiIcon className={`${STATUS_ICON_CLASS} hidden sm:block`} />
+        <Icon name="wifi" className={`${STATUS_ICON_CLASS} hidden sm:block`} />
 
-        <LanguageIcon className={`${STATUS_ICON_CLASS} hidden sm:block`} />
+        <Icon name="language" className={`${STATUS_ICON_CLASS} hidden sm:block`} />
 
         <span className="hidden items-center gap-1 sm:flex">
-          <BatteryIcon className={`${STATUS_ICON_CLASS} h-[13px] w-6`} />
+          <Icon name="battery" className={`${STATUS_ICON_CLASS} h-[13px] w-6`} />
           <span className="text-[12.5px]">82%</span>
         </span>
 

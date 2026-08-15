@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../DesktopIcon/IconGlyph'
-import { FinderSidebarFolderActiveIcon, FinderSidebarFolderIcon } from '../icons'
+import { Icon } from '../icons'
 import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../data/finderLocations'
 import emptyFolderIcon from '../../assets/icons/empty-folder.webp'
 
@@ -13,9 +13,9 @@ const SidebarGlyph = ({ label, active }) => {
     return <img src={customIcon} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
   }
   if (active) {
-    return <FinderSidebarFolderActiveIcon />
+    return <Icon name="finder-sidebar-folder-active" />
   }
-  return <FinderSidebarFolderIcon />
+  return <Icon name="finder-sidebar-folder" />
 }
 
 const EmptyFolder = () => {

@@ -1,8 +1,8 @@
 import folderIcon from '../../assets/icons/folder-logo.png'
 import pdfIcon from '../../assets/icons/pdf-file-format.png'
-import { FileDocumentIcon } from '../icons'
+import { Icon } from '../icons'
 
-export const ICON_GLYPH_CLASS = 'h-[39px] w-12 drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]'
+export const ICON_GLYPH_CLASS = 'h-14 w-16 drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]'
 
 const IconGlyph = ({ type, src, className = ICON_GLYPH_CLASS }) => {
   switch (type) {
@@ -16,7 +16,7 @@ const IconGlyph = ({ type, src, className = ICON_GLYPH_CLASS }) => {
           </span>
         )
       }
-      return <FileDocumentIcon className={className} />
+      return <Icon name="file-document" className={className} />
     case 'pdf':
       return <img src={pdfIcon} alt="" className={`${className} object-contain`} />
     case 'folder':

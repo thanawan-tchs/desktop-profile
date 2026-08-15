@@ -1,4 +1,4 @@
-import { MoonIcon, SunIcon } from '../icons'
+import { Icon } from '../icons'
 
 const ThemeToggleButton = ({ theme, onToggle }) => {
   const isLight = theme === 'light'
@@ -13,7 +13,7 @@ const ThemeToggleButton = ({ theme, onToggle }) => {
       aria-label={`Switch to ${isLight ? 'dark' : 'light'} theme`}
       title={`Switch to ${isLight ? 'dark' : 'light'} theme`}
     >
-      {isLight ? <MoonIcon /> : <SunIcon />}
+      <Icon name={isLight ? 'moon' : 'sun'} />
     </button>
   )
 }
