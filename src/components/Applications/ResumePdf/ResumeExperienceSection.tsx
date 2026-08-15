@@ -1,6 +1,7 @@
 import ResumeDivider from './ResumeDivider'
+import type { Job } from '../../../data/profileTypes'
 
-const ResumeExperienceSection = ({ title, jobs }) => {
+const ResumeExperienceSection = ({ title, jobs }: { title: string; jobs: Job[] }) => {
   return (
     <>
       <ResumeDivider />

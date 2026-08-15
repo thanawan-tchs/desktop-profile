@@ -3,11 +3,12 @@ import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../../Desktop/DesktopIcon/IconGlyph'
 import { Icon, ICON_NAMES } from '../../Common/Icons'
 import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICON_NAMES } from '../../../data/finderLocations'
+import type { FinderItem } from '../../../data/desktopItems'
 import EmptyFolder from './EmptyFolder'
 
 const GRID_ICON_CLASS = 'h-14 w-16 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
 
-const SidebarGlyph = ({ label, active }) => {
+const SidebarGlyph = ({ label, active }: { label: string; active: boolean }) => {
   const customIconName = FINDER_SIDEBAR_ICON_NAMES[label]
   if (customIconName) {
     return (
@@ -28,11 +29,19 @@ const SidebarGlyph = ({ label, active }) => {
   return <Icon name={ICON_NAMES.FOLDER_OUTLINE} />
 }
 
-const Finder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
+type FinderProps = {
+  onClose: () => void
+  zIndex: number
+  onFocus: () => void
+  folderName?: string
+  onOpenItem?: (item: FinderItem) => void
+}
+
+const Finder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }: FinderProps) => {
   const [location, setLocation] = useState(folderName)
   const items = FINDER_FOLDERS[location] ?? []
 
-  const handleItemOpen = (item) => {
+  const handleItemOpen = (item: FinderItem) => {
     if (item.type === 'folder') {
       setLocation(item.label)
     } else {

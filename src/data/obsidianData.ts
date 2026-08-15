@@ -1,14 +1,17 @@
 import profile from './profile.json'
 import { README_CONTENT } from './readme'
+import type { Job } from './profileTypes'
 
 const { person, about, skillGroups, experience, certifications, languages } = profile
 
-const renderExperienceMarkdown = (jobs) => {
+const renderExperienceMarkdown = (jobs: Job[]) => {
   return jobs
     .map((job) => {
       const parts = [`# ${job.role} — ${job.company}`, `**${job.period}**`]
       if (job.summary) parts.push(job.summary)
-      if (job.highlights) parts.push(job.highlights.map((line) => `- ${line}`).join('\n'))
+      if (job.resumeHighlights) {
+        parts.push(job.resumeHighlights.map((line) => `- ${line}`).join('\n'))
+      }
       if (job.projects) {
         job.projects.forEach((project) => {
           parts.push(`## ${project.name}`, `**${project.period}**`)
