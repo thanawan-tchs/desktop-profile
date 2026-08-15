@@ -13,26 +13,34 @@ import Chrome from '../../Applications/Chrome/Chrome'
 import { MOCK_DEV_URL } from '../../Applications/Chrome/chromeUrl'
 import { DESKTOP_ITEMS } from '../../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../../data/wallpapers'
+import { APP_IDS } from '../../../data/appIds'
 import { FullscreenContext } from '../../../context/FullscreenContext'
 
 const WINDOW_APP_NAMES = {
-  obsidian: 'Obsidian',
-  pdf: 'Finder',
-  finder: 'Finder',
-  image: 'Preview',
-  vscode: 'Visual Studio Code',
-  settings: 'System Settings',
-  terminal: 'Terminal',
-  chrome: 'Google Chrome',
+  [APP_IDS.OBSIDIAN]: 'Obsidian',
+  [APP_IDS.PDF]: 'Finder',
+  [APP_IDS.FINDER]: 'Finder',
+  [APP_IDS.IMAGE]: 'Preview',
+  [APP_IDS.VSCODE]: 'Visual Studio Code',
+  [APP_IDS.SETTINGS]: 'System Settings',
+  [APP_IDS.TERMINAL]: 'Terminal',
+  [APP_IDS.CHROME]: 'Google Chrome',
 }
 
 const WINDOW_IDS = Object.keys(WINDOW_APP_NAMES)
 const BASE_Z_INDEX = 20
-const DEFAULT_OPEN_WINDOWS = new Set(['obsidian', 'pdf'])
+const DEFAULT_OPEN_WINDOWS = new Set([APP_IDS.OBSIDIAN, APP_IDS.PDF])
 
 // Only these are dock apps — 'pdf' and 'image' have no dock icon, so they're
 // never part of the running-indicator dot list Dock expects.
-const DOCK_TRACKED_WINDOW_IDS = ['obsidian', 'finder', 'vscode', 'settings', 'terminal', 'chrome']
+const DOCK_TRACKED_WINDOW_IDS = [
+  APP_IDS.OBSIDIAN,
+  APP_IDS.FINDER,
+  APP_IDS.VSCODE,
+  APP_IDS.SETTINGS,
+  APP_IDS.TERMINAL,
+  APP_IDS.CHROME,
+]
 
 // Every window shares the same open/zIndex/props shape, so one state object
 // replaces what would otherwise be a boolean + zIndex entry per app (and, for
@@ -71,44 +79,48 @@ const DesktopScreen = () => {
     [chromeVisible],
   )
 
+  // Every other window update is "merge this patch into windows[id]" — keep that
+  // immutable-update mechanics in one place so the functions below can just state
+  // what changes.
+  const updateWindow = (id, patch) => {
+    setWindows((prev) => ({ ...prev, [id]: { ...prev[id], ...patch } }))
+  }
+
   const bringToFront = (id) => {
-    setWindows((prev) => ({ ...prev, [id]: { ...prev[id], zIndex: nextZIndex } }))
+    updateWindow(id, { zIndex: nextZIndex })
     setNextZIndex((z) => z + 1)
     setActiveApp(WINDOW_APP_NAMES[id] ?? 'Finder')
   }
 
+  // Omitting `props` leaves the window's existing props untouched (the patch
+  // merge only overwrites keys that are present).
   const openWindow = (id, props) => {
-    setWindows((prev) => ({
-      ...prev,
-      [id]: { ...prev[id], open: true, props: props ?? prev[id].props },
-    }))
+    updateWindow(id, props ? { open: true, props } : { open: true })
     bringToFront(id)
   }
 
-  const closeWindow = (id) => {
-    setWindows((prev) => ({ ...prev, [id]: { ...prev[id], open: false } }))
-  }
+  const closeWindow = (id) => updateWindow(id, { open: false })
 
-  const openFinder = (folderLabel) => openWindow('finder', { folderName: folderLabel })
+  const openFinder = (folderLabel) => openWindow(APP_IDS.FINDER, { folderName: folderLabel })
 
   const handleDockAppClick = (appId) => {
-    if (appId === 'obsidian') openWindow('obsidian')
-    if (appId === 'finder' || appId === 'folder') openFinder('Desktop')
-    if (appId === 'vscode') openWindow('vscode')
-    if (appId === 'trash') openFinder('Trash')
-    if (appId === 'settings') openWindow('settings')
-    if (appId === 'terminal') openWindow('terminal')
-    if (appId === 'chrome') openWindow('chrome', { initialUrl: null })
+    if (appId === APP_IDS.OBSIDIAN) openWindow(APP_IDS.OBSIDIAN)
+    if (appId === APP_IDS.FINDER || appId === APP_IDS.FOLDER) openFinder('Desktop')
+    if (appId === APP_IDS.VSCODE) openWindow(APP_IDS.VSCODE)
+    if (appId === APP_IDS.TRASH) openFinder('Trash')
+    if (appId === APP_IDS.SETTINGS) openWindow(APP_IDS.SETTINGS)
+    if (appId === APP_IDS.TERMINAL) openWindow(APP_IDS.TERMINAL)
+    if (appId === APP_IDS.CHROME) openWindow(APP_IDS.CHROME, { initialUrl: null })
   }
 
   const openMockDevServer = () => {
     setDevServerRunning(true)
     if (windows.chrome.open) {
       setChromeOpenTabRequest((prev) => ({ url: MOCK_DEV_URL, id: prev.id + 1 }))
-      bringToFront('chrome')
+      bringToFront(APP_IDS.CHROME)
     } else {
       setChromeInstanceId((id) => id + 1)
-      openWindow('chrome', { initialUrl: MOCK_DEV_URL })
+      openWindow(APP_IDS.CHROME, { initialUrl: MOCK_DEV_URL })
     }
   }
 
@@ -116,13 +128,13 @@ const DesktopScreen = () => {
 
   const handleDesktopItemOpen = (item) => {
     if (item.type === 'pdf') {
-      openWindow('pdf')
+      openWindow(APP_IDS.PDF)
     } else if (item.type === 'vscode') {
-      openWindow('vscode')
+      openWindow(APP_IDS.VSCODE)
     } else if (item.type === 'folder') {
       openFinder(item.label)
     } else if (item.type === 'image' && item.src) {
-      openWindow('image', { src: item.src, title: item.label })
+      openWindow(APP_IDS.IMAGE, { src: item.src, title: item.label })
     }
   }
 
@@ -163,24 +175,24 @@ const DesktopScreen = () => {
 
         {windows.obsidian.open && (
           <Obsidian
-            onClose={() => closeWindow('obsidian')}
+            onClose={() => closeWindow(APP_IDS.OBSIDIAN)}
             zIndex={windows.obsidian.zIndex}
-            onFocus={() => bringToFront('obsidian')}
+            onFocus={() => bringToFront(APP_IDS.OBSIDIAN)}
           />
         )}
         {windows.pdf.open && (
           <ResumePdf
-            onClose={() => closeWindow('pdf')}
+            onClose={() => closeWindow(APP_IDS.PDF)}
             zIndex={windows.pdf.zIndex}
-            onFocus={() => bringToFront('pdf')}
+            onFocus={() => bringToFront(APP_IDS.PDF)}
           />
         )}
         {windows.finder.open && (
           <Finder
             folderName={windows.finder.props.folderName}
-            onClose={() => closeWindow('finder')}
+            onClose={() => closeWindow(APP_IDS.FINDER)}
             zIndex={windows.finder.zIndex}
-            onFocus={() => bringToFront('finder')}
+            onFocus={() => bringToFront(APP_IDS.FINDER)}
             onOpenItem={handleDesktopItemOpen}
           />
         )}
@@ -188,34 +200,34 @@ const DesktopScreen = () => {
           <ImageViewer
             src={windows.image.props.src}
             title={windows.image.props.title}
-            onClose={() => closeWindow('image')}
+            onClose={() => closeWindow(APP_IDS.IMAGE)}
             zIndex={windows.image.zIndex}
-            onFocus={() => bringToFront('image')}
+            onFocus={() => bringToFront(APP_IDS.IMAGE)}
           />
         )}
         {windows.vscode.open && (
           <VsCode
-            onClose={() => closeWindow('vscode')}
+            onClose={() => closeWindow(APP_IDS.VSCODE)}
             zIndex={windows.vscode.zIndex}
-            onFocus={() => bringToFront('vscode')}
+            onFocus={() => bringToFront(APP_IDS.VSCODE)}
             onRunDevServer={openMockDevServer}
             onStopDevServer={stopMockDevServer}
           />
         )}
         {windows.settings.open && (
           <Settings
-            onClose={() => closeWindow('settings')}
+            onClose={() => closeWindow(APP_IDS.SETTINGS)}
             zIndex={windows.settings.zIndex}
-            onFocus={() => bringToFront('settings')}
+            onFocus={() => bringToFront(APP_IDS.SETTINGS)}
             wallpaperId={wallpaperId}
             onSelectWallpaper={setWallpaperId}
           />
         )}
         {windows.terminal.open && (
           <Terminal
-            onClose={() => closeWindow('terminal')}
+            onClose={() => closeWindow(APP_IDS.TERMINAL)}
             zIndex={windows.terminal.zIndex}
-            onFocus={() => bringToFront('terminal')}
+            onFocus={() => bringToFront(APP_IDS.TERMINAL)}
           />
         )}
         {windows.chrome.open && (
@@ -224,9 +236,9 @@ const DesktopScreen = () => {
             initialUrl={windows.chrome.props.initialUrl ?? undefined}
             openTabRequest={chromeOpenTabRequest}
             devServerRunning={devServerRunning}
-            onClose={() => closeWindow('chrome')}
+            onClose={() => closeWindow(APP_IDS.CHROME)}
             zIndex={windows.chrome.zIndex}
-            onFocus={() => bringToFront('chrome')}
+            onFocus={() => bringToFront(APP_IDS.CHROME)}
           />
         )}
 

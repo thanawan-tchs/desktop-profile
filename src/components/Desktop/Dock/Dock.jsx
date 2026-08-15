@@ -5,48 +5,49 @@ import terminalIcon from '../../../assets/icons/terminal-logo.jpeg'
 import folderIcon from '../../../assets/icons/folder-logo.png'
 import chromeIcon from '../../../assets/icons/google-chrome-logo.svg'
 import { Icon, ICON_NAMES } from '../../Common/Icons'
+import { APP_IDS } from '../../../data/appIds'
 
 const DOCK_APPS = [
-  { id: 'finder', label: 'Finder' },
-  { id: 'launchpad', label: 'Launchpad' },
-  { id: 'chrome', label: 'Google Chrome' },
-  { id: 'settings', label: 'System Settings' },
-  { id: 'notes', label: 'Notes' },
-  { id: 'obsidian', label: 'Obsidian' },
-  { id: 'vscode', label: 'Visual Studio Code' },
-  { id: 'terminal', label: 'Terminal' },
-  { id: 'claude', label: 'Claude' },
-  { id: 'folder', label: 'Downloads' },
-  { id: 'trash', label: 'Trash' },
+  { id: APP_IDS.FINDER, label: 'Finder' },
+  { id: APP_IDS.LAUNCHPAD, label: 'Launchpad' },
+  { id: APP_IDS.CHROME, label: 'Google Chrome' },
+  { id: APP_IDS.SETTINGS, label: 'System Settings' },
+  { id: APP_IDS.NOTES, label: 'Notes' },
+  { id: APP_IDS.OBSIDIAN, label: 'Obsidian' },
+  { id: APP_IDS.VSCODE, label: 'Visual Studio Code' },
+  { id: APP_IDS.TERMINAL, label: 'Terminal' },
+  { id: APP_IDS.CLAUDE, label: 'Claude' },
+  { id: APP_IDS.FOLDER, label: 'Downloads' },
+  { id: APP_IDS.TRASH, label: 'Trash' },
 ]
 
-const RUNNING_APPS = new Set(['finder', 'safari', 'notes'])
+const RUNNING_APPS = new Set([APP_IDS.FINDER, APP_IDS.NOTES])
 
 const GLYPH_CLASS = 'block h-full w-full drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)]'
 
 const DockGlyph = ({ id }) => {
   switch (id) {
-    case 'finder':
+    case APP_IDS.FINDER:
       return <Icon name={ICON_NAMES.DOCK_FINDER} className={GLYPH_CLASS} />
-    case 'launchpad':
+    case APP_IDS.LAUNCHPAD:
       return <Icon name={ICON_NAMES.DOCK_LAUNCHPAD} className={GLYPH_CLASS} />
-    case 'notes':
+    case APP_IDS.NOTES:
       return <Icon name={ICON_NAMES.DOCK_NOTES} className={GLYPH_CLASS} />
-    case 'settings':
+    case APP_IDS.SETTINGS:
       return <Icon name={ICON_NAMES.DOCK_SETTINGS} className={GLYPH_CLASS} />
-    case 'trash':
+    case APP_IDS.TRASH:
       return <Icon name={ICON_NAMES.DOCK_TRASH} className={GLYPH_CLASS} />
-    case 'obsidian':
+    case APP_IDS.OBSIDIAN:
       return <Icon name={ICON_NAMES.DOCK_OBSIDIAN} className={GLYPH_CLASS} />
-    case 'chrome':
+    case APP_IDS.CHROME:
       return (
         <img
           src={chromeIcon}
           alt=""
-          className={`${GLYPH_CLASS} rounded-[12px] bg-white `}
+          className={`${GLYPH_CLASS} rounded-[12px] bg-white`}
         />
       )
-    case 'claude':
+    case APP_IDS.CLAUDE:
       return (
         <img
           src={claudeIcon}
@@ -54,7 +55,7 @@ const DockGlyph = ({ id }) => {
           className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
         />
       )
-    case 'vscode':
+    case APP_IDS.VSCODE:
       return (
         <img
           src={vscodeIcon}
@@ -62,7 +63,7 @@ const DockGlyph = ({ id }) => {
           className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
         />
       )
-    case 'terminal':
+    case APP_IDS.TERMINAL:
       return (
         <img
           src={terminalIcon}
@@ -70,7 +71,7 @@ const DockGlyph = ({ id }) => {
           className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
         />
       )
-    case 'folder':
+    case APP_IDS.FOLDER:
     default:
       return (
         <img
