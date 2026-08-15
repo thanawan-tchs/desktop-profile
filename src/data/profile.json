@@ -22,6 +22,11 @@
     { "category": "Testing", "items": ["Playwright", "Cypress", "Detox", "Appium", "Postman"] },
     { "category": "Messaging", "items": ["Apache Kafka"] }
   ],
+  "resumeSectionTitles": {
+    "skills": "Skills",
+    "experience": "Experience",
+    "certifications": "Certifications"
+  },
   "resumeSkills": [
     "JavaScript/TypeScript",
     "Go",
