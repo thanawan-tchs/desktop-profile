@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton'
+import { ChevronRightIcon } from '../icons'
 import { VAULT } from './vaultData'
 import { renderMarkdown } from './markdown'
 
@@ -58,15 +59,7 @@ function ObsidianWindow({ onClose, zIndex, onFocus }) {
                     : 'text-white/70 hover:bg-white/5'
                 }`}
               >
-                <svg
-                  viewBox="0 0 10 10"
-                  className={`h-2.5 w-2.5 shrink-0 transition-transform ${
-                    isExpanded ? 'rotate-90' : ''
-                  }`}
-                  aria-hidden="true"
-                >
-                  <path d="M2 1l5 4-5 4z" fill="currentColor" />
-                </svg>
+                <ChevronRightIcon expanded={isExpanded} />
                 <span className="truncate font-medium">{topic.label}</span>
               </button>
               {isExpanded && (

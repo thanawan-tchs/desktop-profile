@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import jsonFileIcon from '../../assets/icons/json-file-icon.png'
 import htmlIcon from '../../assets/icons/html-icon.png'
+import { ChevronRightIcon, FileTreeFolderIcon, TextBadgeIcon } from '../icons'
 
 const EXTENSION_COLORS = {
   jsx: '#61dafb',
@@ -24,47 +25,6 @@ const EXTENSION_BADGES = {
 function extensionOf(name) {
   const parts = name.split('.')
   return parts.length > 1 ? parts[parts.length - 1] : ''
-}
-
-function ChevronIcon({ expanded }) {
-  return (
-    <svg
-      viewBox="0 0 10 10"
-      className={`h-2.5 w-2.5 shrink-0 transition-transform ${expanded ? 'rotate-90' : ''}`}
-      aria-hidden="true"
-    >
-      <path d="M2 1l5 4-5 4z" fill="currentColor" />
-    </svg>
-  )
-}
-
-function FolderIcon({ isLight }) {
-  return (
-    <svg viewBox="0 0 16 14" className="h-3 w-3.5 shrink-0" aria-hidden="true">
-      <path
-        d="M1 2.4A1.4 1.4 0 0 1 2.4 1h3.2l1.4 1.4h6.6A1.4 1.4 0 0 1 15 3.8v8.8A1.4 1.4 0 0 1 13.6 14H2.4A1.4 1.4 0 0 1 1 12.6z"
-        fill={isLight ? '#90caf9' : '#42a5f5'}
-      />
-    </svg>
-  )
-}
-
-function TextBadgeIcon({ label, color, fontSize = 8.5 }) {
-  return (
-    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
-      <text
-        x="8"
-        y="11.5"
-        textAnchor="middle"
-        fontSize={fontSize}
-        fontWeight="700"
-        fill={color}
-        fontFamily="Arial, sans-serif"
-      >
-        {label}
-      </text>
-    </svg>
-  )
 }
 
 function FileIcon({ name }) {
@@ -115,8 +75,8 @@ function FileTree({ node, path = '', activePath, onSelectFile, depth = 0, isLigh
             isLight ? 'text-black/70 hover:bg-black/5' : 'text-white/70 hover:bg-white/5'
           }`}
         >
-          <ChevronIcon expanded={expanded} />
-          <FolderIcon isLight={isLight} />
+          <ChevronRightIcon expanded={expanded} />
+          <FileTreeFolderIcon isLight={isLight} />
           <span className="truncate">{node.name}</span>
         </button>
         {expanded &&

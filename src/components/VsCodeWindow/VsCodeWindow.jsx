@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton'
+import { GitBranchIcon } from '../icons'
 import FileTree from './FileTree'
 import { tokenizeLine, TOKEN_COLORS } from './codeHighlight'
 import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../data/vscodeProject'
@@ -102,9 +103,7 @@ function VsCodeWindow({ onClose, zIndex, onFocus }) {
         <div className="flex h-[22px] shrink-0 items-center justify-between bg-[#007acc] px-3 text-[11px] text-white">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
-              <svg viewBox="0 0 16 16" className="h-3 w-3" fill="currentColor" aria-hidden="true">
-                <path d="M5 3a2 2 0 1 1-1 3.73v2.54a2 2 0 1 1-1 0V6.73A2 2 0 0 1 5 3zm6 6a2 2 0 1 1-1 1.73V6.9A3 3 0 0 1 8 4V3a2 2 0 1 1 1 0v1a2 2 0 0 0 2 2v2.27A2 2 0 0 1 11 9z" />
-              </svg>
+              <GitBranchIcon />
               main
             </span>
           </div>

@@ -3,6 +3,14 @@ import claudeIcon from '../../assets/icons/claude-ai-icon.webp'
 import vscodeIcon from '../../assets/icons/vscode-logo.png'
 import terminalIcon from '../../assets/icons/terminal-logo.jpeg'
 import folderIcon from '../../assets/icons/folder-logo.png'
+import {
+  DockFinderIcon,
+  DockLaunchpadIcon,
+  DockNotesIcon,
+  DockObsidianIcon,
+  DockSettingsIcon,
+  DockTrashIcon,
+} from '../icons'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
@@ -24,81 +32,17 @@ const GLYPH_CLASS = 'block h-full w-full drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)
 function DockGlyph({ id }) {
   switch (id) {
     case 'finder':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#3fa9ff" />
-          <circle cx="16" cy="19" r="3.2" fill="#0b2f52" />
-          <circle cx="28" cy="19" r="3.2" fill="#0b2f52" />
-          <path
-            d="M12 27c4.5 6 15.5 6 20 0"
-            stroke="#0b2f52"
-            strokeWidth="2.6"
-            fill="none"
-            strokeLinecap="round"
-          />
-        </svg>
-      )
+      return <DockFinderIcon className={GLYPH_CLASS} />
     case 'launchpad':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#2b2b33" />
-          {[12, 22, 32].flatMap((cx) =>
-            [12, 22, 32].map((cy) => (
-              <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="2.6" fill="#d9d9de" />
-            )),
-          )}
-        </svg>
-      )
+      return <DockLaunchpadIcon className={GLYPH_CLASS} />
     case 'notes':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#ffcf3f" />
-          <rect x="10" y="12" width="24" height="4" rx="2" fill="#8a6d00" opacity="0.55" />
-          <rect x="10" y="20" width="24" height="4" rx="2" fill="#8a6d00" opacity="0.4" />
-          <rect x="10" y="28" width="16" height="4" rx="2" fill="#8a6d00" opacity="0.3" />
-        </svg>
-      )
+      return <DockNotesIcon className={GLYPH_CLASS} />
     case 'settings':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#8e8e96" />
-          <line x1="9" y1="15" x2="35" y2="15" stroke="#e8e8ec" strokeWidth="2.4" strokeLinecap="round" />
-          <circle cx="27" cy="15" r="3.4" fill="#e8e8ec" />
-          <line x1="9" y1="22" x2="35" y2="22" stroke="#e8e8ec" strokeWidth="2.4" strokeLinecap="round" />
-          <circle cx="17" cy="22" r="3.4" fill="#e8e8ec" />
-          <line x1="9" y1="29" x2="35" y2="29" stroke="#e8e8ec" strokeWidth="2.4" strokeLinecap="round" />
-          <circle cx="24" cy="29" r="3.4" fill="#e8e8ec" />
-        </svg>
-      )
+      return <DockSettingsIcon className={GLYPH_CLASS} />
     case 'trash':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#c7ccd4" />
-          <path
-            d="M14 16h16l-1.4 17a2 2 0 0 1-2 1.8H17.4a2 2 0 0 1-2-1.8z"
-            fill="#fff"
-            stroke="#8b909a"
-            strokeWidth="1.2"
-          />
-          <path
-            d="M12 13h20M18 13V10.6A1.6 1.6 0 0 1 19.6 9h4.8A1.6 1.6 0 0 1 26 10.6V13"
-            stroke="#8b909a"
-            strokeWidth="1.6"
-            fill="none"
-            strokeLinecap="round"
-          />
-        </svg>
-      )
+      return <DockTrashIcon className={GLYPH_CLASS} />
     case 'obsidian':
-      return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#2b2b31" />
-          <polygon points="22,8 32,17 22,22" fill="#a78bfa" />
-          <polygon points="12,17 22,8 22,22" fill="#7c3aed" />
-          <polygon points="12,17 22,22 22,36" fill="#6d28d9" />
-          <polygon points="32,17 22,22 22,36" fill="#7c3aed" />
-        </svg>
-      )
+      return <DockObsidianIcon className={GLYPH_CLASS} />
     case 'claude':
       return (
         <img

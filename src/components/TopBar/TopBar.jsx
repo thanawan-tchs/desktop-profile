@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import appleIcon from '../../assets/icons/appleIcon.webp'
+import { AppleLogoIcon, BatteryIcon, LanguageIcon, WifiIcon } from '../icons'
 import profile from '../../data/profile.json'
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -32,12 +32,7 @@ function TopBar({ activeApp = 'Finder' }) {
   return (
     <div className="absolute inset-x-0 top-0 z-10 flex h-[26px] select-none items-center justify-between gap-2 overflow-hidden border-b border-white/[0.15] bg-white/10 px-2.5 text-white backdrop-blur-[20px] backdrop-saturate-[1.8] sm:px-3.5">
         <div className="flex min-w-0 items-center gap-2 text-[12px] sm:gap-4 sm:text-[13px]">
-        <svg viewBox="0 0 2000 2200" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
-          <mask id="apple-icon-mask">
-            <image href={appleIcon} width="2000" height="2200" filter="invert(1)" />
-          </mask>
-          <rect width="2000" height="2200" fill="#ffffff" mask="url(#apple-icon-mask)" />
-        </svg>
+        <AppleLogoIcon className="h-3.5 w-3.5" />
         <span className="truncate font-semibold">{activeApp}</span>
         <div className="hidden items-center gap-4 sm:flex">
           {SOCIAL_LINKS.map((link) => (
@@ -55,46 +50,12 @@ function TopBar({ activeApp = 'Finder' }) {
       </div>
 
       <div className="flex shrink-0 items-center gap-2 sm:gap-3.5">
-        <svg className={`${STATUS_ICON_CLASS} hidden sm:block`} viewBox="0 0 20 16" role="img" aria-label="Wi-Fi">
-          <path d="M10 12.6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" fill="currentColor" />
-          <path
-            d="M4.8 9.4a7.6 7.6 0 0 1 10.4 0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-          />
-          <path
-            d="M1.6 5.8a12.2 12.2 0 0 1 16.8 0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-          />
-        </svg>
+        <WifiIcon className={`${STATUS_ICON_CLASS} hidden sm:block`} />
 
-        <svg
-          className={`${STATUS_ICON_CLASS} hidden sm:block`}
-          viewBox="0 0 20 20"
-          role="img"
-          aria-label="Language"
-        >
-          <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1.4" />
-          <ellipse cx="10" cy="10" rx="3.4" ry="8" fill="none" stroke="currentColor" strokeWidth="1.4" />
-          <line x1="2" y1="10" x2="18" y2="10" stroke="currentColor" strokeWidth="1.4" />
-        </svg>
+        <LanguageIcon className={`${STATUS_ICON_CLASS} hidden sm:block`} />
 
         <span className="hidden items-center gap-1 sm:flex">
-          <svg
-            className={`${STATUS_ICON_CLASS} h-[13px] w-6`}
-            viewBox="0 0 26 14"
-            role="img"
-            aria-label="Battery"
-          >
-            <rect x="1" y="1" width="21" height="12" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.3" />
-            <rect x="23" y="4.5" width="2" height="5" rx="1" fill="currentColor" />
-            <rect x="3" y="3" width="14.5" height="8" rx="1.2" fill="currentColor" />
-          </svg>
+          <BatteryIcon className={`${STATUS_ICON_CLASS} h-[13px] w-6`} />
           <span className="text-[12.5px]">82%</span>
         </span>
 

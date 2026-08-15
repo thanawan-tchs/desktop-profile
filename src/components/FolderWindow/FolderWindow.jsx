@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../DesktopIcon/IconGlyph'
+import { FinderSidebarFolderActiveIcon, FinderSidebarFolderIcon } from '../icons'
 import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../data/finderLocations'
 import emptyFolderIcon from '../../assets/icons/empty-folder.webp'
 
@@ -12,21 +13,9 @@ function SidebarGlyph({ label, active }) {
     return <img src={customIcon} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
   }
   if (active) {
-    return (
-      <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 shrink-0 text-[#0a84ff]" aria-hidden="true">
-        <rect x="2" y="3" width="16" height="11" rx="1.4" fill="none" stroke="currentColor" strokeWidth="1.4" />
-        <path d="M7 17h6M10 14v3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      </svg>
-    )
+    return <FinderSidebarFolderActiveIcon />
   }
-  return (
-    <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 shrink-0 text-black/35" aria-hidden="true">
-      <path
-        d="M2.5 5.4A1.4 1.4 0 0 1 3.9 4h4l1.6 1.6h6.6a1.4 1.4 0 0 1 1.4 1.4v7.6a1.4 1.4 0 0 1-1.4 1.4H3.9a1.4 1.4 0 0 1-1.4-1.4z"
-        fill="currentColor"
-      />
-    </svg>
-  )
+  return <FinderSidebarFolderIcon />
 }
 
 function EmptyFolder() {
