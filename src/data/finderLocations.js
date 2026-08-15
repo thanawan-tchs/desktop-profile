@@ -1,6 +1,6 @@
 import { DESKTOP_ITEMS } from './desktopItems'
 import ckadCertification from '../assets/images/ckad-certification.png'
-import recentIcon from '../assets/icons/recent-logo.png'
+import { ICON_NAMES } from '../components/Common/Icons'
 
 export const FINDER_SIDEBAR = [
   { label: '', items: ['Recents'] },
@@ -12,8 +12,11 @@ export const FINDER_SIDEBAR = [
   { label: '', items: ['Trash'] },
 ]
 
-export const FINDER_SIDEBAR_ICONS = {
-  Recents: recentIcon,
+export const FINDER_SIDEBAR_ICON_NAMES = {
+  Recents: ICON_NAMES.RECENT,
+  Applications: ICON_NAMES.GRID,
+  Downloads: ICON_NAMES.DOWNLOAD,
+  Documents: ICON_NAMES.FILE_REMOVE,
 }
 
 export const FINDER_FOLDERS = {

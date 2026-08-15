@@ -26,4 +26,11 @@ export const ICON_NAMES = Object.freeze({
   BLOCKED: 'blocked',
   CLOSE: 'close',
   PLUS: 'plus',
+  DOWNLOAD: 'download',
+  FILE_REMOVE: 'file-remove',
+  FOLDER_OUTLINE: 'folder-outline',
+  GRID: 'grid',
+  MAXIMIZE_SCREEN: 'maximize-screen',
+  MINIMIZE_SCREEN: 'minimize-screen',
+  RECENT: 'recent',
 })

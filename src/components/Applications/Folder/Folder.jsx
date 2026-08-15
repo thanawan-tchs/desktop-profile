@@ -2,23 +2,25 @@ import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../../Desktop/DesktopIcon/IconGlyph'
 import { Icon, ICON_NAMES } from '../../Common/Icons'
-import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../../data/finderLocations'
+import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICON_NAMES } from '../../../data/finderLocations'
 import EmptyFolder from './EmptyFolder'
 
 const GRID_ICON_CLASS = 'h-14 w-16 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
 
 const SidebarGlyph = ({ label, active }) => {
-  const customIcon = FINDER_SIDEBAR_ICONS[label]
-  if (customIcon) {
-    return <img src={customIcon} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
+  const customIconName = FINDER_SIDEBAR_ICON_NAMES[label]
+  if (customIconName) {
+    return (
+      <Icon
+        name={customIconName}
+        className={`h-3.5 w-3.5 shrink-0 ${active ? 'text-[#0a58ca]' : 'text-black/50'}`}
+      />
+    )
   }
   if (label === 'Trash') {
     return <Icon name={ICON_NAMES.FINDER_SIDEBAR_TRASH} />
   }
-  if (active) {
-    return <Icon name={ICON_NAMES.FINDER_SIDEBAR_FOLDER_ACTIVE} />
-  }
-  return <Icon name={ICON_NAMES.FINDER_SIDEBAR_FOLDER} />
+  return <Icon name={ICON_NAMES.FOLDER_OUTLINE} />
 }
 
 const Folder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFullscreen } from '../../../context/FullscreenContext'
+import { Icon, ICON_NAMES } from '../../Common/Icons'
 
 const TOPBAR_HEIGHT = 26
 const VIEWPORT_MARGIN = 16
@@ -197,16 +198,23 @@ const FloatingWindow = ({
           <button
             type="button"
             onClick={onClose}
-            className="h-3 w-3 rounded-full bg-[#ff5f57] hover:brightness-90"
+            className="group flex h-3 w-3 items-center justify-center rounded-full bg-[#ff5f57] hover:brightness-90"
             aria-label="Close"
-          />
+          >
+            <Icon name={ICON_NAMES.CLOSE} className="h-2.5 w-2.5 text-black/90 opacity-0 group-hover:opacity-100" />
+          </button>
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
           <button
             type="button"
             onClick={toggleFullscreen}
-            className="h-3 w-3 rounded-full bg-[#28c840] hover:brightness-90"
+            className="group flex h-3 w-3 items-center justify-center rounded-full bg-[#28c840] hover:brightness-90"
             aria-label={isFullscreen ? 'Exit full screen' : 'Enter full screen'}
-          />
+          >
+            <Icon
+              name={isFullscreen ? ICON_NAMES.MINIMIZE_SCREEN : ICON_NAMES.MAXIMIZE_SCREEN}
+              className="h-2.5 w-2.5 text-black/90 opacity-0 group-hover:opacity-100"
+            />
+          </button>
         </div>
         <div
           className={`flex-1 select-none text-center text-xs font-medium ${

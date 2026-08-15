@@ -25,6 +25,13 @@ import LockIcon from './LockIcon'
 import BlockedIcon from './BlockedIcon'
 import CloseIcon from './CloseIcon'
 import PlusIcon from './PlusIcon'
+import DownloadIcon from './DownloadIcon'
+import FileRemoveIcon from './FileRemoveIcon'
+import FolderOutlineIcon from './FolderOutlineIcon'
+import GridIcon from './GridIcon'
+import MaximizeScreenIcon from './MaximizeScreenIcon'
+import MinimizeScreenIcon from './MinimizeScreenIcon'
+import RecentIcon from './RecentIcon'
 import { ICON_NAMES } from './iconNames'
 
 export const ICON_REGISTRY = {
@@ -55,4 +62,11 @@ export const ICON_REGISTRY = {
   [ICON_NAMES.BLOCKED]: BlockedIcon,
   [ICON_NAMES.CLOSE]: CloseIcon,
   [ICON_NAMES.PLUS]: PlusIcon,
+  [ICON_NAMES.DOWNLOAD]: DownloadIcon,
+  [ICON_NAMES.FILE_REMOVE]: FileRemoveIcon,
+  [ICON_NAMES.FOLDER_OUTLINE]: FolderOutlineIcon,
+  [ICON_NAMES.GRID]: GridIcon,
+  [ICON_NAMES.MAXIMIZE_SCREEN]: MaximizeScreenIcon,
+  [ICON_NAMES.MINIMIZE_SCREEN]: MinimizeScreenIcon,
+  [ICON_NAMES.RECENT]: RecentIcon,
 }
