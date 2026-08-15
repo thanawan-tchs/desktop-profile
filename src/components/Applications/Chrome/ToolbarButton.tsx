@@ -1,4 +1,4 @@
-const ToolbarButton = ({ onClick, disabled, isLight, children, label }) => (
+const ToolbarButton = ({ onClick, disabled = false, isLight, children, label }) => (
   <button
     type="button"
     onClick={onClick}

@@ -29,7 +29,7 @@ const WINDOW_APP_NAMES = {
 
 const WINDOW_IDS = Object.keys(WINDOW_APP_NAMES)
 const BASE_Z_INDEX = 20
-const DEFAULT_OPEN_WINDOWS = new Set([APP_IDS.OBSIDIAN, APP_IDS.PDF])
+const DEFAULT_OPEN_WINDOWS = new Set<string>([APP_IDS.OBSIDIAN, APP_IDS.PDF])
 
 // Only these are dock apps — 'pdf' and 'image' have no dock icon, so they're
 // never part of the running-indicator dot list Dock expects.
@@ -42,10 +42,12 @@ const DOCK_TRACKED_WINDOW_IDS = [
   APP_IDS.CHROME,
 ]
 
+type WindowState = { open: boolean; zIndex: number; props: Record<string, any> }
+
 // Every window shares the same open/zIndex/props shape, so one state object
 // replaces what would otherwise be a boolean + zIndex entry per app (and, for
 // Finder/ImageViewer, a separate ad-hoc "what to show" state too).
-const createInitialWindows = () =>
+const createInitialWindows = (): Record<string, WindowState> =>
   Object.fromEntries(
     WINDOW_IDS.map((id, index) => [
       id,
@@ -94,7 +96,7 @@ const DesktopScreen = () => {
 
   // Omitting `props` leaves the window's existing props untouched (the patch
   // merge only overwrites keys that are present).
-  const openWindow = (id, props) => {
+  const openWindow = (id, props = null) => {
     updateWindow(id, props ? { open: true, props } : { open: true })
     bringToFront(id)
   }

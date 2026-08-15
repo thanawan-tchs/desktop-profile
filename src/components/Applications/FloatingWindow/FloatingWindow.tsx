@@ -52,7 +52,7 @@ const FloatingWindow = ({
   minHeight = 280,
   zIndex = 20,
   onFocus,
-  headerRight,
+  headerRight = null,
   theme = 'dark',
 }) => {
   const isLight = theme === 'light'

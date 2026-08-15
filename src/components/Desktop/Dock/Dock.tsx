@@ -21,7 +21,7 @@ const DOCK_APPS = [
   { id: APP_IDS.TRASH, label: 'Trash' },
 ]
 
-const RUNNING_APPS = new Set([APP_IDS.FINDER, APP_IDS.NOTES])
+const RUNNING_APPS = new Set<string>([APP_IDS.FINDER, APP_IDS.NOTES])
 
 const GLYPH_CLASS = 'block h-full w-full drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)]'
 
