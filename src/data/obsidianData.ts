@@ -9,8 +9,8 @@ const renderExperienceMarkdown = (jobs: Job[]) => {
     .map((job) => {
       const parts = [`# ${job.role} — ${job.company}`, `**${job.period}**`]
       if (job.summary) parts.push(job.summary)
-      if (job.resumeHighlights) {
-        parts.push(job.resumeHighlights.map((line) => `- ${line}`).join('\n'))
+      if (job.highlights) {
+        parts.push(job.highlights.map((line) => `- ${line}`).join('\n'))
       }
       if (job.projects) {
         job.projects.forEach((project) => {

@@ -82,7 +82,7 @@ export const renderMarkdown = (markdown, theme = 'dark') => {
       )
     } else if (line.startsWith('# ')) {
       blocks.push(
-        <h1 key={index} className={`mb-3 mt-2 text-2xl font-bold ${headingClass}`}>
+        <h1 key={index} className={`mb-3 mt-8 text-2xl font-bold ${headingClass}`}>
           {renderInline(line.slice(2), `h${index}`, theme)}
         </h1>,
       )
