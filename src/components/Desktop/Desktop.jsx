@@ -4,7 +4,7 @@ import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
 import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
 import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
-import wallpaper from '../../assets/desktopWallpaperDefault.jpg'
+import wallpaper from '../../assets/images/desktopWallpaperDefault.jpg'
 
 const DESKTOP_ITEMS = [
   { id: 'projects', label: 'Projects', type: 'folder' },

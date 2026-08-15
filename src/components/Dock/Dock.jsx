@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
-import claudeIcon from '../../assets/claude-ai-icon.webp'
-import vscodeIcon from '../../assets/vscode-logo.png'
-import terminalIcon from '../../assets/terminal-logo.jpeg'
+import claudeIcon from '../../assets/icons/claude-ai-icon.webp'
+import vscodeIcon from '../../assets/icons/vscode-logo.png'
+import terminalIcon from '../../assets/icons/terminal-logo.jpeg'
+import folderIcon from '../../assets/icons/folder-logo.png'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
@@ -125,14 +126,11 @@ function DockGlyph({ id }) {
     case 'folder':
     default:
       return (
-        <svg viewBox="0 0 44 44" className={GLYPH_CLASS} aria-hidden="true">
-          <rect width="44" height="44" rx="11" fill="#eef3f8" />
-          <path
-            d="M8 15a2.4 2.4 0 0 1 2.4-2.4h7l3.2 3.2H33.6A2.4 2.4 0 0 1 36 18.2V31a2.4 2.4 0 0 1-2.4 2.4H10.4A2.4 2.4 0 0 1 8 31z"
-            fill="#8fc4ff"
-          />
-          <path d="M8 19h28v12a2.4 2.4 0 0 1-2.4 2.4H10.4A2.4 2.4 0 0 1 8 31z" fill="#5aa7ff" />
-        </svg>
+        <img
+          src={folderIcon}
+          alt=""
+          className={`${GLYPH_CLASS} rounded-[12px] object-cover`}
+        />
       )
   }
 }
