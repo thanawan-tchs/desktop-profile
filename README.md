@@ -27,11 +27,12 @@ The desktop shell (`src/components/Desktop`) recreates the core macOS chrome:
 | **System Settings** | Pick a desktop wallpaper. |
 | **Resume.pdf / Image Viewer** | Preview the resume and other files directly on the desktop. |
 
-Everything is wired together in `DesktopScreen.jsx`, which owns window open/close state, z-index stacking (click-to-focus), and the handful of cross-app interactions (like VS Code's terminal opening a tab in Chrome).
+Everything is wired together in `DesktopScreen.tsx`, which owns window open/close state, z-index stacking (click-to-focus), and the handful of cross-app interactions (like VS Code's terminal opening a tab in Chrome).
 
 ## Tech stack
 
 - [React 19](https://react.dev/) + [Vite](https://vite.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS 4](https://tailwindcss.com/)
 - [lucide-react](https://lucide.dev/) for general-purpose icons
 - [Oxlint](https://oxc.rs/) for linting
@@ -61,6 +62,7 @@ npm run dev       # start the Vite dev server
 npm run build     # production build to dist/
 npm run preview   # preview the production build locally
 npm run lint      # run Oxlint
+npm run typecheck # run tsc --noEmit
 npm run deploy    # build and publish dist/ to GitHub Pages
 ```
 
