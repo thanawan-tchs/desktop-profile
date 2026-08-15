@@ -8,6 +8,7 @@ export const FINDER_SIDEBAR = [
     items: ['AirDrop', 'Recents', 'Applications', 'Desktop', 'Projects', 'Documents', 'Downloads'],
   },
   { label: 'iCloud', items: ['iCloud Drive'] },
+  { label: '', items: ['Trash'] },
 ]
 
 export const FINDER_SIDEBAR_ICONS = {
@@ -30,4 +31,5 @@ export const FINDER_FOLDERS = {
   AirDrop: [],
   Downloads: [],
   'iCloud Drive': [],
+  Trash: [],
 }

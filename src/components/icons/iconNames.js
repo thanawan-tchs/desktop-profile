@@ -8,6 +8,7 @@ export const ICON_NAMES = Object.freeze({
   FILE_DOCUMENT: 'file-document',
   FINDER_SIDEBAR_FOLDER: 'finder-sidebar-folder',
   FINDER_SIDEBAR_FOLDER_ACTIVE: 'finder-sidebar-folder-active',
+  FINDER_SIDEBAR_TRASH: 'finder-sidebar-trash',
   APPLE_LOGO: 'apple-logo',
   WIFI: 'wifi',
   LANGUAGE: 'language',

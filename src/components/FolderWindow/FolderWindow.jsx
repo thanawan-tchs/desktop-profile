@@ -12,6 +12,9 @@ const SidebarGlyph = ({ label, active }) => {
   if (customIcon) {
     return <img src={customIcon} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
   }
+  if (label === 'Trash') {
+    return <Icon name={ICON_NAMES.FINDER_SIDEBAR_TRASH} />
+  }
   if (active) {
     return <Icon name={ICON_NAMES.FINDER_SIDEBAR_FOLDER_ACTIVE} />
   }

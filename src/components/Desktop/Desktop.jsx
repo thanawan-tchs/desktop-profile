@@ -54,6 +54,9 @@ const Desktop = () => {
       setVscodeOpen(true)
       bringToFront('vscode')
     }
+    if (appId === 'trash') {
+      openFinder('Trash')
+    }
   }
 
   const handleDesktopItemOpen = (item) => {
