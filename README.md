@@ -4,7 +4,7 @@ A personal portfolio built as a **clone of a macOS-style desktop UI** — Dock, 
 
 **Live demo:** https://thanawan-tchs.github.io/desktop-profile/
 
-![Desktop Profile screenshot](src/assets/images/screenshot.png)
+![Desktop Profile screenshot](src/assets/images/screenshot.jpg)
 
 ## What's inside
 

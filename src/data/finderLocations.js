@@ -1,5 +1,5 @@
 import { DESKTOP_ITEMS } from './desktopItems'
-import ckadCertification from '../assets/images/ckad-certification.png'
+import ckadCertification from '../assets/images/ckad-certification.jpg'
 import { ICON_NAMES } from '../components/Common/Icons'
 
 export const FINDER_SIDEBAR = [

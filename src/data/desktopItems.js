@@ -1,4 +1,4 @@
-import screenshotImage from '../assets/images/screenshot.png'
+import screenshotImage from '../assets/images/screenshot.jpg'
 
 export const DESKTOP_ITEMS = [
   { id: 'projects', label: 'Projects', type: 'folder' },

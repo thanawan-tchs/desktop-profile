@@ -26,6 +26,9 @@ const WINDOW_APP_NAMES = {
   chrome: 'Google Chrome',
 }
 
+const WINDOW_IDS = Object.keys(WINDOW_APP_NAMES)
+const BASE_Z_INDEX = 20
+
 const DesktopScreen = () => {
   const [selectedId, setSelectedId] = useState(null)
   const [obsidianOpen, setObsidianOpen] = useState(true)
@@ -42,17 +45,10 @@ const DesktopScreen = () => {
   const [chromeOpenTabRequest, setChromeOpenTabRequest] = useState({ url: null, id: 0 })
   const [devServerRunning, setDevServerRunning] = useState(false)
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
-  const [zIndexes, setZIndexes] = useState({
-    obsidian: 20,
-    pdf: 21,
-    finder: 22,
-    image: 23,
-    vscode: 24,
-    settings: 25,
-    terminal: 26,
-    chrome: 27,
-  })
-  const [nextZIndex, setNextZIndex] = useState(28)
+  const [zIndexes, setZIndexes] = useState(() =>
+    Object.fromEntries(WINDOW_IDS.map((id, index) => [id, BASE_Z_INDEX + index])),
+  )
+  const [nextZIndex, setNextZIndex] = useState(BASE_Z_INDEX + WINDOW_IDS.length)
   const [activeApp, setActiveApp] = useState('Finder')
   const [fullscreenCount, setFullscreenCount] = useState(0)
   const [chromeVisible, setChromeVisible] = useState(false)
