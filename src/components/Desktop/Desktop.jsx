@@ -7,8 +7,9 @@ import ResumePdfWindow from '../ResumePdfWindow/ResumePdfWindow'
 import FolderWindow from '../FolderWindow/FolderWindow'
 import ImageViewerWindow from '../ImageViewerWindow/ImageViewerWindow'
 import VsCodeWindow from '../VsCodeWindow/VsCodeWindow'
+import SettingsWindow from '../SettingsWindow/SettingsWindow'
 import { DESKTOP_ITEMS } from '../../data/desktopItems'
-import wallpaper from '../../assets/images/desktopWallpaperDefault.jpg'
+import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../data/wallpapers'
 
 const WINDOW_APP_NAMES = {
   obsidian: 'Obsidian',
@@ -16,6 +17,7 @@ const WINDOW_APP_NAMES = {
   finder: 'Finder',
   image: 'Preview',
   vscode: 'Visual Studio Code',
+  settings: 'System Settings',
 }
 
 const Desktop = () => {
@@ -26,9 +28,20 @@ const Desktop = () => {
   const [finderFolder, setFinderFolder] = useState('Desktop')
   const [imageViewer, setImageViewer] = useState(null)
   const [vscodeOpen, setVscodeOpen] = useState(false)
-  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21, finder: 22, image: 23, vscode: 24 })
-  const [nextZIndex, setNextZIndex] = useState(25)
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
+  const [zIndexes, setZIndexes] = useState({
+    obsidian: 20,
+    pdf: 21,
+    finder: 22,
+    image: 23,
+    vscode: 24,
+    settings: 25,
+  })
+  const [nextZIndex, setNextZIndex] = useState(26)
   const [activeApp, setActiveApp] = useState('Finder')
+
+  const wallpaper = WALLPAPERS.find((item) => item.id === wallpaperId)?.src
 
   const bringToFront = (windowId) => {
     setZIndexes((prev) => ({ ...prev, [windowId]: nextZIndex }))
@@ -56,6 +69,10 @@ const Desktop = () => {
     }
     if (appId === 'trash') {
       openFinder('Trash')
+    }
+    if (appId === 'settings') {
+      setSettingsOpen(true)
+      bringToFront('settings')
     }
   }
 
@@ -141,6 +158,15 @@ const Desktop = () => {
           onFocus={() => bringToFront('vscode')}
         />
       )}
+      {settingsOpen && (
+        <SettingsWindow
+          onClose={() => setSettingsOpen(false)}
+          zIndex={zIndexes.settings}
+          onFocus={() => bringToFront('settings')}
+          wallpaperId={wallpaperId}
+          onSelectWallpaper={setWallpaperId}
+        />
+      )}
 
       <Dock
         onAppClick={handleDockAppClick}
@@ -148,6 +174,7 @@ const Desktop = () => {
           ...(obsidianOpen ? ['obsidian'] : []),
           ...(finderOpen ? ['finder'] : []),
           ...(vscodeOpen ? ['vscode'] : []),
+          ...(settingsOpen ? ['settings'] : []),
         ]}
       />
     </div>
