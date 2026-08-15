@@ -4,7 +4,7 @@ import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
 import Obsidian from '../../Applications/Obsidian/Obsidian'
 import ResumePdf from '../../Applications/ResumePdf/ResumePdf'
-import Folder from '../../Applications/Folder/Folder'
+import Finder from '../../Applications/Finder/Finder'
 import ImageViewer from '../../Applications/ImageViewer/ImageViewer'
 import VsCode from '../../Applications/VsCode/VsCode'
 import Settings from '../../Applications/Settings/Settings'
@@ -192,7 +192,7 @@ const DesktopScreen = () => {
           />
         )}
         {finderOpen && (
-          <Folder
+          <Finder
             folderName={finderFolder}
             onClose={() => setFinderOpen(false)}
             zIndex={zIndexes.finder}

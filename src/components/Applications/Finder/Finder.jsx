@@ -28,7 +28,7 @@ const SidebarGlyph = ({ label, active }) => {
   return <Icon name={ICON_NAMES.FOLDER_OUTLINE} />
 }
 
-const Folder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
+const Finder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
   const [location, setLocation] = useState(folderName)
   const items = FINDER_FOLDERS[location] ?? []
 
@@ -101,4 +101,4 @@ const Folder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }
   )
 }
 
-export default Folder
+export default Finder
