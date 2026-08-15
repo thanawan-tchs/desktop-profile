@@ -3,11 +3,13 @@ import claudeIcon from '../../../assets/icons/claude-ai-icon.webp'
 import vscodeIcon from '../../../assets/icons/vscode-logo.png'
 import terminalIcon from '../../../assets/icons/terminal-logo.jpeg'
 import folderIcon from '../../../assets/icons/folder-logo.png'
+import chromeIcon from '../../../assets/icons/google-chrome-logo.svg'
 import { Icon, ICON_NAMES } from '../../Common/Icons'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },
   { id: 'launchpad', label: 'Launchpad' },
+  { id: 'chrome', label: 'Google Chrome' },
   { id: 'settings', label: 'System Settings' },
   { id: 'notes', label: 'Notes' },
   { id: 'obsidian', label: 'Obsidian' },
@@ -36,6 +38,14 @@ const DockGlyph = ({ id }) => {
       return <Icon name={ICON_NAMES.DOCK_TRASH} className={GLYPH_CLASS} />
     case 'obsidian':
       return <Icon name={ICON_NAMES.DOCK_OBSIDIAN} className={GLYPH_CLASS} />
+    case 'chrome':
+      return (
+        <img
+          src={chromeIcon}
+          alt=""
+          className={`${GLYPH_CLASS} rounded-[12px] bg-white `}
+        />
+      )
     case 'claude':
       return (
         <img
