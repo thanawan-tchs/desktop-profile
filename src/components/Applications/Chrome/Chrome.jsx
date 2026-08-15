@@ -5,40 +5,31 @@ import ChromeTabStrip from './ChromeTabStrip'
 import ChromeToolbar from './ChromeToolbar'
 import BlockedPage from './BlockedPage'
 import MockDevPreview from './MockDevPreview'
-import { DEFAULT_URL, normalizeUrl, hostnameOf, isBlockedHost, isMockDevServer } from './chromeUrl'
+import { hostnameOf, isBlockedHost, isMockDevServer } from './chromeUrl'
+import { useChromeTabs } from './useChromeTabs'
 
 const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
   const [theme, setTheme] = useState('light')
   const isLight = theme === 'light'
-  const [history, setHistory] = useState([initialUrl ?? DEFAULT_URL])
-  const [historyIndex, setHistoryIndex] = useState(0)
-  const [addressInput, setAddressInput] = useState(initialUrl ?? DEFAULT_URL)
-  const [reloadKey, setReloadKey] = useState(0)
 
-  const activeUrl = history[historyIndex]
+  const {
+    tabs,
+    activeTab,
+    activeTabId,
+    activeUrl,
+    addressInput,
+    setAddressInput,
+    setActiveTabId,
+    navigateTo,
+    goBack,
+    goForward,
+    reload,
+    openNewTab,
+    closeTab,
+  } = useChromeTabs(initialUrl, onClose)
+
   const isMock = isMockDevServer(activeUrl)
   const blocked = !isMock && isBlockedHost(activeUrl)
-
-  const navigateTo = (rawInput) => {
-    const nextUrl = normalizeUrl(rawInput)
-    setHistory((prev) => [...prev.slice(0, historyIndex + 1), nextUrl])
-    setHistoryIndex((index) => index + 1)
-    setAddressInput(nextUrl)
-  }
-
-  const goBack = () => {
-    if (historyIndex === 0) return
-    setAddressInput(history[historyIndex - 1])
-    setHistoryIndex((index) => index - 1)
-  }
-
-  const goForward = () => {
-    if (historyIndex >= history.length - 1) return
-    setAddressInput(history[historyIndex + 1])
-    setHistoryIndex((index) => index + 1)
-  }
-
-  const reload = () => setReloadKey((key) => key + 1)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -66,12 +57,19 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
       }
     >
       <div className="flex flex-1 flex-col overflow-hidden">
-        <ChromeTabStrip activeUrl={activeUrl} isLight={isLight} />
+        <ChromeTabStrip
+          tabs={tabs}
+          activeTabId={activeTabId}
+          onSelectTab={setActiveTabId}
+          onCloseTab={closeTab}
+          onNewTab={openNewTab}
+          isLight={isLight}
+        />
 
         <ChromeToolbar
           isLight={isLight}
-          canGoBack={historyIndex > 0}
-          canGoForward={historyIndex < history.length - 1}
+          canGoBack={activeTab.historyIndex > 0}
+          canGoForward={activeTab.historyIndex < activeTab.history.length - 1}
           onBack={goBack}
           onForward={goForward}
           onReload={reload}
@@ -88,7 +86,7 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
             <BlockedPage url={activeUrl} isLight={isLight} onRetry={reload} />
           ) : (
             <iframe
-              key={`${activeUrl}::${reloadKey}`}
+              key={`${activeTab.id}::${activeUrl}::${activeTab.reloadKey}`}
               src={activeUrl}
               title="webview"
               className="h-full w-full border-0 bg-white"

@@ -24,4 +24,6 @@ export const ICON_NAMES = Object.freeze({
   REFRESH: 'refresh',
   LOCK: 'lock',
   BLOCKED: 'blocked',
+  CLOSE: 'close',
+  PLUS: 'plus',
 })
