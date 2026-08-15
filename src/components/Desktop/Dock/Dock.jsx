@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
-import claudeIcon from '../../assets/icons/claude-ai-icon.webp'
-import vscodeIcon from '../../assets/icons/vscode-logo.png'
-import terminalIcon from '../../assets/icons/terminal-logo.jpeg'
-import folderIcon from '../../assets/icons/folder-logo.png'
-import { Icon, ICON_NAMES } from '../Icons'
+import claudeIcon from '../../../assets/icons/claude-ai-icon.webp'
+import vscodeIcon from '../../../assets/icons/vscode-logo.png'
+import terminalIcon from '../../../assets/icons/terminal-logo.jpeg'
+import folderIcon from '../../../assets/icons/folder-logo.png'
+import { Icon, ICON_NAMES } from '../../Icons'
 
 const DOCK_APPS = [
   { id: 'finder', label: 'Finder' },

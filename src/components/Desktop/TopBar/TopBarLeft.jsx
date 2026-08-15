@@ -1,5 +1,5 @@
-import { Icon, ICON_NAMES } from '../Icons'
-import profile from '../../data/profile.json'
+import { Icon, ICON_NAMES } from '../../Icons'
+import profile from '../../../data/profile.json'
 
 const SOCIAL_LINKS = profile.socials
 

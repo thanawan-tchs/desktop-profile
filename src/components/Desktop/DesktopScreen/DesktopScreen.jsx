@@ -2,16 +2,16 @@ import { useMemo, useState } from 'react'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
-import Obsidian from '../Applications/Obsidian/Obsidian'
-import ResumePdf from '../Applications/ResumePdf/ResumePdf'
-import Folder from '../Applications/Folder/Folder'
-import ImageViewer from '../Applications/ImageViewer/ImageViewer'
-import VsCode from '../Applications/VsCode/VsCode'
-import Settings from '../Applications/Settings/Settings'
-import Terminal from '../Applications/Terminal/Terminal'
-import { DESKTOP_ITEMS } from '../../data/desktopItems'
-import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../data/wallpapers'
-import { FullscreenContext } from '../../context/FullscreenContext'
+import Obsidian from '../../Applications/Obsidian/Obsidian'
+import ResumePdf from '../../Applications/ResumePdf/ResumePdf'
+import Folder from '../../Applications/Folder/Folder'
+import ImageViewer from '../../Applications/ImageViewer/ImageViewer'
+import VsCode from '../../Applications/VsCode/VsCode'
+import Settings from '../../Applications/Settings/Settings'
+import Terminal from '../../Applications/Terminal/Terminal'
+import { DESKTOP_ITEMS } from '../../../data/desktopItems'
+import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../../data/wallpapers'
+import { FullscreenContext } from '../../../context/FullscreenContext'
 
 const WINDOW_APP_NAMES = {
   obsidian: 'Obsidian',
@@ -23,7 +23,7 @@ const WINDOW_APP_NAMES = {
   terminal: 'Terminal',
 }
 
-const Desktop = () => {
+const DesktopScreen = () => {
   const [selectedId, setSelectedId] = useState(null)
   const [obsidianOpen, setObsidianOpen] = useState(true)
   const [pdfOpen, setPdfOpen] = useState(true)
@@ -222,4 +222,4 @@ const Desktop = () => {
   )
 }
 
-export default Desktop
+export default DesktopScreen

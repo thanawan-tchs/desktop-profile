@@ -1,6 +1,6 @@
-import folderIcon from '../../assets/icons/folder-logo.png'
-import pdfIcon from '../../assets/icons/pdf-file-format.png'
-import { Icon, ICON_NAMES } from '../Icons'
+import folderIcon from '../../../assets/icons/folder-logo.png'
+import pdfIcon from '../../../assets/icons/pdf-file-format.png'
+import { Icon, ICON_NAMES } from '../../Icons'
 
 export const ICON_GLYPH_CLASS = 'h-14 w-16 drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]'
 

@@ -1,4 +1,4 @@
-import { Icon, ICON_NAMES } from '../Icons'
+import { Icon, ICON_NAMES } from '../../Icons'
 
 const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 

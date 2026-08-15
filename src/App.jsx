@@ -1,9 +1,9 @@
-import Desktop from './components/Desktop/Desktop'
+import DesktopScreen from './components/Desktop/DesktopScreen/DesktopScreen'
 
 const App = () => {
   return (
     <div className="h-dvh w-full">
-      <Desktop />
+      <DesktopScreen />
     </div>
   )
 }
