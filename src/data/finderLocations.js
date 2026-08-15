@@ -3,9 +3,10 @@ import ckadCertification from '../assets/images/ckad-certification.png'
 import recentIcon from '../assets/icons/recent-logo.png'
 
 export const FINDER_SIDEBAR = [
+  { label: '', items: ['Recents'] },
   {
     label: 'Favorites',
-    items: ['AirDrop', 'Recents', 'Applications', 'Desktop', 'Projects', 'Documents', 'Downloads'],
+    items: ['AirDrop', 'Applications', 'Desktop', 'Projects', 'Documents', 'Downloads'],
   },
   { label: 'iCloud', items: ['iCloud Drive'] },
   { label: '', items: ['Trash'] },
@@ -17,7 +18,7 @@ export const FINDER_SIDEBAR_ICONS = {
 
 export const FINDER_FOLDERS = {
   Desktop: DESKTOP_ITEMS,
-  Projects: [],
+  Projects: [{ id: 'my-app', label: 'my-app', type: 'vscode' }],
   Documents: [
     {
       id: 'ckad-certification',
@@ -27,7 +28,7 @@ export const FINDER_FOLDERS = {
     },
   ],
   Applications: [],
-  Recents: [],
+  Recents: DESKTOP_ITEMS.filter((item) => item.id === 'resume'),
   AirDrop: [],
   Downloads: [],
   'iCloud Drive': [],

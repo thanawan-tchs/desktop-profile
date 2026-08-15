@@ -63,6 +63,9 @@ const Desktop = () => {
     if (item.type === 'pdf') {
       setPdfOpen(true)
       bringToFront('pdf')
+    } else if (item.type === 'vscode') {
+      setVscodeOpen(true)
+      bringToFront('vscode')
     } else if (item.type === 'folder') {
       openFinder(item.label)
     } else if (item.type === 'image' && item.src) {
