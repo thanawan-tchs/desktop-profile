@@ -5,10 +5,11 @@ import ChromeTabStrip from './ChromeTabStrip'
 import ChromeToolbar from './ChromeToolbar'
 import BlockedPage from './BlockedPage'
 import MockDevPreview from './MockDevPreview'
+import ConnectionRefusedPage from './ConnectionRefusedPage'
 import { hostnameOf, isBlockedHost, isMockDevServer } from './chromeUrl'
 import { useChromeTabs } from './useChromeTabs'
 
-const Chrome = ({ onClose, zIndex, onFocus, initialUrl, openTabRequest }) => {
+const Chrome = ({ onClose, zIndex, onFocus, initialUrl, openTabRequest, devServerRunning }) => {
   const [theme, setTheme] = useState('light')
   const isLight = theme === 'light'
 
@@ -91,7 +92,11 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl, openTabRequest }) => {
 
         <div className="relative flex-1 overflow-hidden">
           {isMock ? (
-            <MockDevPreview key={`${activeTab.id}::${activeTab.reloadKey}`} />
+            devServerRunning ? (
+              <MockDevPreview key={`${activeTab.id}::${activeTab.reloadKey}`} />
+            ) : (
+              <ConnectionRefusedPage url={activeUrl} isLight={isLight} onReload={reload} />
+            )
           ) : blocked ? (
             <BlockedPage url={activeUrl} isLight={isLight} onRetry={reload} />
           ) : (

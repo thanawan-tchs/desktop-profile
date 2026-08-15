@@ -11,7 +11,7 @@ const DEV_SERVER_OUTPUT = [
   '',
 ]
 
-const VsCodeTerminal = ({ isLight, onRunDev }) => {
+const VsCodeTerminal = ({ isLight, onRunDev, onStopDev }) => {
   const [lines, setLines] = useState([])
   const [input, setInput] = useState('npm run dev')
   const [running, setRunning] = useState(false)
@@ -31,10 +31,12 @@ const VsCodeTerminal = ({ isLight, onRunDev }) => {
       setLines((prev) => [...prev, { type: 'command', text: '^C' }])
       setRunning(false)
       setInput('npm run dev')
+      onStopDev?.()
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running])
 
   const handleSubmit = (event) => {

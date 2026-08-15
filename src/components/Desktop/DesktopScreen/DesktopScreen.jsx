@@ -40,6 +40,7 @@ const DesktopScreen = () => {
   const [chromeInitialUrl, setChromeInitialUrl] = useState(null)
   const [chromeInstanceId, setChromeInstanceId] = useState(0)
   const [chromeOpenTabRequest, setChromeOpenTabRequest] = useState({ url: null, id: 0 })
+  const [devServerRunning, setDevServerRunning] = useState(false)
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
   const [zIndexes, setZIndexes] = useState({
     obsidian: 20,
@@ -113,6 +114,7 @@ const DesktopScreen = () => {
   }
 
   const openMockDevServer = () => {
+    setDevServerRunning(true)
     if (chromeOpen) {
       setChromeOpenTabRequest((prev) => ({ url: MOCK_DEV_URL, id: prev.id + 1 }))
     } else {
@@ -122,6 +124,8 @@ const DesktopScreen = () => {
     }
     bringToFront('chrome')
   }
+
+  const stopMockDevServer = () => setDevServerRunning(false)
 
   const handleDesktopItemOpen = (item) => {
     if (item.type === 'pdf') {
@@ -211,6 +215,7 @@ const DesktopScreen = () => {
             zIndex={zIndexes.vscode}
             onFocus={() => bringToFront('vscode')}
             onRunDevServer={openMockDevServer}
+            onStopDevServer={stopMockDevServer}
           />
         )}
         {settingsOpen && (
@@ -234,6 +239,7 @@ const DesktopScreen = () => {
             key={chromeInstanceId}
             initialUrl={chromeInitialUrl ?? undefined}
             openTabRequest={chromeOpenTabRequest}
+            devServerRunning={devServerRunning}
             onClose={() => setChromeOpen(false)}
             zIndex={zIndexes.chrome}
             onFocus={() => bringToFront('chrome')}

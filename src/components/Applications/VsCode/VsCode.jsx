@@ -10,7 +10,7 @@ import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../../data/vs
 const MIN_TERMINAL_HEIGHT = 96
 const MAX_TERMINAL_HEIGHT = 480
 
-const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer }) => {
+const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer, onStopDevServer }) => {
   const [theme, setTheme] = useState('dark')
   const [activePath, setActivePath] = useState(DEFAULT_FILE_PATH)
   const [terminalOpen, setTerminalOpen] = useState(true)
@@ -136,7 +136,7 @@ const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer }) => {
                   }`}
                 />
                 <div className="min-h-0 flex-1">
-                  <VsCodeTerminal isLight={isLight} onRunDev={onRunDevServer} />
+                  <VsCodeTerminal isLight={isLight} onRunDev={onRunDevServer} onStopDev={onStopDevServer} />
                 </div>
               </div>
             )}
