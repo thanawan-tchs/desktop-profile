@@ -8,6 +8,7 @@ import FolderWindow from '../FolderWindow/FolderWindow'
 import ImageViewerWindow from '../ImageViewerWindow/ImageViewerWindow'
 import VsCodeWindow from '../VsCodeWindow/VsCodeWindow'
 import SettingsWindow from '../SettingsWindow/SettingsWindow'
+import TerminalWindow from '../TerminalWindow/TerminalWindow'
 import { DESKTOP_ITEMS } from '../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../data/wallpapers'
 
@@ -18,6 +19,7 @@ const WINDOW_APP_NAMES = {
   image: 'Preview',
   vscode: 'Visual Studio Code',
   settings: 'System Settings',
+  terminal: 'Terminal',
 }
 
 const Desktop = () => {
@@ -29,6 +31,7 @@ const Desktop = () => {
   const [imageViewer, setImageViewer] = useState(null)
   const [vscodeOpen, setVscodeOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [terminalOpen, setTerminalOpen] = useState(false)
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
   const [zIndexes, setZIndexes] = useState({
     obsidian: 20,
@@ -37,8 +40,9 @@ const Desktop = () => {
     image: 23,
     vscode: 24,
     settings: 25,
+    terminal: 26,
   })
-  const [nextZIndex, setNextZIndex] = useState(26)
+  const [nextZIndex, setNextZIndex] = useState(27)
   const [activeApp, setActiveApp] = useState('Finder')
 
   const wallpaper = WALLPAPERS.find((item) => item.id === wallpaperId)?.src
@@ -73,6 +77,10 @@ const Desktop = () => {
     if (appId === 'settings') {
       setSettingsOpen(true)
       bringToFront('settings')
+    }
+    if (appId === 'terminal') {
+      setTerminalOpen(true)
+      bringToFront('terminal')
     }
   }
 
@@ -167,6 +175,13 @@ const Desktop = () => {
           onSelectWallpaper={setWallpaperId}
         />
       )}
+      {terminalOpen && (
+        <TerminalWindow
+          onClose={() => setTerminalOpen(false)}
+          zIndex={zIndexes.terminal}
+          onFocus={() => bringToFront('terminal')}
+        />
+      )}
 
       <Dock
         onAppClick={handleDockAppClick}
@@ -175,6 +190,7 @@ const Desktop = () => {
           ...(finderOpen ? ['finder'] : []),
           ...(vscodeOpen ? ['vscode'] : []),
           ...(settingsOpen ? ['settings'] : []),
+          ...(terminalOpen ? ['terminal'] : []),
         ]}
       />
     </div>
