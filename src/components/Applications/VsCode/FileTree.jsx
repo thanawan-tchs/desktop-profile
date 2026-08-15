@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Icon, ICON_NAMES } from '../../Icons'
+import { Icon, ICON_NAMES } from '../../Common/Icons'
 import FileIcon from './FileIcon'
 
 const FileTree = ({ node, path = '', activePath, onSelectFile, depth = 0, isLight }) => {

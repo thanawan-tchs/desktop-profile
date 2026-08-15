@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../../Desktop/DesktopIcon/IconGlyph'
-import { Icon, ICON_NAMES } from '../../Icons'
+import { Icon, ICON_NAMES } from '../../Common/Icons'
 import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../../data/finderLocations'
 import EmptyFolder from './EmptyFolder'
 
