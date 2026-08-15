@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Icon, ICON_NAMES } from '../icons'
-import profile from '../../data/profile.json'
+import TopBarLeft from './TopBarLeft'
+import TopBarRight from './TopBarRight'
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const MONTHS = [
@@ -16,10 +16,6 @@ const formatDateTime = (date) => {
   const minutes = String(date.getMinutes()).padStart(2, '0')
   return `${weekday} ${day} ${month} ${hours}:${minutes}`
 }
-
-const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
-
-const SOCIAL_LINKS = profile.socials
 
 const TopBar = ({ activeApp = 'Finder', overlayMode = false, visible = true, onMouseEnter, onMouseLeave }) => {
   const [now, setNow] = useState(() => new Date())
@@ -39,37 +35,8 @@ const TopBar = ({ activeApp = 'Finder', overlayMode = false, visible = true, onM
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-        <div className="flex min-w-0 items-center gap-2 text-[13px] sm:gap-4 sm:text-[14px]">
-        <Icon name={ICON_NAMES.APPLE_LOGO} className="h-3.5 w-3.5" />
-        <span className="truncate font-semibold">{activeApp}</span>
-        <div className="hidden items-center gap-4 sm:flex">
-          {SOCIAL_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer hover:underline"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex shrink-0 items-center gap-2 sm:gap-3.5">
-        <Icon name={ICON_NAMES.LANGUAGE} className={`${STATUS_ICON_CLASS} hidden sm:block`} />
-        <Icon name={ICON_NAMES.WIFI} className={`${STATUS_ICON_CLASS} hidden sm:block`} />
-
-        <span className="hidden items-center gap-1 sm:flex">
-          <Icon name={ICON_NAMES.BATTERY} className={`${STATUS_ICON_CLASS} h-[13px] w-6`} />
-          <span className="text-[13.5px]">82%</span>
-        </span>
-
-        <span className="whitespace-nowrap text-[12px] tabular-nums sm:text-[13.5px]">
-          {formatDateTime(now)}
-        </span>
-      </div>
+      <TopBarLeft activeApp={activeApp} />
+      <TopBarRight dateTime={formatDateTime(now)} />
     </div>
   )
 }

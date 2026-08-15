@@ -3,7 +3,7 @@ import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../DesktopIcon/IconGlyph'
 import { Icon, ICON_NAMES } from '../icons'
 import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../data/finderLocations'
-import emptyFolderIcon from '../../assets/icons/empty-folder.webp'
+import EmptyFolder from './EmptyFolder'
 
 const GRID_ICON_CLASS = 'h-14 w-16 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
 
@@ -19,15 +19,6 @@ const SidebarGlyph = ({ label, active }) => {
     return <Icon name={ICON_NAMES.FINDER_SIDEBAR_FOLDER_ACTIVE} />
   }
   return <Icon name={ICON_NAMES.FINDER_SIDEBAR_FOLDER} />
-}
-
-const EmptyFolder = () => {
-  return (
-    <div className="flex h-full flex-col items-center justify-center gap-2 text-black/35">
-      <img src={emptyFolderIcon} alt="" className="h-14 w-14 object-contain" />
-      <span className="text-[13px]">This folder is empty</span>
-    </div>
-  )
 }
 
 const FolderWindow = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
