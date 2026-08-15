@@ -31,10 +31,11 @@ Everything is wired together in `DesktopScreen.jsx`, which owns window open/clos
 
 - [React 19](https://react.dev/) + [Vite](https://vite.dev/)
 - [Tailwind CSS 4](https://tailwindcss.com/)
+- [lucide-react](https://lucide.dev/) for general-purpose icons
 - [Oxlint](https://oxc.rs/) for linting
 - Deployed to GitHub Pages via [`gh-pages`](https://www.npmjs.com/package/gh-pages)
 
-No UI kit or icon library — window chrome, the Dock, and every icon are hand-built components (`src/components/Common/Icons` holds a small SVG icon registry).
+No general UI kit — window chrome and the Dock are hand-built components. Icons go through a small registry (`src/components/Common/Icons`) that wraps lucide-react for generic icons, while the macOS-specific bits (Dock app tiles, the Apple logo) stay hand-drawn since no icon library has those.
 
 ## Project structure
 

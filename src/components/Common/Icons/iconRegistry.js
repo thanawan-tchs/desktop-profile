@@ -5,9 +5,6 @@ import GitBranchIcon from './GitBranchIcon'
 import FileTreeFolderIcon from './FileTreeFolderIcon'
 import TextBadgeIcon from './TextBadgeIcon'
 import FileDocumentIcon from './FileDocumentIcon'
-import FinderSidebarFolderIcon from './FinderSidebarFolderIcon'
-import FinderSidebarFolderActiveIcon from './FinderSidebarFolderActiveIcon'
-import FinderSidebarTrashIcon from './FinderSidebarTrashIcon'
 import AppleLogoIcon from './AppleLogoIcon'
 import WifiIcon from './WifiIcon'
 import LanguageIcon from './LanguageIcon'
@@ -43,9 +40,6 @@ export const ICON_REGISTRY = {
   [ICON_NAMES.FILE_TREE_FOLDER]: FileTreeFolderIcon,
   [ICON_NAMES.TEXT_BADGE]: TextBadgeIcon,
   [ICON_NAMES.FILE_DOCUMENT]: FileDocumentIcon,
-  [ICON_NAMES.FINDER_SIDEBAR_FOLDER]: FinderSidebarFolderIcon,
-  [ICON_NAMES.FINDER_SIDEBAR_FOLDER_ACTIVE]: FinderSidebarFolderActiveIcon,
-  [ICON_NAMES.FINDER_SIDEBAR_TRASH]: FinderSidebarTrashIcon,
   [ICON_NAMES.APPLE_LOGO]: AppleLogoIcon,
   [ICON_NAMES.WIFI]: WifiIcon,
   [ICON_NAMES.LANGUAGE]: LanguageIcon,
