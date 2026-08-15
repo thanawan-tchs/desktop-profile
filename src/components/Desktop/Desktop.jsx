@@ -4,23 +4,20 @@ import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
 import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
 import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
+import FolderWindow from '../FolderWindow/FolderWindow'
+import { DESKTOP_ITEMS } from '../../data/desktopItems'
 import wallpaper from '../../assets/images/desktopWallpaperDefault.jpg'
 
-const DESKTOP_ITEMS = [
-  { id: 'projects', label: 'Projects', type: 'folder' },
-  { id: 'documents', label: 'Documents', type: 'folder' },
-  { id: 'screenshot', label: 'Screenshot.png', type: 'image' },
-  { id: 'resume', label: 'Resume.pdf', type: 'pdf' },
-]
-
-const WINDOW_APP_NAMES = { obsidian: 'Obsidian', pdf: 'Finder' }
+const WINDOW_APP_NAMES = { obsidian: 'Obsidian', pdf: 'Finder', finder: 'Finder' }
 
 function Desktop() {
   const [selectedId, setSelectedId] = useState(null)
   const [obsidianOpen, setObsidianOpen] = useState(true)
   const [pdfOpen, setPdfOpen] = useState(true)
-  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21 })
-  const [nextZIndex, setNextZIndex] = useState(22)
+  const [finderOpen, setFinderOpen] = useState(false)
+  const [finderFolder, setFinderFolder] = useState('Desktop')
+  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21, finder: 22 })
+  const [nextZIndex, setNextZIndex] = useState(23)
   const [activeApp, setActiveApp] = useState('Finder')
 
   const bringToFront = (windowId) => {
@@ -29,10 +26,28 @@ function Desktop() {
     setActiveApp(WINDOW_APP_NAMES[windowId] ?? 'Finder')
   }
 
+  const openFinder = (folderLabel) => {
+    setFinderFolder(folderLabel)
+    setFinderOpen(true)
+    bringToFront('finder')
+  }
+
   const handleDockAppClick = (appId) => {
     if (appId === 'obsidian') {
       setObsidianOpen(true)
       bringToFront('obsidian')
+    }
+    if (appId === 'finder' || appId === 'folder') {
+      openFinder('Desktop')
+    }
+  }
+
+  const handleDesktopItemOpen = (item) => {
+    if (item.type === 'pdf') {
+      setPdfOpen(true)
+      bringToFront('pdf')
+    } else if (item.type === 'folder') {
+      openFinder(item.label)
     }
   }
 
@@ -57,10 +72,7 @@ function Desktop() {
             onSelect={(event) => {
               event.stopPropagation()
               setSelectedId(item.id)
-              if (item.type === 'pdf') {
-                setPdfOpen(true)
-                bringToFront('pdf')
-              }
+              handleDesktopItemOpen(item)
             }}
           />
         ))}
@@ -80,10 +92,22 @@ function Desktop() {
           onFocus={() => bringToFront('pdf')}
         />
       )}
+      {finderOpen && (
+        <FolderWindow
+          folderName={finderFolder}
+          onClose={() => setFinderOpen(false)}
+          zIndex={zIndexes.finder}
+          onFocus={() => bringToFront('finder')}
+          onOpenItem={handleDesktopItemOpen}
+        />
+      )}
 
       <Dock
         onAppClick={handleDockAppClick}
-        extraRunningIds={obsidianOpen ? ['obsidian'] : []}
+        extraRunningIds={[
+          ...(obsidianOpen ? ['obsidian'] : []),
+          ...(finderOpen ? ['finder'] : []),
+        ]}
       />
     </div>
   )
