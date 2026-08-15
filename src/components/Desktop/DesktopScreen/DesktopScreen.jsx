@@ -10,6 +10,7 @@ import VsCode from '../../Applications/VsCode/VsCode'
 import Settings from '../../Applications/Settings/Settings'
 import Terminal from '../../Applications/Terminal/Terminal'
 import Chrome from '../../Applications/Chrome/Chrome'
+import { MOCK_DEV_URL } from '../../Applications/Chrome/chromeUrl'
 import { DESKTOP_ITEMS } from '../../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../../data/wallpapers'
 import { FullscreenContext } from '../../../context/FullscreenContext'
@@ -36,6 +37,8 @@ const DesktopScreen = () => {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [terminalOpen, setTerminalOpen] = useState(false)
   const [chromeOpen, setChromeOpen] = useState(false)
+  const [chromeInitialUrl, setChromeInitialUrl] = useState(null)
+  const [chromeInstanceId, setChromeInstanceId] = useState(0)
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
   const [zIndexes, setZIndexes] = useState({
     obsidian: 20,
@@ -102,9 +105,17 @@ const DesktopScreen = () => {
       bringToFront('terminal')
     }
     if (appId === 'chrome') {
+      setChromeInitialUrl(null)
       setChromeOpen(true)
       bringToFront('chrome')
     }
+  }
+
+  const openMockDevServer = () => {
+    setChromeInitialUrl(MOCK_DEV_URL)
+    setChromeInstanceId((id) => id + 1)
+    setChromeOpen(true)
+    bringToFront('chrome')
   }
 
   const handleDesktopItemOpen = (item) => {
@@ -194,6 +205,7 @@ const DesktopScreen = () => {
             onClose={() => setVscodeOpen(false)}
             zIndex={zIndexes.vscode}
             onFocus={() => bringToFront('vscode')}
+            onRunDevServer={openMockDevServer}
           />
         )}
         {settingsOpen && (
@@ -214,6 +226,8 @@ const DesktopScreen = () => {
         )}
         {chromeOpen && (
           <Chrome
+            key={chromeInstanceId}
+            initialUrl={chromeInitialUrl ?? undefined}
             onClose={() => setChromeOpen(false)}
             zIndex={zIndexes.chrome}
             onFocus={() => bringToFront('chrome')}

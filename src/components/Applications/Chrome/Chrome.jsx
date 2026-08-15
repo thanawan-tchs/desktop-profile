@@ -4,18 +4,20 @@ import ThemeToggleButton from '../../Common/ThemeToggleButton/ThemeToggleButton'
 import ChromeTabStrip from './ChromeTabStrip'
 import ChromeToolbar from './ChromeToolbar'
 import BlockedPage from './BlockedPage'
-import { DEFAULT_URL, normalizeUrl, hostnameOf, isBlockedHost } from './chromeUrl'
+import MockDevPreview from './MockDevPreview'
+import { DEFAULT_URL, normalizeUrl, hostnameOf, isBlockedHost, isMockDevServer } from './chromeUrl'
 
-const Chrome = ({ onClose, zIndex, onFocus }) => {
+const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
   const [theme, setTheme] = useState('light')
   const isLight = theme === 'light'
-  const [history, setHistory] = useState([DEFAULT_URL])
+  const [history, setHistory] = useState([initialUrl ?? DEFAULT_URL])
   const [historyIndex, setHistoryIndex] = useState(0)
-  const [addressInput, setAddressInput] = useState(DEFAULT_URL)
+  const [addressInput, setAddressInput] = useState(initialUrl ?? DEFAULT_URL)
   const [reloadKey, setReloadKey] = useState(0)
 
   const activeUrl = history[historyIndex]
-  const blocked = isBlockedHost(activeUrl)
+  const isMock = isMockDevServer(activeUrl)
+  const blocked = !isMock && isBlockedHost(activeUrl)
 
   const navigateTo = (rawInput) => {
     const nextUrl = normalizeUrl(rawInput)
@@ -76,10 +78,13 @@ const Chrome = ({ onClose, zIndex, onFocus }) => {
           addressInput={addressInput}
           onAddressChange={(event) => setAddressInput(event.target.value)}
           onSubmit={handleSubmit}
+          secure={activeUrl.startsWith('https://')}
         />
 
         <div className="relative flex-1 overflow-hidden">
-          {blocked ? (
+          {isMock ? (
+            <MockDevPreview />
+          ) : blocked ? (
             <BlockedPage url={activeUrl} isLight={isLight} onRetry={reload} />
           ) : (
             <iframe

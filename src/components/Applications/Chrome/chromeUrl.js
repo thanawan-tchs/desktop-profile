@@ -1,5 +1,9 @@
 export const DEFAULT_URL = 'https://react.dev/'
 
+// Address the VS Code integrated terminal "opens" after `npm run dev` — rendered
+// as a live preview of the mock project's App.jsx instead of a real network request.
+export const MOCK_DEV_URL = 'http://localhost:5173/'
+
 // Sites known to send X-Frame-Options / CSP frame-ancestors headers that block
 // embedding entirely — the iframe would just stay blank, so we short-circuit
 // to a friendlier explanation instead.
@@ -29,6 +33,7 @@ export const normalizeUrl = (input) => {
 }
 
 export const hostnameOf = (url) => {
+  if (url === MOCK_DEV_URL) return 'My App'
   try {
     return new URL(url).hostname.replace(/^www\./, '')
   } catch {
@@ -44,3 +49,5 @@ export const isBlockedHost = (url) => {
     return false
   }
 }
+
+export const isMockDevServer = (url) => url === MOCK_DEV_URL

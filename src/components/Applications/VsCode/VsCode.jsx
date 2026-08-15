@@ -3,17 +3,46 @@ import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../../Common/ThemeToggleButton/ThemeToggleButton'
 import { Icon, ICON_NAMES } from '../../Common/Icons'
 import FileTree from './FileTree'
+import VsCodeTerminal from './VsCodeTerminal'
 import { tokenizeLine, TOKEN_COLORS } from './codeHighlight'
 import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../../data/vscodeProject'
 
-const VsCode = ({ onClose, zIndex, onFocus }) => {
+const MIN_TERMINAL_HEIGHT = 96
+const MAX_TERMINAL_HEIGHT = 480
+
+const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer }) => {
   const [theme, setTheme] = useState('dark')
   const [activePath, setActivePath] = useState(DEFAULT_FILE_PATH)
+  const [terminalOpen, setTerminalOpen] = useState(true)
+  const [terminalHeight, setTerminalHeight] = useState(160)
   const isLight = theme === 'light'
   const colors = TOKEN_COLORS[theme]
 
   const activeFile = FILES_BY_PATH[activePath]
   const lines = activeFile.content.replace(/\n$/, '').split('\n')
+
+  const handleTerminalResizePointerDown = (event) => {
+    event.preventDefault()
+    const el = event.currentTarget
+    el.setPointerCapture(event.pointerId)
+    const startY = event.clientY
+    const startHeight = terminalHeight
+
+    const handleMove = (moveEvent) => {
+      const dy = moveEvent.clientY - startY
+      const nextHeight = Math.min(MAX_TERMINAL_HEIGHT, Math.max(MIN_TERMINAL_HEIGHT, startHeight - dy))
+      setTerminalHeight(nextHeight)
+    }
+
+    const handleUp = (upEvent) => {
+      el.releasePointerCapture(upEvent.pointerId)
+      window.removeEventListener('pointermove', handleMove)
+      window.removeEventListener('pointerup', handleUp)
+    }
+
+    window.addEventListener('pointermove', handleMove)
+    window.addEventListener('pointerup', handleUp)
+  }
 
   return (
     <FloatingWindow
@@ -97,6 +126,20 @@ const VsCode = ({ onClose, zIndex, onFocus }) => {
                 </div>
               ))}
             </div>
+
+            {terminalOpen && (
+              <div className="flex shrink-0 flex-col" style={{ height: terminalHeight }}>
+                <div
+                  onPointerDown={handleTerminalResizePointerDown}
+                  className={`h-1 shrink-0 cursor-ns-resize touch-none ${
+                    isLight ? 'bg-black/10 hover:bg-black/20' : 'bg-black/50 hover:bg-white/20'
+                  }`}
+                />
+                <div className="min-h-0 flex-1">
+                  <VsCodeTerminal isLight={isLight} onRunDev={onRunDevServer} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -106,6 +149,13 @@ const VsCode = ({ onClose, zIndex, onFocus }) => {
               <Icon name={ICON_NAMES.GIT_BRANCH} />
               main
             </span>
+            <button
+              type="button"
+              onClick={() => setTerminalOpen((prev) => !prev)}
+              className="rounded px-1 hover:bg-white/10"
+            >
+              Terminal
+            </button>
           </div>
           <span>{activeFile.language.toUpperCase()}</span>
         </div>
