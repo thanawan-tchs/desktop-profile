@@ -18,6 +18,11 @@ import DockNotesIcon from './DockNotesIcon'
 import DockSettingsIcon from './DockSettingsIcon'
 import DockTrashIcon from './DockTrashIcon'
 import DockObsidianIcon from './DockObsidianIcon'
+import ArrowLeftIcon from './ArrowLeftIcon'
+import ArrowRightIcon from './ArrowRightIcon'
+import RefreshIcon from './RefreshIcon'
+import LockIcon from './LockIcon'
+import BlockedIcon from './BlockedIcon'
 import { ICON_NAMES } from './iconNames'
 
 export const ICON_REGISTRY = {
@@ -41,4 +46,9 @@ export const ICON_REGISTRY = {
   [ICON_NAMES.DOCK_SETTINGS]: DockSettingsIcon,
   [ICON_NAMES.DOCK_TRASH]: DockTrashIcon,
   [ICON_NAMES.DOCK_OBSIDIAN]: DockObsidianIcon,
+  [ICON_NAMES.ARROW_LEFT]: ArrowLeftIcon,
+  [ICON_NAMES.ARROW_RIGHT]: ArrowRightIcon,
+  [ICON_NAMES.REFRESH]: RefreshIcon,
+  [ICON_NAMES.LOCK]: LockIcon,
+  [ICON_NAMES.BLOCKED]: BlockedIcon,
 }

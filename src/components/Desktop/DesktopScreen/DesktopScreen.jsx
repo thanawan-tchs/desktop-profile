@@ -9,6 +9,7 @@ import ImageViewer from '../../Applications/ImageViewer/ImageViewer'
 import VsCode from '../../Applications/VsCode/VsCode'
 import Settings from '../../Applications/Settings/Settings'
 import Terminal from '../../Applications/Terminal/Terminal'
+import Chrome from '../../Applications/Chrome/Chrome'
 import { DESKTOP_ITEMS } from '../../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../../data/wallpapers'
 import { FullscreenContext } from '../../../context/FullscreenContext'
@@ -21,6 +22,7 @@ const WINDOW_APP_NAMES = {
   vscode: 'Visual Studio Code',
   settings: 'System Settings',
   terminal: 'Terminal',
+  chrome: 'Google Chrome',
 }
 
 const DesktopScreen = () => {
@@ -33,6 +35,7 @@ const DesktopScreen = () => {
   const [vscodeOpen, setVscodeOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [terminalOpen, setTerminalOpen] = useState(false)
+  const [chromeOpen, setChromeOpen] = useState(false)
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
   const [zIndexes, setZIndexes] = useState({
     obsidian: 20,
@@ -42,8 +45,9 @@ const DesktopScreen = () => {
     vscode: 24,
     settings: 25,
     terminal: 26,
+    chrome: 27,
   })
-  const [nextZIndex, setNextZIndex] = useState(27)
+  const [nextZIndex, setNextZIndex] = useState(28)
   const [activeApp, setActiveApp] = useState('Finder')
   const [fullscreenCount, setFullscreenCount] = useState(0)
   const [chromeVisible, setChromeVisible] = useState(false)
@@ -96,6 +100,10 @@ const DesktopScreen = () => {
     if (appId === 'terminal') {
       setTerminalOpen(true)
       bringToFront('terminal')
+    }
+    if (appId === 'chrome') {
+      setChromeOpen(true)
+      bringToFront('chrome')
     }
   }
 
@@ -204,6 +212,13 @@ const DesktopScreen = () => {
             onFocus={() => bringToFront('terminal')}
           />
         )}
+        {chromeOpen && (
+          <Chrome
+            onClose={() => setChromeOpen(false)}
+            zIndex={zIndexes.chrome}
+            onFocus={() => bringToFront('chrome')}
+          />
+        )}
 
         {!isAnyFullscreen && (
           <Dock
@@ -214,6 +229,7 @@ const DesktopScreen = () => {
               ...(vscodeOpen ? ['vscode'] : []),
               ...(settingsOpen ? ['settings'] : []),
               ...(terminalOpen ? ['terminal'] : []),
+              ...(chromeOpen ? ['chrome'] : []),
             ]}
           />
         )}

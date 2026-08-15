@@ -19,4 +19,9 @@ export const ICON_NAMES = Object.freeze({
   DOCK_SETTINGS: 'dock-settings',
   DOCK_TRASH: 'dock-trash',
   DOCK_OBSIDIAN: 'dock-obsidian',
+  ARROW_LEFT: 'arrow-left',
+  ARROW_RIGHT: 'arrow-right',
+  REFRESH: 'refresh',
+  LOCK: 'lock',
+  BLOCKED: 'blocked',
 })
