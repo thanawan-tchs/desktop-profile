@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../../Common/ThemeToggleButton/ThemeToggleButton'
+import { usePanelResize } from '../../Common/usePanelResize'
 import { VAULT } from '../../../data/obsidianData'
 import { renderMarkdown } from './markdown'
 import NoteList from './NoteList'
@@ -10,6 +11,13 @@ const Obsidian = ({ onClose, zIndex, onFocus }) => {
   const [selectedId, setSelectedId] = useState(VAULT[0].children[0].id)
   const [theme, setTheme] = useState('light')
   const isLight = theme === 'light'
+
+  const { size: sidebarWidth, handleResizePointerDown: handleSidebarResizeStart } = usePanelResize({
+    axis: 'width',
+    initialSize: 176,
+    minSize: 140,
+    maxSize: 320,
+  })
 
   const toggleTopic = (id) => {
     setExpandedIds((prev) => {
@@ -41,20 +49,28 @@ const Obsidian = ({ onClose, zIndex, onFocus }) => {
         />
       }
     >
-      <nav
-        className={`w-44 shrink-0 overflow-y-auto border-r p-2 text-[13px] ${
-          isLight ? 'border-black/10 bg-[#f7f7f7]' : 'border-black/40 bg-[#181818]'
-        }`}
-      >
-        <NoteList
-          topics={VAULT}
-          expandedIds={expandedIds}
-          onToggleTopic={toggleTopic}
-          selectedId={selectedId}
-          onSelectNote={setSelectedId}
-          isLight={isLight}
+      <div className="flex shrink-0" style={{ width: sidebarWidth }}>
+        <nav
+          className={`min-w-0 flex-1 overflow-y-auto p-2 text-[13px] ${
+            isLight ? 'bg-[#f7f7f7]' : 'bg-[#181818]'
+          }`}
+        >
+          <NoteList
+            topics={VAULT}
+            expandedIds={expandedIds}
+            onToggleTopic={toggleTopic}
+            selectedId={selectedId}
+            onSelectNote={setSelectedId}
+            isLight={isLight}
+          />
+        </nav>
+        <div
+          onPointerDown={handleSidebarResizeStart}
+          className={`w-0.5 shrink-0 cursor-ew-resize touch-none ${
+            isLight ? 'bg-black/10 hover:bg-black/20' : 'bg-black/50 hover:bg-white/20'
+          }`}
         />
-      </nav>
+      </div>
 
       <div
         className={`flex-1 overflow-y-auto px-8 py-6 text-[15px] ${

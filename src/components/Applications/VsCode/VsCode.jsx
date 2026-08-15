@@ -5,7 +5,7 @@ import VsCodeSidebar from './VsCodeSidebar'
 import VsCodeEditor from './VsCodeEditor'
 import VsCodeTerminalPanel from './VsCodeTerminalPanel'
 import VsCodeStatusBar from './VsCodeStatusBar'
-import { useTerminalResize } from './useTerminalResize'
+import { usePanelResize } from '../../Common/usePanelResize'
 import { TOKEN_COLORS } from './codeHighlight'
 import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../../data/vscodeProject'
 
@@ -15,10 +15,19 @@ const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer, onStopDevServer }) =
   const [terminalOpen, setTerminalOpen] = useState(true)
   const isLight = theme === 'light'
 
-  const { height: terminalHeight, handleResizePointerDown } = useTerminalResize({
-    initialHeight: 160,
-    minHeight: 96,
-    maxHeight: 480,
+  const { size: terminalHeight, handleResizePointerDown: handleTerminalResizeStart } = usePanelResize({
+    axis: 'height',
+    initialSize: 160,
+    minSize: 96,
+    maxSize: 480,
+    invert: true,
+  })
+
+  const { size: sidebarWidth, handleResizePointerDown: handleSidebarResizeStart } = usePanelResize({
+    axis: 'width',
+    initialSize: 192,
+    minSize: 140,
+    maxSize: 360,
   })
 
   const activeFile = FILES_BY_PATH[activePath]
@@ -51,6 +60,8 @@ const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer, onStopDevServer }) =
             activePath={activePath}
             onSelectFile={setActivePath}
             isLight={isLight}
+            width={sidebarWidth}
+            onResizeStart={handleSidebarResizeStart}
           />
 
           <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
@@ -64,7 +75,7 @@ const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer, onStopDevServer }) =
             {terminalOpen && (
               <VsCodeTerminalPanel
                 height={terminalHeight}
-                onResizeStart={handleResizePointerDown}
+                onResizeStart={handleTerminalResizeStart}
                 isLight={isLight}
                 onRunDev={onRunDevServer}
                 onStopDev={onStopDevServer}

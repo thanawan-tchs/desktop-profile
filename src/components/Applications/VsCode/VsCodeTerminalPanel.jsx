@@ -4,7 +4,7 @@ const VsCodeTerminalPanel = ({ height, onResizeStart, isLight, onRunDev, onStopD
   <div className="flex shrink-0 flex-col" style={{ height }}>
     <div
       onPointerDown={onResizeStart}
-      className={`h-1 shrink-0 cursor-ns-resize touch-none ${
+      className={`h-0.5 shrink-0 cursor-ns-resize touch-none ${
         isLight ? 'bg-black/10 hover:bg-black/20' : 'bg-black/50 hover:bg-white/20'
       }`}
     />
