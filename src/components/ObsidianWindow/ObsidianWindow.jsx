@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
-import ThemeToggleButton from '../../ThemeToggleButton/ThemeToggleButton'
-import { Icon, ICON_NAMES } from '../../Icons'
+import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton'
+import { Icon, ICON_NAMES } from '../Icons'
 import { VAULT } from './vaultData'
 import { renderMarkdown } from './markdown'
 
-const Obsidian = ({ onClose, zIndex, onFocus }) => {
+const ObsidianWindow = ({ onClose, zIndex, onFocus }) => {
   const [expandedIds, setExpandedIds] = useState(() => new Set(VAULT.map((topic) => topic.id)))
   const [selectedId, setSelectedId] = useState(VAULT[0].children[0].id)
   const [theme, setTheme] = useState('light')
@@ -110,4 +110,4 @@ const Obsidian = ({ onClose, zIndex, onFocus }) => {
   )
 }
 
-export default Obsidian
+export default ObsidianWindow

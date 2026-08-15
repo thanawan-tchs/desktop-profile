@@ -1,4 +1,4 @@
-import { Icon, ICON_NAMES } from '../icons'
+import { Icon, ICON_NAMES } from '../Icons'
 
 const ThemeToggleButton = ({ theme, onToggle }) => {
   const isLight = theme === 'light'

@@ -1,4 +1,4 @@
-import { Icon, ICON_NAMES } from '../icons'
+import { Icon, ICON_NAMES } from '../Icons'
 import profile from '../../data/profile.json'
 
 const SOCIAL_LINKS = profile.socials
