@@ -1,4 +1,4 @@
-function FileDocumentIcon({ className }) {
+const FileDocumentIcon = ({ className }) => {
   return (
     <svg viewBox="0 0 44 52" className={className} aria-hidden="true">
       <path

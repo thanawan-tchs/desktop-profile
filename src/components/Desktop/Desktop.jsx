@@ -18,7 +18,7 @@ const WINDOW_APP_NAMES = {
   vscode: 'Visual Studio Code',
 }
 
-function Desktop() {
+const Desktop = () => {
   const [selectedId, setSelectedId] = useState(null)
   const [obsidianOpen, setObsidianOpen] = useState(true)
   const [pdfOpen, setPdfOpen] = useState(true)

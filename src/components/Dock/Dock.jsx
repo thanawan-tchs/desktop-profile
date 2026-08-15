@@ -29,7 +29,7 @@ const RUNNING_APPS = new Set(['finder', 'safari', 'notes'])
 
 const GLYPH_CLASS = 'block h-full w-full drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)]'
 
-function DockGlyph({ id }) {
+const DockGlyph = ({ id }) => {
   switch (id) {
     case 'finder':
       return <DockFinderIcon className={GLYPH_CLASS} />
@@ -82,7 +82,7 @@ function DockGlyph({ id }) {
 const MAGNIFY_RADIUS = 90
 const MAX_SCALE = 1.7
 
-function Dock({ onAppClick, extraRunningIds = [] }) {
+const Dock = ({ onAppClick, extraRunningIds = [] }) => {
   const dockRef = useRef(null)
   const [hoverX, setHoverX] = useState(null)
 

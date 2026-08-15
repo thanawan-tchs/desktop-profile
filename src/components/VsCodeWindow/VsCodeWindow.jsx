@@ -6,7 +6,7 @@ import FileTree from './FileTree'
 import { tokenizeLine, TOKEN_COLORS } from './codeHighlight'
 import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../data/vscodeProject'
 
-function VsCodeWindow({ onClose, zIndex, onFocus }) {
+const VsCodeWindow = ({ onClose, zIndex, onFocus }) => {
   const [theme, setTheme] = useState('dark')
   const [activePath, setActivePath] = useState(DEFAULT_FILE_PATH)
   const isLight = theme === 'light'

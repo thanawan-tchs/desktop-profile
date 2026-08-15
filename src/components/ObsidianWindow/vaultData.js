@@ -2,7 +2,7 @@ import profile from '../../data/profile.json'
 
 const { person, about, skillGroups, experience, certifications, languages } = profile
 
-function renderExperienceMarkdown(jobs) {
+const renderExperienceMarkdown = (jobs) => {
   return jobs
     .map((job) => {
       const parts = [`# ${job.role} — ${job.company}`, `**${job.period}**`]

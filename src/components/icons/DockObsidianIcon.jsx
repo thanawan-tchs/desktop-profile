@@ -1,4 +1,4 @@
-function DockObsidianIcon({ className }) {
+const DockObsidianIcon = ({ className }) => {
   return (
     <svg viewBox="0 0 44 44" className={className} aria-hidden="true">
       <rect width="44" height="44" rx="11" fill="#2b2b31" />

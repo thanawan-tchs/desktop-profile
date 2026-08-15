@@ -8,21 +8,21 @@ const KEYWORDS = new Set([
 const TOKEN_PATTERN =
   /\/\/.*|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`|<\/?[A-Za-z][\w.-]*>?|\/>|\b\d+(?:\.\d+)?\b/g
 
-function classify(text) {
+const classify = (text) => {
   if (text.startsWith('//')) return 'comment'
   if (text[0] === '"' || text[0] === "'" || text[0] === '`') return 'string'
   if (text[0] === '<' || text === '/>') return 'tag'
   return 'number'
 }
 
-function tokenizePlain(text) {
+const tokenizePlain = (text) => {
   return text
     .split(/(\b[A-Za-z_$][\w$]*\b)/)
     .filter(Boolean)
     .map((part) => ({ text: part, type: KEYWORDS.has(part) ? 'keyword' : 'plain' }))
 }
 
-export function tokenizeLine(line) {
+export const tokenizeLine = (line) => {
   const tokens = []
   let lastIndex = 0
   let match

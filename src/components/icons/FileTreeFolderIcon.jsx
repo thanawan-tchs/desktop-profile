@@ -1,4 +1,4 @@
-function FileTreeFolderIcon({ isLight, className = 'h-3 w-3.5' }) {
+const FileTreeFolderIcon = ({ isLight, className = 'h-3 w-3.5' }) => {
   return (
     <svg viewBox="0 0 16 14" className={`${className} shrink-0`} aria-hidden="true">
       <path

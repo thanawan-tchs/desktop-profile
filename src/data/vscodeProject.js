@@ -125,7 +125,7 @@ export default defineConfig({
   ],
 }
 
-function collectFiles(node, path, acc) {
+const collectFiles = (node, path, acc) => {
   const fullPath = path ? `${path}/${node.name}` : node.name
   if (node.type === 'file') {
     acc[fullPath] = { ...node, path: fullPath }

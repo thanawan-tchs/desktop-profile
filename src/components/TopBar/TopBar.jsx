@@ -8,7 +8,7 @@ const MONTHS = [
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ]
 
-function formatDateTime(date) {
+const formatDateTime = (date) => {
   const weekday = WEEKDAYS[date.getDay()]
   const day = date.getDate()
   const month = MONTHS[date.getMonth()]
@@ -21,7 +21,7 @@ const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 
 const SOCIAL_LINKS = profile.socials
 
-function TopBar({ activeApp = 'Finder' }) {
+const TopBar = ({ activeApp = 'Finder' }) => {
   const [now, setNow] = useState(() => new Date())
 
   useEffect(() => {

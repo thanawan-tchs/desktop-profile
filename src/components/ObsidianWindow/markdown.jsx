@@ -1,6 +1,6 @@
 const LINK_PATTERN = /\[[^\]]+\]\([^)]+\)/
 
-function renderInline(text, keyPrefix, theme) {
+const renderInline = (text, keyPrefix, theme) => {
   const codeClass =
     theme === 'light'
       ? 'rounded bg-black/[0.06] px-1 py-0.5 text-[0.85em]'
@@ -41,7 +41,7 @@ function renderInline(text, keyPrefix, theme) {
   })
 }
 
-export function renderMarkdown(markdown, theme = 'dark') {
+export const renderMarkdown = (markdown, theme = 'dark') => {
   const headingClass = theme === 'light' ? 'text-[#1a1a1a]' : 'text-white'
   const lines = markdown.trim().split('\n')
   const blocks = []

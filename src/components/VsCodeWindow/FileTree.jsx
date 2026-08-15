@@ -22,12 +22,12 @@ const EXTENSION_BADGES = {
   css: { label: '#', color: '#4fc3f7', fontSize: 12 },
 }
 
-function extensionOf(name) {
+const extensionOf = (name) => {
   const parts = name.split('.')
   return parts.length > 1 ? parts[parts.length - 1] : ''
 }
 
-function FileIcon({ name }) {
+const FileIcon = ({ name }) => {
   const ext = extensionOf(name)
   const badge = EXTENSION_BADGES[ext]
   if (badge) {
@@ -60,7 +60,7 @@ function FileIcon({ name }) {
   )
 }
 
-function FileTree({ node, path = '', activePath, onSelectFile, depth = 0, isLight }) {
+const FileTree = ({ node, path = '', activePath, onSelectFile, depth = 0, isLight }) => {
   const [expanded, setExpanded] = useState(true)
   const fullPath = path ? `${path}/${node.name}` : node.name
 

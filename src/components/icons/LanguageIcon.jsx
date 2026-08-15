@@ -1,4 +1,4 @@
-function LanguageIcon({ className = 'h-[17px] w-[17px]' }) {
+const LanguageIcon = ({ className = 'h-[17px] w-[17px]' }) => {
   return (
     <svg className={className} viewBox="0 0 20 20" role="img" aria-label="Language">
       <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1.4" />

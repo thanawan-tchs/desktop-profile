@@ -3,7 +3,7 @@ import profile from '../../data/profile.json'
 
 const { person, resumeSkills, experience, certifications } = profile
 
-function PdfViewerWindow({ onClose, zIndex, onFocus }) {
+const PdfViewerWindow = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title="Resume.pdf"

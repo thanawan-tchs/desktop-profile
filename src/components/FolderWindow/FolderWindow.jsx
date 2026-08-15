@@ -7,7 +7,7 @@ import emptyFolderIcon from '../../assets/icons/empty-folder.webp'
 
 const GRID_ICON_CLASS = 'h-14 w-16 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
 
-function SidebarGlyph({ label, active }) {
+const SidebarGlyph = ({ label, active }) => {
   const customIcon = FINDER_SIDEBAR_ICONS[label]
   if (customIcon) {
     return <img src={customIcon} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
@@ -18,7 +18,7 @@ function SidebarGlyph({ label, active }) {
   return <FinderSidebarFolderIcon />
 }
 
-function EmptyFolder() {
+const EmptyFolder = () => {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2 text-black/35">
       <img src={emptyFolderIcon} alt="" className="h-14 w-14 object-contain" />
@@ -27,7 +27,7 @@ function EmptyFolder() {
   )
 }
 
-function FolderWindow({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) {
+const FolderWindow = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
   const [location, setLocation] = useState(folderName)
   const items = FINDER_FOLDERS[location] ?? []
 

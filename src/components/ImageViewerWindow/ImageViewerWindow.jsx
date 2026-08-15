@@ -1,6 +1,6 @@
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 
-function ImageViewerWindow({ onClose, zIndex, onFocus, src, title = 'Preview' }) {
+const ImageViewerWindow = ({ onClose, zIndex, onFocus, src, title = 'Preview' }) => {
   return (
     <FloatingWindow
       title={title}

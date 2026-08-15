@@ -1,6 +1,6 @@
 import appleIcon from '../../assets/icons/appleIcon.webp'
 
-function AppleLogoIcon({ className = 'h-3.5 w-3.5' }) {
+const AppleLogoIcon = ({ className = 'h-3.5 w-3.5' }) => {
   return (
     <svg viewBox="0 0 2000 2200" className={`${className} shrink-0`} aria-hidden="true">
       <mask id="apple-icon-mask">

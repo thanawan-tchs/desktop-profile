@@ -1,6 +1,6 @@
 import IconGlyph from './IconGlyph'
 
-function DesktopIcon({ label, type = 'folder', src, selected, onSelect }) {
+const DesktopIcon = ({ label, type = 'folder', src, selected, onSelect }) => {
   return (
     <button
       type="button"

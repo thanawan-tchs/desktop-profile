@@ -1,4 +1,4 @@
-function BatteryIcon({ className = 'h-[17px] w-[17px]' }) {
+const BatteryIcon = ({ className = 'h-[17px] w-[17px]' }) => {
   return (
     <svg className={className} viewBox="0 0 26 14" role="img" aria-label="Battery">
       <rect x="1" y="1" width="21" height="12" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.3" />

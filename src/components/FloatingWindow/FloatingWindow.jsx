@@ -4,7 +4,7 @@ const TOPBAR_HEIGHT = 26
 const VIEWPORT_MARGIN = 16
 const DOCK_CLEARANCE = 84
 
-function getDefaultSize({ widthRatio, heightRatio, minWidth, minHeight }) {
+const getDefaultSize = ({ widthRatio, heightRatio, minWidth, minHeight }) => {
   const maxWidth = window.innerWidth - VIEWPORT_MARGIN
   const maxHeight = window.innerHeight - TOPBAR_HEIGHT - DOCK_CLEARANCE
   const width = Math.min(maxWidth, Math.max(minWidth, Math.round(window.innerWidth * widthRatio)))
@@ -15,7 +15,7 @@ function getDefaultSize({ widthRatio, heightRatio, minWidth, minHeight }) {
   }
 }
 
-function getDefaultPosition(size, horizontalBias, verticalBias) {
+const getDefaultPosition = (size, horizontalBias, verticalBias) => {
   const x = Math.round((window.innerWidth - size.width) * horizontalBias)
   const y = Math.round((window.innerHeight - size.height) * verticalBias)
   return {
@@ -38,7 +38,7 @@ const RESIZE_HANDLES = [
   { dir: 'sw', className: 'bottom-0 left-0 h-5 w-5 cursor-nesw-resize touch-none md:h-3 md:w-3' },
 ]
 
-function FloatingWindow({
+const FloatingWindow = ({
   title,
   onClose,
   children,
@@ -52,7 +52,7 @@ function FloatingWindow({
   onFocus,
   headerRight,
   theme = 'dark',
-}) {
+}) => {
   const isLight = theme === 'light'
   const sizeConfig = { widthRatio, heightRatio, minWidth, minHeight }
   const [size, setSize] = useState(() => getDefaultSize(sizeConfig))

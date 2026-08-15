@@ -1,6 +1,6 @@
 import Desktop from './components/Desktop/Desktop'
 
-function App() {
+const App = () => {
   return (
     <div className="h-dvh w-full">
       <Desktop />

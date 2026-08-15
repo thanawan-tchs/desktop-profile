@@ -4,7 +4,7 @@ import { FileDocumentIcon } from '../icons'
 
 export const ICON_GLYPH_CLASS = 'h-[39px] w-12 drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]'
 
-function IconGlyph({ type, src, className = ICON_GLYPH_CLASS }) {
+const IconGlyph = ({ type, src, className = ICON_GLYPH_CLASS }) => {
   switch (type) {
     case 'image':
       if (src) {

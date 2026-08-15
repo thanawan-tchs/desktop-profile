@@ -1,4 +1,4 @@
-function DockNotesIcon({ className }) {
+const DockNotesIcon = ({ className }) => {
   return (
     <svg viewBox="0 0 44 44" className={className} aria-hidden="true">
       <rect width="44" height="44" rx="11" fill="#ffcf3f" />

@@ -1,4 +1,4 @@
-function FinderSidebarFolderIcon({ className = 'h-3.5 w-3.5 shrink-0 text-black/35' }) {
+const FinderSidebarFolderIcon = ({ className = 'h-3.5 w-3.5 shrink-0 text-black/35' }) => {
   return (
     <svg viewBox="0 0 20 20" className={className} aria-hidden="true">
       <path

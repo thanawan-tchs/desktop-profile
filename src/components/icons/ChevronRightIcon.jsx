@@ -1,4 +1,4 @@
-function ChevronRightIcon({ expanded = false, className = 'h-2.5 w-2.5' }) {
+const ChevronRightIcon = ({ expanded = false, className = 'h-2.5 w-2.5' }) => {
   return (
     <svg
       viewBox="0 0 10 10"

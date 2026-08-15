@@ -1,6 +1,6 @@
 import { MoonIcon, SunIcon } from '../icons'
 
-function ThemeToggleButton({ theme, onToggle }) {
+const ThemeToggleButton = ({ theme, onToggle }) => {
   const isLight = theme === 'light'
 
   return (
