@@ -32,6 +32,7 @@ import GridIcon from './GridIcon'
 import MaximizeScreenIcon from './MaximizeScreenIcon'
 import MinimizeScreenIcon from './MinimizeScreenIcon'
 import RecentIcon from './RecentIcon'
+import TrashDeleteIcon from './TrashDeleteIcon'
 import { ICON_NAMES } from './iconNames'
 
 export const ICON_REGISTRY = {
@@ -69,4 +70,5 @@ export const ICON_REGISTRY = {
   [ICON_NAMES.MAXIMIZE_SCREEN]: MaximizeScreenIcon,
   [ICON_NAMES.MINIMIZE_SCREEN]: MinimizeScreenIcon,
   [ICON_NAMES.RECENT]: RecentIcon,
+  [ICON_NAMES.TRASH_DELETE]: TrashDeleteIcon,
 }

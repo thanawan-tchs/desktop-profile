@@ -33,4 +33,5 @@ export const ICON_NAMES = Object.freeze({
   MAXIMIZE_SCREEN: 'maximize-screen',
   MINIMIZE_SCREEN: 'minimize-screen',
   RECENT: 'recent',
+  TRASH_DELETE: 'trash-delete',
 })

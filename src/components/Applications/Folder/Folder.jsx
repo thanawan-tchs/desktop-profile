@@ -18,7 +18,12 @@ const SidebarGlyph = ({ label, active }) => {
     )
   }
   if (label === 'Trash') {
-    return <Icon name={ICON_NAMES.FINDER_SIDEBAR_TRASH} />
+    return (
+      <Icon
+        name={ICON_NAMES.TRASH_DELETE}
+        className={`h-3.5 w-3.5 shrink-0 ${active ? 'text-[#0a58ca]' : 'text-black/50'}`}
+      />
+    )
   }
   return <Icon name={ICON_NAMES.FOLDER_OUTLINE} />
 }
