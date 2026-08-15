@@ -39,6 +39,7 @@ const DesktopScreen = () => {
   const [chromeOpen, setChromeOpen] = useState(false)
   const [chromeInitialUrl, setChromeInitialUrl] = useState(null)
   const [chromeInstanceId, setChromeInstanceId] = useState(0)
+  const [chromeOpenTabRequest, setChromeOpenTabRequest] = useState({ url: null, id: 0 })
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
   const [zIndexes, setZIndexes] = useState({
     obsidian: 20,
@@ -112,9 +113,13 @@ const DesktopScreen = () => {
   }
 
   const openMockDevServer = () => {
-    setChromeInitialUrl(MOCK_DEV_URL)
-    setChromeInstanceId((id) => id + 1)
-    setChromeOpen(true)
+    if (chromeOpen) {
+      setChromeOpenTabRequest((prev) => ({ url: MOCK_DEV_URL, id: prev.id + 1 }))
+    } else {
+      setChromeInitialUrl(MOCK_DEV_URL)
+      setChromeInstanceId((id) => id + 1)
+      setChromeOpen(true)
+    }
     bringToFront('chrome')
   }
 
@@ -228,6 +233,7 @@ const DesktopScreen = () => {
           <Chrome
             key={chromeInstanceId}
             initialUrl={chromeInitialUrl ?? undefined}
+            openTabRequest={chromeOpenTabRequest}
             onClose={() => setChromeOpen(false)}
             zIndex={zIndexes.chrome}
             onFocus={() => bringToFront('chrome')}

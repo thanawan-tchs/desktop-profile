@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../../Common/ThemeToggleButton/ThemeToggleButton'
 import ChromeTabStrip from './ChromeTabStrip'
@@ -8,7 +8,7 @@ import MockDevPreview from './MockDevPreview'
 import { hostnameOf, isBlockedHost, isMockDevServer } from './chromeUrl'
 import { useChromeTabs } from './useChromeTabs'
 
-const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
+const Chrome = ({ onClose, zIndex, onFocus, initialUrl, openTabRequest }) => {
   const [theme, setTheme] = useState('light')
   const isLight = theme === 'light'
 
@@ -27,6 +27,16 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
     openNewTab,
     closeTab,
   } = useChromeTabs(initialUrl, onClose)
+
+  // A parent (e.g. the VS Code terminal's "npm run dev") can ask an already-open
+  // Chrome window to append a new tab without remounting/losing existing tabs.
+  const lastSeenRequestId = useRef(openTabRequest?.id ?? 0)
+  useEffect(() => {
+    if (!openTabRequest || openTabRequest.id === lastSeenRequestId.current) return
+    lastSeenRequestId.current = openTabRequest.id
+    openNewTab(openTabRequest.url)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openTabRequest])
 
   const isMock = isMockDevServer(activeUrl)
   const blocked = !isMock && isBlockedHost(activeUrl)
@@ -62,7 +72,7 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
           activeTabId={activeTabId}
           onSelectTab={setActiveTabId}
           onCloseTab={closeTab}
-          onNewTab={openNewTab}
+          onNewTab={() => openNewTab()}
           isLight={isLight}
         />
 
@@ -81,7 +91,7 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl }) => {
 
         <div className="relative flex-1 overflow-hidden">
           {isMock ? (
-            <MockDevPreview />
+            <MockDevPreview key={`${activeTab.id}::${activeTab.reloadKey}`} />
           ) : blocked ? (
             <BlockedPage url={activeUrl} isLight={isLight} onRetry={reload} />
           ) : (

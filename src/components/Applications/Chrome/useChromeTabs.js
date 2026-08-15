@@ -52,8 +52,8 @@ export const useChromeTabs = (initialUrl, onLastTabClosed) => {
 
   const reload = () => updateActiveTab((tab) => ({ ...tab, reloadKey: tab.reloadKey + 1 }))
 
-  const openNewTab = () => {
-    const tab = createTab(DEFAULT_URL)
+  const openNewTab = (url = DEFAULT_URL) => {
+    const tab = createTab(url)
     setTabs((prev) => [...prev, tab])
     setActiveTabId(tab.id)
   }
