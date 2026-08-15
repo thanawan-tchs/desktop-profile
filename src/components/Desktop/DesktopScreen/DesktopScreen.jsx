@@ -28,27 +28,31 @@ const WINDOW_APP_NAMES = {
 
 const WINDOW_IDS = Object.keys(WINDOW_APP_NAMES)
 const BASE_Z_INDEX = 20
+const DEFAULT_OPEN_WINDOWS = new Set(['obsidian', 'pdf'])
+
+// Only these are dock apps — 'pdf' and 'image' have no dock icon, so they're
+// never part of the running-indicator dot list Dock expects.
+const DOCK_TRACKED_WINDOW_IDS = ['obsidian', 'finder', 'vscode', 'settings', 'terminal', 'chrome']
+
+// Every window shares the same open/zIndex/props shape, so one state object
+// replaces what would otherwise be a boolean + zIndex entry per app (and, for
+// Finder/ImageViewer, a separate ad-hoc "what to show" state too).
+const createInitialWindows = () =>
+  Object.fromEntries(
+    WINDOW_IDS.map((id, index) => [
+      id,
+      { open: DEFAULT_OPEN_WINDOWS.has(id), zIndex: BASE_Z_INDEX + index, props: {} },
+    ]),
+  )
 
 const DesktopScreen = () => {
   const [selectedId, setSelectedId] = useState(null)
-  const [obsidianOpen, setObsidianOpen] = useState(true)
-  const [pdfOpen, setPdfOpen] = useState(true)
-  const [finderOpen, setFinderOpen] = useState(false)
-  const [finderFolder, setFinderFolder] = useState('Desktop')
-  const [imageViewer, setImageViewer] = useState(null)
-  const [vscodeOpen, setVscodeOpen] = useState(false)
-  const [settingsOpen, setSettingsOpen] = useState(false)
-  const [terminalOpen, setTerminalOpen] = useState(false)
-  const [chromeOpen, setChromeOpen] = useState(false)
-  const [chromeInitialUrl, setChromeInitialUrl] = useState(null)
+  const [windows, setWindows] = useState(createInitialWindows)
+  const [nextZIndex, setNextZIndex] = useState(BASE_Z_INDEX + WINDOW_IDS.length)
   const [chromeInstanceId, setChromeInstanceId] = useState(0)
   const [chromeOpenTabRequest, setChromeOpenTabRequest] = useState({ url: null, id: 0 })
   const [devServerRunning, setDevServerRunning] = useState(false)
   const [wallpaperId, setWallpaperId] = useState(DEFAULT_WALLPAPER_ID)
-  const [zIndexes, setZIndexes] = useState(() =>
-    Object.fromEntries(WINDOW_IDS.map((id, index) => [id, BASE_Z_INDEX + index])),
-  )
-  const [nextZIndex, setNextZIndex] = useState(BASE_Z_INDEX + WINDOW_IDS.length)
   const [activeApp, setActiveApp] = useState('Finder')
   const [fullscreenCount, setFullscreenCount] = useState(0)
   const [chromeVisible, setChromeVisible] = useState(false)
@@ -67,74 +71,58 @@ const DesktopScreen = () => {
     [chromeVisible],
   )
 
-  const bringToFront = (windowId) => {
-    setZIndexes((prev) => ({ ...prev, [windowId]: nextZIndex }))
+  const bringToFront = (id) => {
+    setWindows((prev) => ({ ...prev, [id]: { ...prev[id], zIndex: nextZIndex } }))
     setNextZIndex((z) => z + 1)
-    setActiveApp(WINDOW_APP_NAMES[windowId] ?? 'Finder')
+    setActiveApp(WINDOW_APP_NAMES[id] ?? 'Finder')
   }
 
-  const openFinder = (folderLabel) => {
-    setFinderFolder(folderLabel)
-    setFinderOpen(true)
-    bringToFront('finder')
+  const openWindow = (id, props) => {
+    setWindows((prev) => ({
+      ...prev,
+      [id]: { ...prev[id], open: true, props: props ?? prev[id].props },
+    }))
+    bringToFront(id)
   }
+
+  const closeWindow = (id) => {
+    setWindows((prev) => ({ ...prev, [id]: { ...prev[id], open: false } }))
+  }
+
+  const openFinder = (folderLabel) => openWindow('finder', { folderName: folderLabel })
 
   const handleDockAppClick = (appId) => {
-    if (appId === 'obsidian') {
-      setObsidianOpen(true)
-      bringToFront('obsidian')
-    }
-    if (appId === 'finder' || appId === 'folder') {
-      openFinder('Desktop')
-    }
-    if (appId === 'vscode') {
-      setVscodeOpen(true)
-      bringToFront('vscode')
-    }
-    if (appId === 'trash') {
-      openFinder('Trash')
-    }
-    if (appId === 'settings') {
-      setSettingsOpen(true)
-      bringToFront('settings')
-    }
-    if (appId === 'terminal') {
-      setTerminalOpen(true)
-      bringToFront('terminal')
-    }
-    if (appId === 'chrome') {
-      setChromeInitialUrl(null)
-      setChromeOpen(true)
-      bringToFront('chrome')
-    }
+    if (appId === 'obsidian') openWindow('obsidian')
+    if (appId === 'finder' || appId === 'folder') openFinder('Desktop')
+    if (appId === 'vscode') openWindow('vscode')
+    if (appId === 'trash') openFinder('Trash')
+    if (appId === 'settings') openWindow('settings')
+    if (appId === 'terminal') openWindow('terminal')
+    if (appId === 'chrome') openWindow('chrome', { initialUrl: null })
   }
 
   const openMockDevServer = () => {
     setDevServerRunning(true)
-    if (chromeOpen) {
+    if (windows.chrome.open) {
       setChromeOpenTabRequest((prev) => ({ url: MOCK_DEV_URL, id: prev.id + 1 }))
+      bringToFront('chrome')
     } else {
-      setChromeInitialUrl(MOCK_DEV_URL)
       setChromeInstanceId((id) => id + 1)
-      setChromeOpen(true)
+      openWindow('chrome', { initialUrl: MOCK_DEV_URL })
     }
-    bringToFront('chrome')
   }
 
   const stopMockDevServer = () => setDevServerRunning(false)
 
   const handleDesktopItemOpen = (item) => {
     if (item.type === 'pdf') {
-      setPdfOpen(true)
-      bringToFront('pdf')
+      openWindow('pdf')
     } else if (item.type === 'vscode') {
-      setVscodeOpen(true)
-      bringToFront('vscode')
+      openWindow('vscode')
     } else if (item.type === 'folder') {
       openFinder(item.label)
     } else if (item.type === 'image' && item.src) {
-      setImageViewer({ src: item.src, title: item.label })
-      bringToFront('image')
+      openWindow('image', { src: item.src, title: item.label })
     }
   }
 
@@ -173,71 +161,71 @@ const DesktopScreen = () => {
           ))}
         </div>
 
-        {obsidianOpen && (
+        {windows.obsidian.open && (
           <Obsidian
-            onClose={() => setObsidianOpen(false)}
-            zIndex={zIndexes.obsidian}
+            onClose={() => closeWindow('obsidian')}
+            zIndex={windows.obsidian.zIndex}
             onFocus={() => bringToFront('obsidian')}
           />
         )}
-        {pdfOpen && (
+        {windows.pdf.open && (
           <ResumePdf
-            onClose={() => setPdfOpen(false)}
-            zIndex={zIndexes.pdf}
+            onClose={() => closeWindow('pdf')}
+            zIndex={windows.pdf.zIndex}
             onFocus={() => bringToFront('pdf')}
           />
         )}
-        {finderOpen && (
+        {windows.finder.open && (
           <Finder
-            folderName={finderFolder}
-            onClose={() => setFinderOpen(false)}
-            zIndex={zIndexes.finder}
+            folderName={windows.finder.props.folderName}
+            onClose={() => closeWindow('finder')}
+            zIndex={windows.finder.zIndex}
             onFocus={() => bringToFront('finder')}
             onOpenItem={handleDesktopItemOpen}
           />
         )}
-        {imageViewer && (
+        {windows.image.open && (
           <ImageViewer
-            src={imageViewer.src}
-            title={imageViewer.title}
-            onClose={() => setImageViewer(null)}
-            zIndex={zIndexes.image}
+            src={windows.image.props.src}
+            title={windows.image.props.title}
+            onClose={() => closeWindow('image')}
+            zIndex={windows.image.zIndex}
             onFocus={() => bringToFront('image')}
           />
         )}
-        {vscodeOpen && (
+        {windows.vscode.open && (
           <VsCode
-            onClose={() => setVscodeOpen(false)}
-            zIndex={zIndexes.vscode}
+            onClose={() => closeWindow('vscode')}
+            zIndex={windows.vscode.zIndex}
             onFocus={() => bringToFront('vscode')}
             onRunDevServer={openMockDevServer}
             onStopDevServer={stopMockDevServer}
           />
         )}
-        {settingsOpen && (
+        {windows.settings.open && (
           <Settings
-            onClose={() => setSettingsOpen(false)}
-            zIndex={zIndexes.settings}
+            onClose={() => closeWindow('settings')}
+            zIndex={windows.settings.zIndex}
             onFocus={() => bringToFront('settings')}
             wallpaperId={wallpaperId}
             onSelectWallpaper={setWallpaperId}
           />
         )}
-        {terminalOpen && (
+        {windows.terminal.open && (
           <Terminal
-            onClose={() => setTerminalOpen(false)}
-            zIndex={zIndexes.terminal}
+            onClose={() => closeWindow('terminal')}
+            zIndex={windows.terminal.zIndex}
             onFocus={() => bringToFront('terminal')}
           />
         )}
-        {chromeOpen && (
+        {windows.chrome.open && (
           <Chrome
             key={chromeInstanceId}
-            initialUrl={chromeInitialUrl ?? undefined}
+            initialUrl={windows.chrome.props.initialUrl ?? undefined}
             openTabRequest={chromeOpenTabRequest}
             devServerRunning={devServerRunning}
-            onClose={() => setChromeOpen(false)}
-            zIndex={zIndexes.chrome}
+            onClose={() => closeWindow('chrome')}
+            zIndex={windows.chrome.zIndex}
             onFocus={() => bringToFront('chrome')}
           />
         )}
@@ -245,14 +233,7 @@ const DesktopScreen = () => {
         {!isAnyFullscreen && (
           <Dock
             onAppClick={handleDockAppClick}
-            extraRunningIds={[
-              ...(obsidianOpen ? ['obsidian'] : []),
-              ...(finderOpen ? ['finder'] : []),
-              ...(vscodeOpen ? ['vscode'] : []),
-              ...(settingsOpen ? ['settings'] : []),
-              ...(terminalOpen ? ['terminal'] : []),
-              ...(chromeOpen ? ['chrome'] : []),
-            ]}
+            extraRunningIds={DOCK_TRACKED_WINDOW_IDS.filter((id) => windows[id].open)}
           />
         )}
       </div>
