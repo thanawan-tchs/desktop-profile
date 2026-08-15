@@ -58,6 +58,15 @@ export const useChromeTabs = (initialUrl, onLastTabClosed) => {
     setActiveTabId(tab.id)
   }
 
+  const openOrFocusTab = (url) => {
+    const existing = tabs.find((tab) => tab.history[tab.historyIndex] === url)
+    if (existing) {
+      setActiveTabId(existing.id)
+      return
+    }
+    openNewTab(url)
+  }
+
   const closeTab = (id) => {
     const index = tabs.findIndex((tab) => tab.id === id)
     if (index === -1) return
@@ -86,6 +95,7 @@ export const useChromeTabs = (initialUrl, onLastTabClosed) => {
     goForward,
     reload,
     openNewTab,
+    openOrFocusTab,
     closeTab,
   }
 }

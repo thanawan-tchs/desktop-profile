@@ -26,16 +26,18 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl, openTabRequest, devServe
     goForward,
     reload,
     openNewTab,
+    openOrFocusTab,
     closeTab,
   } = useChromeTabs(initialUrl, onClose)
 
   // A parent (e.g. the VS Code terminal's "npm run dev") can ask an already-open
-  // Chrome window to append a new tab without remounting/losing existing tabs.
+  // Chrome window to show a URL — reusing a matching tab instead of appending a
+  // duplicate one, without remounting/losing the window's other tabs.
   const lastSeenRequestId = useRef(openTabRequest?.id ?? 0)
   useEffect(() => {
     if (!openTabRequest || openTabRequest.id === lastSeenRequestId.current) return
     lastSeenRequestId.current = openTabRequest.id
-    openNewTab(openTabRequest.url)
+    openOrFocusTab(openTabRequest.url)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openTabRequest])
 
