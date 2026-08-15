@@ -6,10 +6,17 @@ import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
 import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
 import FolderWindow from '../FolderWindow/FolderWindow'
 import ImageViewerWindow from '../ImageViewerWindow/ImageViewerWindow'
+import VsCodeWindow from '../VsCodeWindow/VsCodeWindow'
 import { DESKTOP_ITEMS } from '../../data/desktopItems'
 import wallpaper from '../../assets/images/desktopWallpaperDefault.jpg'
 
-const WINDOW_APP_NAMES = { obsidian: 'Obsidian', pdf: 'Finder', finder: 'Finder', image: 'Preview' }
+const WINDOW_APP_NAMES = {
+  obsidian: 'Obsidian',
+  pdf: 'Finder',
+  finder: 'Finder',
+  image: 'Preview',
+  vscode: 'Visual Studio Code',
+}
 
 function Desktop() {
   const [selectedId, setSelectedId] = useState(null)
@@ -18,8 +25,9 @@ function Desktop() {
   const [finderOpen, setFinderOpen] = useState(false)
   const [finderFolder, setFinderFolder] = useState('Desktop')
   const [imageViewer, setImageViewer] = useState(null)
-  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21, finder: 22, image: 23 })
-  const [nextZIndex, setNextZIndex] = useState(24)
+  const [vscodeOpen, setVscodeOpen] = useState(false)
+  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21, finder: 22, image: 23, vscode: 24 })
+  const [nextZIndex, setNextZIndex] = useState(25)
   const [activeApp, setActiveApp] = useState('Finder')
 
   const bringToFront = (windowId) => {
@@ -41,6 +49,10 @@ function Desktop() {
     }
     if (appId === 'finder' || appId === 'folder') {
       openFinder('Desktop')
+    }
+    if (appId === 'vscode') {
+      setVscodeOpen(true)
+      bringToFront('vscode')
     }
   }
 
@@ -116,12 +128,20 @@ function Desktop() {
           onFocus={() => bringToFront('image')}
         />
       )}
+      {vscodeOpen && (
+        <VsCodeWindow
+          onClose={() => setVscodeOpen(false)}
+          zIndex={zIndexes.vscode}
+          onFocus={() => bringToFront('vscode')}
+        />
+      )}
 
       <Dock
         onAppClick={handleDockAppClick}
         extraRunningIds={[
           ...(obsidianOpen ? ['obsidian'] : []),
           ...(finderOpen ? ['finder'] : []),
+          ...(vscodeOpen ? ['vscode'] : []),
         ]}
       />
     </div>
