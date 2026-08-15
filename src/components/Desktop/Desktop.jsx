@@ -3,7 +3,7 @@ import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
 import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
-import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
+import ResumePdfWindow from '../ResumePdfWindow/ResumePdfWindow'
 import FolderWindow from '../FolderWindow/FolderWindow'
 import ImageViewerWindow from '../ImageViewerWindow/ImageViewerWindow'
 import VsCodeWindow from '../VsCodeWindow/VsCodeWindow'
@@ -104,7 +104,7 @@ const Desktop = () => {
         />
       )}
       {pdfOpen && (
-        <PdfViewerWindow
+        <ResumePdfWindow
           onClose={() => setPdfOpen(false)}
           zIndex={zIndexes.pdf}
           onFocus={() => bringToFront('pdf')}

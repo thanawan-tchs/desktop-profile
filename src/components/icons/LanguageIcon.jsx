@@ -1,9 +1,18 @@
 const LanguageIcon = ({ className = 'h-[17px] w-[17px]' }) => {
   return (
     <svg className={className} viewBox="0 0 20 20" role="img" aria-label="Language">
-      <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth="1.4" />
-      <ellipse cx="10" cy="10" rx="3.4" ry="8" fill="none" stroke="currentColor" strokeWidth="1.4" />
-      <line x1="2" y1="10" x2="18" y2="10" stroke="currentColor" strokeWidth="1.4" />
+      <rect x="2" y="3" width="16" height="14" rx="3" fill="none" stroke="currentColor" strokeWidth="1.4" />
+      <text
+        x="10"
+        y="14"
+        textAnchor="middle"
+        fontSize="11"
+        fontWeight="600"
+        fill="currentColor"
+        fontFamily="Arial, sans-serif"
+      >
+        A
+      </text>
     </svg>
   )
 }
