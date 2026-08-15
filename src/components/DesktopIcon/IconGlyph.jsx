@@ -3,9 +3,18 @@ import pdfIcon from '../../assets/icons/pdf-file-format.png'
 
 export const ICON_GLYPH_CLASS = 'h-[39px] w-12 drop-shadow-[0_2px_3px_rgba(0,0,0,0.35)]'
 
-function IconGlyph({ type, className = ICON_GLYPH_CLASS }) {
+function IconGlyph({ type, src, className = ICON_GLYPH_CLASS }) {
   switch (type) {
     case 'image':
+      if (src) {
+        return (
+          <span
+            className={`${className} block overflow-hidden rounded-[3px] border border-black/10 bg-white`}
+          >
+            <img src={src} alt="" className="h-full w-full object-cover" />
+          </span>
+        )
+      }
       return (
         <svg viewBox="0 0 44 52" className={className} aria-hidden="true">
           <path

@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../DesktopIcon/IconGlyph'
-import { FINDER_SIDEBAR, FINDER_FOLDERS } from '../../data/finderLocations'
+import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../data/finderLocations'
+import emptyFolderIcon from '../../assets/icons/empty-folder.webp'
 
-const GRID_ICON_CLASS = 'h-9 w-11 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
+const GRID_ICON_CLASS = 'h-14 w-16 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
 
-function SidebarGlyph({ active }) {
+function SidebarGlyph({ label, active }) {
+  const customIcon = FINDER_SIDEBAR_ICONS[label]
+  if (customIcon) {
+    return <img src={customIcon} alt="" className="h-3.5 w-3.5 shrink-0 object-contain" />
+  }
   if (active) {
     return (
       <svg viewBox="0 0 20 20" className="h-3.5 w-3.5 shrink-0 text-[#0a84ff]" aria-hidden="true">
@@ -27,15 +32,7 @@ function SidebarGlyph({ active }) {
 function EmptyFolder() {
   return (
     <div className="flex h-full flex-col items-center justify-center gap-2 text-black/35">
-      <svg viewBox="0 0 44 36" className="h-10 w-12" aria-hidden="true">
-        <path
-          d="M2 8a4 4 0 0 1 4-4h10l4 4h18a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeDasharray="4 3"
-        />
-      </svg>
+      <img src={emptyFolderIcon} alt="" className="h-14 w-14 object-contain" />
       <span className="text-[13px]">This folder is empty</span>
     </div>
   )
@@ -82,7 +79,7 @@ function FolderWindow({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpen
                     isActive ? 'bg-[#0a84ff]/15 text-[#0a58ca]' : 'text-black/70 hover:bg-black/5'
                   }`}
                 >
-                  <SidebarGlyph active={isActive} />
+                  <SidebarGlyph label={item} active={isActive} />
                   <span className="truncate">{item}</span>
                 </button>
               )
@@ -95,15 +92,15 @@ function FolderWindow({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpen
         {items.length === 0 ? (
           <EmptyFolder />
         ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(84px,1fr))] gap-3">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
             {items.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => handleItemOpen(item)}
-                className="flex flex-col items-center gap-1 rounded-lg px-2 py-2.5 text-center hover:bg-black/5"
+                className="flex flex-col items-center gap-1.5 rounded-lg px-2 py-3 text-center hover:bg-black/5"
               >
-                <IconGlyph type={item.type} className={GRID_ICON_CLASS} />
+                <IconGlyph type={item.type} src={item.src} className={GRID_ICON_CLASS} />
                 <span className="max-w-full truncate text-[11px] text-black/80">{item.label}</span>
               </button>
             ))}

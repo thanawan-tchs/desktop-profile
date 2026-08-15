@@ -5,10 +5,11 @@ import TopBar from '../TopBar/TopBar'
 import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
 import PdfViewerWindow from '../PdfViewerWindow/PdfViewerWindow'
 import FolderWindow from '../FolderWindow/FolderWindow'
+import ImageViewerWindow from '../ImageViewerWindow/ImageViewerWindow'
 import { DESKTOP_ITEMS } from '../../data/desktopItems'
 import wallpaper from '../../assets/images/desktopWallpaperDefault.jpg'
 
-const WINDOW_APP_NAMES = { obsidian: 'Obsidian', pdf: 'Finder', finder: 'Finder' }
+const WINDOW_APP_NAMES = { obsidian: 'Obsidian', pdf: 'Finder', finder: 'Finder', image: 'Preview' }
 
 function Desktop() {
   const [selectedId, setSelectedId] = useState(null)
@@ -16,8 +17,9 @@ function Desktop() {
   const [pdfOpen, setPdfOpen] = useState(true)
   const [finderOpen, setFinderOpen] = useState(false)
   const [finderFolder, setFinderFolder] = useState('Desktop')
-  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21, finder: 22 })
-  const [nextZIndex, setNextZIndex] = useState(23)
+  const [imageViewer, setImageViewer] = useState(null)
+  const [zIndexes, setZIndexes] = useState({ obsidian: 20, pdf: 21, finder: 22, image: 23 })
+  const [nextZIndex, setNextZIndex] = useState(24)
   const [activeApp, setActiveApp] = useState('Finder')
 
   const bringToFront = (windowId) => {
@@ -48,6 +50,9 @@ function Desktop() {
       bringToFront('pdf')
     } else if (item.type === 'folder') {
       openFinder(item.label)
+    } else if (item.type === 'image' && item.src) {
+      setImageViewer({ src: item.src, title: item.label })
+      bringToFront('image')
     }
   }
 
@@ -68,6 +73,7 @@ function Desktop() {
             key={item.id}
             label={item.label}
             type={item.type}
+            src={item.src}
             selected={selectedId === item.id}
             onSelect={(event) => {
               event.stopPropagation()
@@ -99,6 +105,15 @@ function Desktop() {
           zIndex={zIndexes.finder}
           onFocus={() => bringToFront('finder')}
           onOpenItem={handleDesktopItemOpen}
+        />
+      )}
+      {imageViewer && (
+        <ImageViewerWindow
+          src={imageViewer.src}
+          title={imageViewer.title}
+          onClose={() => setImageViewer(null)}
+          zIndex={zIndexes.image}
+          onFocus={() => bringToFront('image')}
         />
       )}
 

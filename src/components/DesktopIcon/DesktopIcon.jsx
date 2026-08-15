@@ -1,6 +1,6 @@
 import IconGlyph from './IconGlyph'
 
-function DesktopIcon({ label, type = 'folder', selected, onSelect }) {
+function DesktopIcon({ label, type = 'folder', src, selected, onSelect }) {
   return (
     <button
       type="button"
@@ -9,7 +9,7 @@ function DesktopIcon({ label, type = 'folder', selected, onSelect }) {
       }`}
       onClick={onSelect}
     >
-      <IconGlyph type={type} />
+      <IconGlyph type={type} src={src} />
       <span
         className={`max-w-full whitespace-nowrap rounded px-1.5 text-center text-xs leading-[1.3] text-white ${
           selected ? 'bg-[#2f7bd6]' : '[text-shadow:0_1px_2px_rgba(0,0,0,0.6)]'
