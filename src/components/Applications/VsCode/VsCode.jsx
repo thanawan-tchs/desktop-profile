@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
-import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton'
-import { Icon, ICON_NAMES } from '../icons'
+import ThemeToggleButton from '../../ThemeToggleButton/ThemeToggleButton'
+import { Icon, ICON_NAMES } from '../../icons'
 import FileTree from './FileTree'
 import { tokenizeLine, TOKEN_COLORS } from './codeHighlight'
-import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../data/vscodeProject'
+import { PROJECT_ROOT, FILES_BY_PATH, DEFAULT_FILE_PATH } from '../../../data/vscodeProject'
 
-const VsCodeWindow = ({ onClose, zIndex, onFocus }) => {
+const VsCode = ({ onClose, zIndex, onFocus }) => {
   const [theme, setTheme] = useState('dark')
   const [activePath, setActivePath] = useState(DEFAULT_FILE_PATH)
   const isLight = theme === 'light'
@@ -114,4 +114,4 @@ const VsCodeWindow = ({ onClose, zIndex, onFocus }) => {
   )
 }
 
-export default VsCodeWindow
+export default VsCode

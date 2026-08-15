@@ -10,10 +10,10 @@ const TopBarRight = ({ dateTime }) => {
 
       <span className="hidden items-center gap-1 sm:flex">
         <Icon name={ICON_NAMES.BATTERY} className={`${STATUS_ICON_CLASS} h-[13px] w-6`} />
-        <span className="text-[13.5px]">82%</span>
+        <span className="text-[13.5px] font-medium">82%</span>
       </span>
 
-      <span className="whitespace-nowrap text-[12px] tabular-nums sm:text-[13.5px]">{dateTime}</span>
+      <span className="whitespace-nowrap text-[12px] font-medium tabular-nums sm:text-[13.5px]">{dateTime}</span>
     </div>
   )
 }

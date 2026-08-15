@@ -1,5 +1,5 @@
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
-import profile from '../../data/profile.json'
+import profile from '../../../data/profile.json'
 
 const { person } = profile
 const PROMPT_USER = `${person.nickname.toLowerCase()}@portfolio ~ %`
@@ -15,7 +15,7 @@ const SESSION_LINES = [
   { type: 'command', text: 'open Resume.pdf' },
 ]
 
-const TerminalWindow = ({ onClose, zIndex, onFocus }) => {
+const Terminal = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title={`${person.nickname.toLowerCase()}@portfolio — zsh`}
@@ -61,4 +61,4 @@ const TerminalWindow = ({ onClose, zIndex, onFocus }) => {
   )
 }
 
-export default TerminalWindow
+export default Terminal

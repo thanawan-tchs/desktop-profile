@@ -1,4 +1,4 @@
-import emptyFolderIcon from '../../assets/icons/empty-folder.webp'
+import emptyFolderIcon from '../../../assets/icons/empty-folder.webp'
 
 const EmptyFolder = () => {
   return (

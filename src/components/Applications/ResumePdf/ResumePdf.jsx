@@ -1,5 +1,5 @@
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
-import profile from '../../data/profile.json'
+import profile from '../../../data/profile.json'
 import ResumeHeader from './ResumeHeader'
 import ResumeSkillsSection from './ResumeSkillsSection'
 import ResumeExperienceSection from './ResumeExperienceSection'
@@ -7,7 +7,7 @@ import ResumeCertificationsSection from './ResumeCertificationsSection'
 
 const { person, resumeSectionTitles, resumeSkills, experience, certifications } = profile
 
-const ResumePdfWindow = ({ onClose, zIndex, onFocus }) => {
+const ResumePdf = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title="Resume.pdf"
@@ -36,4 +36,4 @@ const ResumePdfWindow = ({ onClose, zIndex, onFocus }) => {
   )
 }
 
-export default ResumePdfWindow
+export default ResumePdf

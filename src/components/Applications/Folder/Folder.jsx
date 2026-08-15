@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
-import IconGlyph from '../DesktopIcon/IconGlyph'
-import { Icon, ICON_NAMES } from '../icons'
-import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../data/finderLocations'
+import IconGlyph from '../../DesktopIcon/IconGlyph'
+import { Icon, ICON_NAMES } from '../../icons'
+import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICONS } from '../../../data/finderLocations'
 import EmptyFolder from './EmptyFolder'
 
 const GRID_ICON_CLASS = 'h-14 w-16 drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]'
@@ -21,7 +21,7 @@ const SidebarGlyph = ({ label, active }) => {
   return <Icon name={ICON_NAMES.FINDER_SIDEBAR_FOLDER} />
 }
 
-const FolderWindow = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
+const Folder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }) => {
   const [location, setLocation] = useState(folderName)
   const items = FINDER_FOLDERS[location] ?? []
 
@@ -94,4 +94,4 @@ const FolderWindow = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpen
   )
 }
 
-export default FolderWindow
+export default Folder

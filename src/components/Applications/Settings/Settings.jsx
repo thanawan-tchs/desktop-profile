@@ -1,7 +1,7 @@
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
-import { WALLPAPERS } from '../../data/wallpapers'
+import { WALLPAPERS } from '../../../data/wallpapers'
 
-const SettingsWindow = ({ onClose, zIndex, onFocus, wallpaperId, onSelectWallpaper }) => {
+const Settings = ({ onClose, zIndex, onFocus, wallpaperId, onSelectWallpaper }) => {
   return (
     <FloatingWindow
       title="Wallpaper"
@@ -47,4 +47,4 @@ const SettingsWindow = ({ onClose, zIndex, onFocus, wallpaperId, onSelectWallpap
   )
 }
 
-export default SettingsWindow
+export default Settings

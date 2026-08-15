@@ -1,6 +1,6 @@
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 
-const ImageViewerWindow = ({ onClose, zIndex, onFocus, src, title = 'Preview' }) => {
+const ImageViewer = ({ onClose, zIndex, onFocus, src, title = 'Preview' }) => {
   return (
     <FloatingWindow
       title={title}
@@ -22,4 +22,4 @@ const ImageViewerWindow = ({ onClose, zIndex, onFocus, src, title = 'Preview' })
   )
 }
 
-export default ImageViewerWindow
+export default ImageViewer

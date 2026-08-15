@@ -1,6 +1,6 @@
-import jsonFileIcon from '../../assets/icons/json-file-icon.png'
-import htmlIcon from '../../assets/icons/html-icon.png'
-import { Icon, ICON_NAMES } from '../icons'
+import jsonFileIcon from '../../../assets/icons/json-file-icon.png'
+import htmlIcon from '../../../assets/icons/html-icon.png'
+import { Icon, ICON_NAMES } from '../../icons'
 
 const EXTENSION_COLORS = {
   jsx: '#61dafb',

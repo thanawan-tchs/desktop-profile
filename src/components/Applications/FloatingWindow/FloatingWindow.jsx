@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useFullscreen } from '../../context/FullscreenContext'
+import { useFullscreen } from '../../../context/FullscreenContext'
 
 const TOPBAR_HEIGHT = 26
 const VIEWPORT_MARGIN = 16

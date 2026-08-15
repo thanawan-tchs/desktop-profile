@@ -2,13 +2,13 @@ import { useMemo, useState } from 'react'
 import DesktopIcon from '../DesktopIcon/DesktopIcon'
 import Dock from '../Dock/Dock'
 import TopBar from '../TopBar/TopBar'
-import ObsidianWindow from '../ObsidianWindow/ObsidianWindow'
-import ResumePdfWindow from '../ResumePdfWindow/ResumePdfWindow'
-import FolderWindow from '../FolderWindow/FolderWindow'
-import ImageViewerWindow from '../ImageViewerWindow/ImageViewerWindow'
-import VsCodeWindow from '../VsCodeWindow/VsCodeWindow'
-import SettingsWindow from '../SettingsWindow/SettingsWindow'
-import TerminalWindow from '../TerminalWindow/TerminalWindow'
+import Obsidian from '../Applications/Obsidian/Obsidian'
+import ResumePdf from '../Applications/ResumePdf/ResumePdf'
+import Folder from '../Applications/Folder/Folder'
+import ImageViewer from '../Applications/ImageViewer/ImageViewer'
+import VsCode from '../Applications/VsCode/VsCode'
+import Settings from '../Applications/Settings/Settings'
+import Terminal from '../Applications/Terminal/Terminal'
 import { DESKTOP_ITEMS } from '../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../data/wallpapers'
 import { FullscreenContext } from '../../context/FullscreenContext'
@@ -150,21 +150,21 @@ const Desktop = () => {
         </div>
 
         {obsidianOpen && (
-          <ObsidianWindow
+          <Obsidian
             onClose={() => setObsidianOpen(false)}
             zIndex={zIndexes.obsidian}
             onFocus={() => bringToFront('obsidian')}
           />
         )}
         {pdfOpen && (
-          <ResumePdfWindow
+          <ResumePdf
             onClose={() => setPdfOpen(false)}
             zIndex={zIndexes.pdf}
             onFocus={() => bringToFront('pdf')}
           />
         )}
         {finderOpen && (
-          <FolderWindow
+          <Folder
             folderName={finderFolder}
             onClose={() => setFinderOpen(false)}
             zIndex={zIndexes.finder}
@@ -173,7 +173,7 @@ const Desktop = () => {
           />
         )}
         {imageViewer && (
-          <ImageViewerWindow
+          <ImageViewer
             src={imageViewer.src}
             title={imageViewer.title}
             onClose={() => setImageViewer(null)}
@@ -182,14 +182,14 @@ const Desktop = () => {
           />
         )}
         {vscodeOpen && (
-          <VsCodeWindow
+          <VsCode
             onClose={() => setVscodeOpen(false)}
             zIndex={zIndexes.vscode}
             onFocus={() => bringToFront('vscode')}
           />
         )}
         {settingsOpen && (
-          <SettingsWindow
+          <Settings
             onClose={() => setSettingsOpen(false)}
             zIndex={zIndexes.settings}
             onFocus={() => bringToFront('settings')}
@@ -198,7 +198,7 @@ const Desktop = () => {
           />
         )}
         {terminalOpen && (
-          <TerminalWindow
+          <Terminal
             onClose={() => setTerminalOpen(false)}
             zIndex={zIndexes.terminal}
             onFocus={() => bringToFront('terminal')}

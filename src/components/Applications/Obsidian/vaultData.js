@@ -1,4 +1,4 @@
-import profile from '../../data/profile.json'
+import profile from '../../../data/profile.json'
 
 const { person, about, skillGroups, experience, certifications, languages } = profile
 
