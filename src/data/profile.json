@@ -1,0 +1,120 @@
+{
+  "person": {
+    "name": "Thanawan Techasai",
+    "nickname": "Perm",
+    "title": "Full Stack Software Engineer",
+    "email": "thanawan.tchs@gmail.com",
+    "location": "Bangkok, TH"
+  },
+  "socials": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/thanawan-techasai/" },
+    { "label": "GitHub", "href": "https://github.com/thanawan-tchs" },
+    { "label": "Instagram", "href": "https://www.instagram.com/thnawan__/" }
+  ],
+  "about": "**Email:** thanawan.tchs@gmail.com\n\nI'm a **Full Stack Software Engineer with 6+ years of experience** building scalable web, mobile, and backend solutions for enterprise clients. My technical background includes **React, React Native, Vue.js, Node.js, Java/Spring Boot, Go, and automated testing.** I've led engineering teams, collaborated directly with international clients, and translated business requirements into practical and reliable technical solutions.",
+  "skillGroups": [
+    { "category": "Languages", "items": ["JavaScript", "TypeScript", "Go", "Java", "Kotlin", "Python", "SQL"] },
+    { "category": "Frontend", "items": ["React", "Next", "Vue.js", "HTML5", "CSS3"] },
+    { "category": "Mobile", "items": ["React Native", "Android (Kotlin)"] },
+    { "category": "Backend", "items": ["Node.js", "Spring Boot", "REST APIs"] },
+    { "category": "Databases", "items": ["MongoDB", "DynamoDB", "Postgres"] },
+    { "category": "DevOps", "items": ["Git", "Docker", "Kubernetes", "Jenkins", "GitLab CI/CD"] },
+    { "category": "Testing", "items": ["Playwright", "Cypress", "Detox", "Appium", "Postman"] },
+    { "category": "Messaging", "items": ["Apache Kafka"] }
+  ],
+  "resumeSkills": [
+    "JavaScript/TypeScript",
+    "Go",
+    "React",
+    "Vue.js",
+    "React Native",
+    "Node.js",
+    "Spring Boot",
+    "DynamoDB/Postgres",
+    "Docker/Kubernetes",
+    "Kafka",
+    "CI/CD"
+  ],
+  "experience": [
+    {
+      "role": "Software Engineer (Full Stack)",
+      "company": "Palo IT, Thailand",
+      "period": "October 2021 - Present",
+      "resumePeriod": "2021 — Present",
+      "summary": "Delivered software solutions for leading enterprise clients, including **True Corporation**, **AIA Hong Kong**, and **The 1 by Central**, as a Full Stack Software Engineer at **Palo IT**, contributing to customer-facing web and mobile applications, backend services, test automation, and CI/CD pipelines.",
+      "resumeHighlights": [
+        "Delivered web, mobile, and backend solutions for enterprise clients including The 1 Central, AIA Hong Kong, and True Corporation",
+        "Led a team of 6 engineers building a React Native insurance claims feature",
+        "Built secure customer data services with Node.js, DynamoDB, and AWS KMS"
+      ],
+      "projects": [
+        {
+          "name": "The 1 Central",
+          "period": "Aug 2025 - Present",
+          "highlights": [
+            "Built **The 1 CRM** customer management platform with **Vue.js**, providing customer service representatives with a centralized interface to manage customer profiles, purchase history, contact information, and loyalty point adjustments.",
+            "Built a secure **Profile Service** with **Node.js** and **DynamoDB**, protecting sensitive customer PII through AWS KMS encryption and decryption.",
+            "Built a **Case Management Service** to capture and audit all customer profile updates, improving traceability, compliance, and issue investigation.",
+            "Collaborated with Product owner to analyze requirements and translate them into technical solutions, ensuring alignment between business needs and system implementation."
+          ]
+        },
+        {
+          "name": "AIA Hong Kong",
+          "period": "May 2023 - Jul 2025",
+          "highlights": [
+            "Developed the **insurance claim submission feature** for the AIA Hong Kong mobile application using **React Native**, enabling customers to submit insurance claims through a guided, user-friendly form.",
+            "Led a team of **6 engineers** in delivering the claim submission feature, coordinating development tasks, code reviews, and technical discussions to ensure timely delivery.",
+            "Designed and implemented **Backend-for-Frontend (BFF)** APIs using **Java Spring Boot** to support the claim submission workflow and streamline communication between the mobile application and backend services.",
+            "Developed and maintained end-to-end (E2E) automated tests using **Detox**, improving application quality and increasing confidence in production releases.",
+            "Implemented **CI/CD pipelines** to automate application builds and testing, enabling faster and more reliable delivery of new releases.",
+            "Worked on-site with the AIA Hong Kong team during two business trips, facilitating requirement, technical discussions, and feature delivery."
+          ]
+        },
+        {
+          "name": "True Corporation",
+          "period": "October 2021 - April 2023",
+          "highlights": [
+            "Developed the **User Profile** feature for the **TrueID** mobile application using **Kotlin**, enabling users to view and manage their personal account information.",
+            "Developed and maintained end-to-end (E2E) automated tests using **Appium**.",
+            "Developed the **MyAccount** web application for **TrueID** using **React**, allowing users to manage their profile information through a responsive web interface.",
+            "Implemented end-to-end (E2E) automated tests using **Cypress** to ensure application quality and support reliable software releases."
+          ]
+        }
+      ]
+    },
+    {
+      "role": "Software Engineer (Golang)",
+      "company": "T.N. INCORPORATION",
+      "period": "July 2020 - September 2021",
+      "resumePeriod": "2020 — 2021",
+      "resumeHighlights": [
+        "Built core loan management microservices in Go for Kasikorn Bank and the Government Savings Bank"
+      ],
+      "highlights": [
+        "Developed core **loan management microservices** using **Go**, supporting the end-to-end loan lifecycle for financial institutions, including **Kasikorn Bank** and the **Government Savings Bank**.",
+        "Implemented interest and penalty calculation services to automate loan repayment processing in accordance with business rules.",
+        "Developed an accounting service to generate financial transaction journals, ensuring accurate and auditable accounting records.",
+        "Performed unit and integration testing to ensure the correctness and reliability of backend services.",
+        "Automated API testing and deployment workflows using **Postman** and **Jenkins**, improving testing efficiency and release quality."
+      ]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "GitHub Actions",
+      "issued": "Aug 2024",
+      "url": "https://www.credly.com/badges/0bed8684-f221-4473-a68d-bacf723af246/linked_in_profile"
+    },
+    {
+      "name": "Certified Kubernetes Application Developer (CKAD)",
+      "issued": "Dec 2022",
+      "url": "https://ti-user-certificates.s3.amazonaws.com/e0df7fbf-a057-42af-8a1f-590912be5460/c68c6815-2acc-4038-b166-4a3187dfc7a5-thanawan-techasai-faa33236-7567-4db2-8ac2-760ac5fabfdb-certificate.pdf"
+    },
+    {
+      "name": "ICAgile Certified Professional",
+      "issued": "Aug 2022",
+      "url": "https://www.icagile.com/credentials/a08f8155-f2ab-46b4-ab98-24b3883d9e9e"
+    }
+  ],
+  "languages": ["English", "Thai (Native)"]
+}

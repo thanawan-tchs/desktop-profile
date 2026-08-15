@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import appleIcon from '../../assets/appleIcon.webp'
+import appleIcon from '../../assets/icons/appleIcon.webp'
+import profile from '../../data/profile.json'
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const MONTHS = [
@@ -18,11 +19,7 @@ function formatDateTime(date) {
 
 const STATUS_ICON_CLASS = 'block h-[17px] w-[17px] text-white'
 
-const SOCIAL_LINKS = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/thanawan-techasai/' },
-  { label: 'GitHub', href: 'https://github.com/thanawan-tchs' },
-  { label: 'Instagram', href: 'https://www.instagram.com/thnawan__/' },
-]
+const SOCIAL_LINKS = profile.socials
 
 function TopBar({ activeApp = 'Finder' }) {
   const [now, setNow] = useState(() => new Date())
