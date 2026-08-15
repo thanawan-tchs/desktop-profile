@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../../Common/ThemeToggleButton/ThemeToggleButton'
-import { VAULT } from './vaultData'
+import { VAULT } from '../../../data/obsidianData'
 import { renderMarkdown } from './markdown'
 import NoteList from './NoteList'
 

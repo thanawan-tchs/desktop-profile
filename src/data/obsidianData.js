@@ -1,4 +1,5 @@
-import profile from '../../../data/profile.json'
+import profile from './profile.json'
+import { README_CONTENT } from './readme'
 
 const { person, about, skillGroups, experience, certifications, languages } = profile
 
@@ -27,17 +28,7 @@ export const VAULT = [
       {
         id: 'welcome-readme',
         label: 'README',
-        content: `# HELLO, WORLD!
-
-Welcome to my portfolio, a **desktop environment** built with React, styled after macOS, with this **Obsidian-style** notes app inside it.
-
-- You can drag the windows around like this is the actual desktop
-- Resize them from the edges
-- Open **Resume.pdf** on the desktop to see my resume
-- Click through the notes on the left for my background, skills, and experience
-- Switch between light and dark theme using the button on the top right of this window
-
-Feel free to play around with the page!`,
+        content: README_CONTENT,
       },
     ],
   },
