@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import ThemeToggleButton from '../ThemeToggleButton/ThemeToggleButton'
-import { Icon } from '../icons'
+import { Icon, ICON_NAMES } from '../icons'
 import { VAULT } from './vaultData'
 import { renderMarkdown } from './markdown'
 
@@ -59,7 +59,7 @@ const ObsidianWindow = ({ onClose, zIndex, onFocus }) => {
                     : 'text-white/70 hover:bg-white/5'
                 }`}
               >
-                <Icon name="chevron-right" expanded={isExpanded} />
+                <Icon name={ICON_NAMES.CHEVRON_RIGHT} expanded={isExpanded} />
                 <span className="truncate font-medium">{topic.label}</span>
               </button>
               {isExpanded && (

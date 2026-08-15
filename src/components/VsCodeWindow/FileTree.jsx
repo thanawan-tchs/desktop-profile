@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import jsonFileIcon from '../../assets/icons/json-file-icon.png'
 import htmlIcon from '../../assets/icons/html-icon.png'
-import { Icon } from '../icons'
+import { Icon, ICON_NAMES } from '../icons'
 
 const EXTENSION_COLORS = {
   jsx: '#61dafb',
@@ -31,7 +31,7 @@ const FileIcon = ({ name }) => {
   const ext = extensionOf(name)
   const badge = EXTENSION_BADGES[ext]
   if (badge) {
-    return <Icon name="text-badge" label={badge.label} color={badge.color} fontSize={badge.fontSize} />
+    return <Icon name={ICON_NAMES.TEXT_BADGE} label={badge.label} color={badge.color} fontSize={badge.fontSize} />
   }
   const customIcon = EXTENSION_ICONS[ext]
   const color = EXTENSION_COLORS[ext] ?? '#8a8a8a'
@@ -75,8 +75,8 @@ const FileTree = ({ node, path = '', activePath, onSelectFile, depth = 0, isLigh
             isLight ? 'text-black/70 hover:bg-black/5' : 'text-white/70 hover:bg-white/5'
           }`}
         >
-          <Icon name="chevron-right" expanded={expanded} />
-          <Icon name="file-tree-folder" isLight={isLight} />
+          <Icon name={ICON_NAMES.CHEVRON_RIGHT} expanded={expanded} />
+          <Icon name={ICON_NAMES.FILE_TREE_FOLDER} isLight={isLight} />
           <span className="truncate">{node.name}</span>
         </button>
         {expanded &&
