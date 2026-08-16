@@ -7,6 +7,8 @@ export type FinderItem = {
   label: string
   type: string
   src?: string
+  // Set together with type: 'app' — which Dock app this entry launches.
+  appId?: string
 }
 
 export const DESKTOP_ITEMS: FinderItem[] = [

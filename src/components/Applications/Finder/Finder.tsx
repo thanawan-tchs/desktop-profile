@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import FloatingWindow from '../FloatingWindow/FloatingWindow'
 import IconGlyph from '../../Desktop/DesktopIcon/IconGlyph'
+import { DockGlyph } from '../../Desktop/Dock/Dock'
 import { Icon, ICON_NAMES } from '../../Common/Icons'
 import { FINDER_SIDEBAR, FINDER_FOLDERS, FINDER_SIDEBAR_ICON_NAMES } from '../../../data/finderLocations'
 import type { FinderItem } from '../../../data/desktopItems'
@@ -99,7 +100,13 @@ const Finder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }
                 onClick={() => handleItemOpen(item)}
                 className="flex flex-col items-center gap-1.5 rounded-lg px-2 py-3 text-center hover:bg-black/5"
               >
-                <IconGlyph type={item.type} src={item.src} className={GRID_ICON_CLASS} />
+                {item.type === 'app' ? (
+                  <span className="flex h-14 w-14 items-center justify-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
+                    <DockGlyph id={item.appId} />
+                  </span>
+                ) : (
+                  <IconGlyph type={item.type} src={item.src} className={GRID_ICON_CLASS} />
+                )}
                 <span className="max-w-full truncate text-[11px] text-black/80">{item.label}</span>
               </button>
             ))}

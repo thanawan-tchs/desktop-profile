@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Send } from 'lucide-react'
+import { Send, Kanban } from 'lucide-react'
 import claudeIcon from '../../../assets/icons/claude-ai-icon.webp'
 import vscodeIcon from '../../../assets/icons/vscode-logo.png'
 import terminalIcon from '../../../assets/icons/terminal-logo.jpeg'
@@ -27,7 +27,7 @@ const RUNNING_APPS = new Set<string>([APP_IDS.FINDER, APP_IDS.NOTES])
 
 const GLYPH_CLASS = 'block h-full w-full drop-shadow-[0_3px_3px_rgba(0,0,0,0.25)]'
 
-const DockGlyph = ({ id }) => {
+export const DockGlyph = ({ id }) => {
   switch (id) {
     case APP_IDS.FINDER:
       return <Icon name={ICON_NAMES.DOCK_FINDER} className={GLYPH_CLASS} />
