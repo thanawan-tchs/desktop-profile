@@ -2,7 +2,7 @@
 
 A personal portfolio built as a **clone of a macOS-style desktop UI** — Dock, menu bar, draggable/resizable windows, light & dark themes, and a handful of working "apps" — all in React, all in service of showing off my background, skills, and experience in a more interactive way than a typical resume page.
 
-**Live demo:** https://thanawan-tchs.github.io/desktop-profile/
+**Live demo:** https://techasai.com
 
 ![Desktop Profile screenshot](src/assets/images/screenshot.jpg)
 
