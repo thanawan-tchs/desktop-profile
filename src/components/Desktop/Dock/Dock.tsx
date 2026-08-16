@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Send } from 'lucide-react'
 import claudeIcon from '../../../assets/icons/claude-ai-icon.webp'
 import vscodeIcon from '../../../assets/icons/vscode-logo.png'
 import terminalIcon from '../../../assets/icons/terminal-logo.jpeg'
@@ -11,6 +12,7 @@ const DOCK_APPS = [
   { id: APP_IDS.FINDER, label: 'Finder' },
   { id: APP_IDS.LAUNCHPAD, label: 'Launchpad' },
   { id: APP_IDS.CHROME, label: 'Google Chrome' },
+  { id: APP_IDS.POSTMAN, label: 'Postman' },
   { id: APP_IDS.SETTINGS, label: 'System Settings' },
   { id: APP_IDS.NOTES, label: 'Notes' },
   { id: APP_IDS.OBSIDIAN, label: 'Obsidian' },
@@ -46,6 +48,12 @@ const DockGlyph = ({ id }) => {
           alt=""
           className={`${GLYPH_CLASS} rounded-[12px] bg-white`}
         />
+      )
+    case APP_IDS.POSTMAN:
+      return (
+        <div className={`${GLYPH_CLASS} flex items-center justify-center rounded-[12px] bg-[#ff6c37]`}>
+          <Send className="h-6 w-6 text-white" strokeWidth={2.25} />
+        </div>
       )
     case APP_IDS.CLAUDE:
       return (

@@ -11,6 +11,7 @@ export const APP_IDS = Object.freeze({
   SETTINGS: 'settings',
   TERMINAL: 'terminal',
   CHROME: 'chrome',
+  POSTMAN: 'postman',
   LAUNCHPAD: 'launchpad',
   NOTES: 'notes',
   CLAUDE: 'claude',

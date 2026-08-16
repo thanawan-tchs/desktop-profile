@@ -10,6 +10,7 @@ import VsCode from '../../Applications/VsCode/VsCode'
 import Settings from '../../Applications/Settings/Settings'
 import Terminal from '../../Applications/Terminal/Terminal'
 import Chrome from '../../Applications/Chrome/Chrome'
+import Postman from '../../Applications/Postman/Postman'
 import { MOCK_DEV_URL } from '../../Applications/Chrome/chromeUrl'
 import { DESKTOP_ITEMS } from '../../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../../data/wallpapers'
@@ -25,6 +26,7 @@ const WINDOW_APP_NAMES = {
   [APP_IDS.SETTINGS]: 'System Settings',
   [APP_IDS.TERMINAL]: 'Terminal',
   [APP_IDS.CHROME]: 'Google Chrome',
+  [APP_IDS.POSTMAN]: 'Postman',
 }
 
 const WINDOW_IDS = Object.keys(WINDOW_APP_NAMES)
@@ -40,6 +42,7 @@ const DOCK_TRACKED_WINDOW_IDS = [
   APP_IDS.SETTINGS,
   APP_IDS.TERMINAL,
   APP_IDS.CHROME,
+  APP_IDS.POSTMAN,
 ]
 
 type WindowState = { open: boolean; zIndex: number; props: Record<string, any> }
@@ -113,6 +116,7 @@ const DesktopScreen = () => {
     if (appId === APP_IDS.SETTINGS) openWindow(APP_IDS.SETTINGS)
     if (appId === APP_IDS.TERMINAL) openWindow(APP_IDS.TERMINAL)
     if (appId === APP_IDS.CHROME) openWindow(APP_IDS.CHROME, { initialUrl: null })
+    if (appId === APP_IDS.POSTMAN) openWindow(APP_IDS.POSTMAN)
   }
 
   const openMockDevServer = () => {
@@ -241,6 +245,14 @@ const DesktopScreen = () => {
             onClose={() => closeWindow(APP_IDS.CHROME)}
             zIndex={windows.chrome.zIndex}
             onFocus={() => bringToFront(APP_IDS.CHROME)}
+          />
+        )}
+
+        {windows.postman.open && (
+          <Postman
+            onClose={() => closeWindow(APP_IDS.POSTMAN)}
+            zIndex={windows.postman.zIndex}
+            onFocus={() => bringToFront(APP_IDS.POSTMAN)}
           />
         )}
 
