@@ -19,6 +19,7 @@ const Terminal = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title={`${person.nickname.toLowerCase()}@portfolio — zsh`}
+      testId="terminal"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

@@ -35,6 +35,7 @@ const Obsidian = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title="Obsidian"
+      testId="obsidian"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

@@ -52,6 +52,7 @@ const Chrome = ({ onClose, zIndex, onFocus, initialUrl, openTabRequest, devServe
   return (
     <FloatingWindow
       title={hostnameOf(activeUrl)}
+      testId="chrome"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

@@ -5,6 +5,7 @@ const Settings = ({ onClose, zIndex, onFocus, wallpaperId, onSelectWallpaper }) 
   return (
     <FloatingWindow
       title="Wallpaper"
+      testId="settings"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

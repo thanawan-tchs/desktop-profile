@@ -18,6 +18,7 @@ type FloatingWindowProps = {
   onFocus?: () => void
   headerRight?: ReactNode
   theme?: string
+  testId?: string
 }
 
 const FloatingWindow = ({
@@ -34,6 +35,7 @@ const FloatingWindow = ({
   onFocus,
   headerRight = null,
   theme = 'dark',
+  testId,
 }: FloatingWindowProps) => {
   const {
     size,
@@ -55,12 +57,14 @@ const FloatingWindow = ({
 
   return (
     <div
+      data-testid={testId}
       className={containerClassName}
       style={containerStyle}
       onClick={(event) => event.stopPropagation()}
       onPointerDownCapture={() => onFocus?.()}
     >
       <div
+        data-testid={testId && `${testId}-titlebar`}
         className={titleBarClassName}
         onPointerDown={isFullscreen ? undefined : handleTitleBarPointerDown}
         onMouseEnter={isFullscreen ? () => setChromeVisible(true) : undefined}
@@ -75,7 +79,12 @@ const FloatingWindow = ({
 
       {!isFullscreen &&
         RESIZE_HANDLES.map(({ dir, className }) => (
-          <div key={dir} className={`absolute ${className}`} onPointerDown={handleResizePointerDown(dir)} />
+          <div
+            key={dir}
+            data-testid={testId && `${testId}-resize-${dir}`}
+            className={`absolute ${className}`}
+            onPointerDown={handleResizePointerDown(dir)}
+          />
         ))}
     </div>
   )

@@ -36,6 +36,7 @@ const VsCode = ({ onClose, zIndex, onFocus, onRunDevServer, onStopDevServer }) =
   return (
     <FloatingWindow
       title={`${activeFile.name} — ${PROJECT_ROOT.name}`}
+      testId="vscode"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

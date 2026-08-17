@@ -43,6 +43,7 @@ const PostmanResponsePanel = ({
   return (
     <div className="flex h-full flex-col overflow-hidden">
       <div
+        data-testid="postman-response-tabs"
         className={`flex items-center gap-4 border-b px-3 py-2 text-xs ${isLight ? 'border-black/10' : 'border-black/40'}`}
       >
         <span className={`font-semibold ${statusColor(response.status, isLight)}`}>

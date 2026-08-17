@@ -3,7 +3,7 @@ import EmptyFolder from './EmptyFolder'
 import FinderGridItem from './FinderGridItem'
 
 const FinderContent = ({ items, onOpen }: { items: FinderItem[]; onOpen: (item: FinderItem) => void }) => (
-  <div className="flex-1 overflow-y-auto bg-white p-4">
+  <div data-testid="finder-content" className="flex-1 overflow-y-auto bg-white p-4">
     {items.length === 0 ? (
       <EmptyFolder />
     ) : (

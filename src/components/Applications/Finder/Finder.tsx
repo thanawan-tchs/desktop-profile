@@ -28,6 +28,7 @@ const Finder = ({ onClose, zIndex, onFocus, folderName = 'Desktop', onOpenItem }
   return (
     <FloatingWindow
       title={location}
+      testId="finder"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

@@ -147,6 +147,7 @@ const Postman = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title="Portfolio API — Postman"
+      testId="postman"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}
@@ -205,7 +206,10 @@ const Postman = ({ onClose, zIndex, onFocus }) => {
             </button>
           </div>
 
-          <div className={`flex gap-4 border-b px-3 text-xs ${borderClass} ${isLight ? 'text-black/50' : 'text-white/50'}`}>
+          <div
+            data-testid="postman-request-tabs"
+            className={`flex gap-4 border-b px-3 text-xs ${borderClass} ${isLight ? 'text-black/50' : 'text-white/50'}`}
+          >
             {REQUEST_TABS.map((tab) => (
               <button
                 key={tab}

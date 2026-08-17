@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 feature.md
+
+# Cypress
+cypress/videos
+cypress/screenshots
+cypress/downloads

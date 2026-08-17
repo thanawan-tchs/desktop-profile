@@ -4,6 +4,7 @@ const ImageViewer = ({ onClose, zIndex, onFocus, src, title = 'Preview' }) => {
   return (
     <FloatingWindow
       title={title}
+      testId="image"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}

@@ -11,6 +11,7 @@ const ResumePdf = ({ onClose, zIndex, onFocus }) => {
   return (
     <FloatingWindow
       title="Resume.pdf"
+      testId="pdf"
       onClose={onClose}
       zIndex={zIndex}
       onFocus={onFocus}
