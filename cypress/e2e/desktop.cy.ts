@@ -62,15 +62,40 @@ describe('Desktop shell', () => {
   })
 
   it('brings a window to the front and updates the active app name on focus', () => {
-    cy.openDockApp('Terminal')
-    cy.getWindow('terminal').should('be.visible')
+    const zIndexOf = (el: JQuery<HTMLElement>) => Number(el.css('z-index'))
 
-    // Clicking Obsidian's titlebar should focus it and relabel the top bar.
+    // Resume.pdf opens with a higher default z-index than Obsidian, so it's
+    // the frontmost window on load — the top bar still shows its hardcoded
+    // initial "Finder" label at this point, not something derived from
+    // window state.
+    cy.getWindow('obsidian').should(($obsidian) => {
+      expect(zIndexOf(Cypress.$('[data-testid="pdf"]'))).to.be.greaterThan(zIndexOf($obsidian))
+    })
+
+    // Clicking Obsidian's titlebar brings it to the front — above Resume.pdf,
+    // which ends up fully covered by it — and relabels the top bar.
     cy.get('[data-testid="obsidian-titlebar"]').click()
     cy.contains('span.font-semibold', 'Obsidian').should('be.visible')
+    cy.getWindow('obsidian').should(($obsidian) => {
+      expect(zIndexOf($obsidian)).to.be.greaterThan(zIndexOf(Cypress.$('[data-testid="pdf"]')))
+    })
 
-    cy.get('[data-testid="terminal-titlebar"]').click()
-    cy.contains('span.font-semibold', 'Terminal').should('be.visible')
+    // Resume.pdf's titlebar is now mostly hidden behind Obsidian's window —
+    // click the strip that still pokes out past Obsidian's right edge to
+    // refocus it, the same as a user reaching for whatever's still visible.
+    // Its top bar label is "Finder", not "Resume.pdf": the app treats the PDF
+    // preview as part of Finder for menu-bar purposes.
+    cy.getWindow('obsidian').then(($obsidian) => {
+      const obsidianRight = $obsidian[0].getBoundingClientRect().right
+      cy.get('[data-testid="pdf-titlebar"]').then(($titlebar) => {
+        const rect = $titlebar[0].getBoundingClientRect()
+        cy.wrap($titlebar).click(Math.round(obsidianRight - rect.left + 10), Math.round(rect.height / 2))
+      })
+    })
+    cy.contains('span.font-semibold', 'Finder').should('be.visible')
+    cy.getWindow('pdf').should(($pdf) => {
+      expect(zIndexOf($pdf)).to.be.greaterThan(zIndexOf(Cypress.$('[data-testid="obsidian"]')))
+    })
   })
 
   it('navigates Finder into the Desktop folders and opens the resume', () => {
