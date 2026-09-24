@@ -3,6 +3,8 @@ const KEYWORDS = new Set([
   'from', 'if', 'else', 'for', 'while', 'new', 'class', 'extends', 'this',
   'true', 'false', 'null', 'undefined', 'async', 'await', 'try', 'catch',
   'typeof', 'of', 'in', 'static', 'get', 'set',
+  'interface', 'type', 'enum', 'implements', 'private', 'public', 'readonly',
+  'as', 'throw', 'switch', 'case', 'break', 'continue', 'do', 'void',
 ])
 
 const TOKEN_PATTERN =

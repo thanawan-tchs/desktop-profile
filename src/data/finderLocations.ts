@@ -35,7 +35,10 @@ export const FINDER_SIDEBAR_ICON_NAMES: Record<string, string> = {
 
 export const FINDER_FOLDERS: Record<string, FinderItem[]> = {
   Desktop: DESKTOP_ITEMS,
-  Projects: [{ id: 'my-app', label: 'my-app', type: 'vscode' }],
+  Projects: [
+    { id: 'order-service', label: 'sc-order-management-service', type: 'vscode' },
+    { id: 'my-app', label: 'my-app', type: 'vscode' },
+  ],
   Documents: [
     {
       id: 'ckad-certification',

@@ -15,6 +15,7 @@ import { MOCK_DEV_URL } from '../../Applications/Chrome/chromeUrl'
 import { DESKTOP_ITEMS } from '../../../data/desktopItems'
 import { WALLPAPERS, DEFAULT_WALLPAPER_ID } from '../../../data/wallpapers'
 import { APP_IDS } from '../../../data/appIds'
+import { REMOTE_PROJECT } from '../../../data/githubProject'
 import { FullscreenContext } from '../../../context/FullscreenContext'
 
 const WINDOW_APP_NAMES = {
@@ -23,11 +24,19 @@ const WINDOW_APP_NAMES = {
   [APP_IDS.FINDER]: 'Finder',
   [APP_IDS.IMAGE]: 'Preview',
   [APP_IDS.VSCODE]: 'Visual Studio Code',
+  [APP_IDS.VSCODE_ORDER]: 'Visual Studio Code',
   [APP_IDS.SETTINGS]: 'System Settings',
   [APP_IDS.TERMINAL]: 'Terminal',
   [APP_IDS.CHROME]: 'Google Chrome',
   [APP_IDS.POSTMAN]: 'Postman',
 }
+
+// One VS Code window per project, so opening a second project from Finder opens a
+// second window instead of replacing the first. The first entry is the Dock's default.
+const VSCODE_WINDOWS = [
+  { id: APP_IDS.VSCODE, projectName: 'my-app' },
+  { id: APP_IDS.VSCODE_ORDER, projectName: REMOTE_PROJECT.repo },
+]
 
 const WINDOW_IDS = Object.keys(WINDOW_APP_NAMES)
 const BASE_Z_INDEX = 20
@@ -136,12 +145,19 @@ const DesktopScreen = () => {
     if (item.type === 'pdf') {
       openWindow(APP_IDS.PDF)
     } else if (item.type === 'vscode') {
-      openWindow(APP_IDS.VSCODE)
+      const target = VSCODE_WINDOWS.find((vscodeWindow) => vscodeWindow.projectName === item.label) ?? VSCODE_WINDOWS[0]
+      openWindow(target.id)
     } else if (item.type === 'folder') {
       openFinder(item.label)
     } else if (item.type === 'image' && item.src) {
       openWindow(APP_IDS.IMAGE, { src: item.src, title: item.label })
     }
+  }
+
+  // Dock icons are per app, not per window: either VS Code window lights the one VS Code dot.
+  const runningDockIds = DOCK_TRACKED_WINDOW_IDS.filter((id) => windows[id].open)
+  if (windows[APP_IDS.VSCODE_ORDER].open && !runningDockIds.includes(APP_IDS.VSCODE)) {
+    runningDockIds.push(APP_IDS.VSCODE)
   }
 
   return (
@@ -211,14 +227,20 @@ const DesktopScreen = () => {
             onFocus={() => bringToFront(APP_IDS.IMAGE)}
           />
         )}
-        {windows.vscode.open && (
-          <VsCode
-            onClose={() => closeWindow(APP_IDS.VSCODE)}
-            zIndex={windows.vscode.zIndex}
-            onFocus={() => bringToFront(APP_IDS.VSCODE)}
-            onRunDevServer={openMockDevServer}
-            onStopDevServer={stopMockDevServer}
-          />
+        {VSCODE_WINDOWS.map(({ id, projectName }, index) =>
+          windows[id].open ? (
+            <VsCode
+              key={id}
+              testId={id}
+              projectName={projectName}
+              cascadeIndex={index}
+              onClose={() => closeWindow(id)}
+              zIndex={windows[id].zIndex}
+              onFocus={() => bringToFront(id)}
+              onRunDevServer={openMockDevServer}
+              onStopDevServer={stopMockDevServer}
+            />
+          ) : null,
         )}
         {windows.settings.open && (
           <Settings
@@ -259,7 +281,7 @@ const DesktopScreen = () => {
         {!isAnyFullscreen && (
           <Dock
             onAppClick={handleDockAppClick}
-            extraRunningIds={DOCK_TRACKED_WINDOW_IDS.filter((id) => windows[id].open)}
+            extraRunningIds={runningDockIds}
           />
         )}
       </div>

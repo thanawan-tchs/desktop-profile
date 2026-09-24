@@ -8,6 +8,8 @@ export const APP_IDS = Object.freeze({
   FINDER: 'finder',
   IMAGE: 'image',
   VSCODE: 'vscode',
+  // Second VS Code window, for the GitHub-backed project (the first one shows `my-app`).
+  VSCODE_ORDER: 'vscode-order',
   SETTINGS: 'settings',
   TERMINAL: 'terminal',
   CHROME: 'chrome',

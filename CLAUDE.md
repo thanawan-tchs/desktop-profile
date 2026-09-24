@@ -34,6 +34,8 @@ Deployment happens two ways: `npm run deploy` (gh-pages package, publishes `dist
 
 `src/components/Desktop/DesktopScreen/DesktopScreen.tsx` is the single owner of all window state — every app (Obsidian, Finder, VS Code, Chrome, Terminal, Settings, Postman, ResumePdf, ImageViewer) is rendered here, keyed off one `windows` state object of shape `{ [appId]: { open, zIndex, props } }`. There is no per-app open/close state anywhere else. To add a new window-based app: give it an id in `src/data/appIds.ts` (`APP_IDS`), add it to `WINDOW_APP_NAMES`/`WINDOW_IDS` derivation in `DesktopScreen.tsx`, and render it conditionally on `windows[id].open` following the existing pattern.
 
+VS Code is the one app with multiple windows: `VSCODE_WINDOWS` in `DesktopScreen.tsx` maps a window id (`vscode`, `vscode-order`) to the project it shows. `my-app` (local mock, the Dock default) and `sc-order-management-service` (fetched live from GitHub at runtime — see `src/data/githubProject.ts` and `VsCode/githubRepo.ts`) each get their own window, opened from Finder's Projects folder.
+
 `APP_IDS` (`src/data/appIds.ts`) is the shared id namespace used by both the Dock (which apps show a running-indicator dot / handle clicks) and `DesktopScreen` (which apps are windows) — this avoids retyping/typo-ing the same string in two places.
 
 Every app window renders through `src/components/Applications/FloatingWindow/FloatingWindow.tsx`, which owns drag/resize/fullscreen chrome. Its logic is split by concern:
