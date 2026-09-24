@@ -71,6 +71,17 @@ export const VAULT = [
     ],
   },
   {
+    id: 'projects',
+    label: 'Projects',
+    children: [
+      {
+        id: 'project',
+        label: 'Projects',
+        content: `# Projects\n\n- [3D Gallery](https://into-3d.vercel.app/gallery)`,
+      },
+    ],
+  },
+  {
     id: 'certifications',
     label: 'Certifications & Languages',
     children: [
