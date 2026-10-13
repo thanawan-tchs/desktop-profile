@@ -5,8 +5,6 @@ import { Icon, ICON_NAMES } from '../../Common/Icons'
 const EXTENSION_COLORS = {
   jsx: '#61dafb',
   js: '#f1c40f',
-  ts: '#3178c6',
-  tsx: '#3178c6',
   css: '#3b82f6',
   json: '#f1c40f',
   html: '#e37933',
@@ -20,8 +18,6 @@ const EXTENSION_ICONS = {
 const EXTENSION_BADGES = {
   js: { label: 'JS', color: '#f1c40f' },
   jsx: { label: 'JS', color: '#f1c40f' },
-  ts: { label: 'TS', color: '#3178c6' },
-  tsx: { label: 'TS', color: '#3178c6' },
   css: { label: '#', color: '#4fc3f7', fontSize: 12 },
 }
 
